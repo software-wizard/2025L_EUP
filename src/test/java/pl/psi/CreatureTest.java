@@ -9,8 +9,8 @@ class CreatureTest {
 
     @Test
     void x() {
-        Creature attacker = new Creature(10, 1, 5, 5, Range.closed(5, 5));
-        Creature defender = new Creature(100, 10, 0, 5, Range.closed(5, 5));
+        Creature attacker = new Creature(10, 1, 5, 5, Range.closed(5, 5),1);
+        Creature defender = new Creature(100, 10, 0, 5, Range.closed(5, 5),1);
 
         attacker.attack(defender);
 
@@ -19,8 +19,8 @@ class CreatureTest {
 
     @Test
     void y() {
-        Creature attacker = new Creature(10, 21, 5, 5, Range.closed(5, 5));
-        Creature defender = new Creature(100, 3, 0, 5, Range.closed(5, 5));
+        Creature attacker = new Creature(10, 21, 5, 5, Range.closed(5, 5),1);
+        Creature defender = new Creature(100, 3, 0, 5, Range.closed(5, 5),1);
 
         attacker.attack(defender);
 
@@ -31,8 +31,8 @@ class CreatureTest {
     @Test
     void z() {
         //given
-        Creature attacker = new Creature(10, 42, 5, 5, Range.closed(5, 5));
-        Creature defender = new Creature(100, 3, 0, 5, Range.closed(5, 5));
+        Creature attacker = new Creature(10, 42, 5, 5, Range.closed(5, 5),1);
+        Creature defender = new Creature(100, 3, 0, 5, Range.closed(5, 5),1);
 
         //when
         attacker.attack(defender);
@@ -44,8 +44,8 @@ class CreatureTest {
 
     @Test
     void aa() {
-        Creature attacker = new Creature(10, 42, 5, 5, Range.closed(5, 5));
-        Creature defender = new Creature(100, 10, 0, 5, Range.closed(5, 5));
+        Creature attacker = new Creature(10, 42, 5, 5, Range.closed(5, 5),1);
+        Creature defender = new Creature(100, 10, 0, 5, Range.closed(5, 5),1);
 
         attacker.attack(defender);
         assertThat(defender.getCurrentHp()).isEqualTo(90);
@@ -58,8 +58,8 @@ class CreatureTest {
 
     @Test
     void zz() {
-        Creature attacker = new Creature(10, 42, 15, 5, Range.closed(5, 5));
-        Creature defender = new Creature(100, 10, 0, 5, Range.closed(5, 5));
+        Creature attacker = new Creature(10, 42, 15, 5, Range.closed(5, 5),1);
+        Creature defender = new Creature(100, 10, 0, 5, Range.closed(5, 5),1);
 
         attacker.attack(defender);
         assertThat(defender.getCurrentHp()).isEqualTo(85);
@@ -68,8 +68,8 @@ class CreatureTest {
 
     @Test
     void aaa(){
-        Creature attacker = new Creature(10, 42, 1000, 5, Range.closed(5, 5));
-        Creature defender = new Creature(100, 10, 0, 5, Range.closed(5, 5));
+        Creature attacker = new Creature(10, 42, 1000, 5, Range.closed(5, 5),1);
+        Creature defender = new Creature(100, 10, 0, 5, Range.closed(5, 5),1);
 
         attacker.attack(defender);
         assertThat(defender.getCurrentHp()).isEqualTo(60);
@@ -78,8 +78,8 @@ class CreatureTest {
 
     @Test
     void zzz() {
-        Creature attacker = new Creature(10, 42, 10, 5, Range.closed(5, 5));
-        Creature defender = new Creature(100, 10, 0, 51, Range.closed(5, 5));
+        Creature attacker = new Creature(10, 42, 10, 5, Range.closed(5, 5),1);
+        Creature defender = new Creature(100, 10, 0, 51, Range.closed(5, 5),1);
             attacker.setDamageCalculator(new IgnoreArmorDamageCalculator());
 
         attacker.attack(defender);

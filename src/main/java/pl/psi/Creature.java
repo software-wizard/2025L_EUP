@@ -4,10 +4,14 @@ import com.google.common.collect.Range;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 @Getter
-public class Creature {
+public class Creature implements PropertyChangeListener {
 
     private final int maxHp;
+    private final Integer moveRange;
     private int amount;
     private final int attack;
     private final int defence;
@@ -16,12 +20,13 @@ public class Creature {
     @Setter
     private DamageCalculatorIf damageCalculator;
 
-    Creature(int aMaxHp, int aAmount, int aAttack, int aDefence, Range<Integer> aDamage) {
+    Creature(int aMaxHp, int aAmount, int aAttack, int aDefence, Range<Integer> aDamage, Integer aMoveRange) {
         maxHp = aMaxHp;
         amount = aAmount;
         attack = aAttack;
         defence = aDefence;
         damage = aDamage;
+        moveRange = aMoveRange;
         currentHp = maxHp;
         damageCalculator = new DefaultDamageCalculator();
     }
@@ -32,12 +37,20 @@ public class Creature {
     }
 
     private void applyDamage(Creature aDefender, int totalDamage) {
-        int amountToSub = totalDamage / aDefender.maxHp;
-        int hpToSub = totalDamage - amountToSub * aDefender.maxHp;
+        int amountToSub = totalDamage / aDefender.getMaxHp();
+        int hpToSub = totalDamage - amountToSub * aDefender.getMaxHp();
 
-        aDefender.amount = aDefender.amount - amountToSub;
-        aDefender.currentHp = aDefender.currentHp - hpToSub;
+        aDefender.amount = aDefender.getAmount() - amountToSub;
+        aDefender.currentHp = aDefender.getCurrentHp() - hpToSub;
     }
 
 
+    protected void heal() {
+        currentHp = maxHp;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
 }
