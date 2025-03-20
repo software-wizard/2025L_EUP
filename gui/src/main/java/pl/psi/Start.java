@@ -36,11 +36,11 @@ public class Start extends Application {
     }
 
     private List<Creature> createP2() {
-        return List.of(new Creature(10, 1, 5, 5, Range.closed(5, 5), 1));
+        return List.of(new Creature(10, 1, 5, 5, Range.closed(5, 5), 2));
     }
 
     private List<Creature> createP1() {
-        return List.of(new Creature(10, 1, 5, 5, Range.closed(5, 5), 1));
+        return List.of(new Creature(10, 1, 5, 5, Range.closed(5, 5), 5));
     }
 
 }

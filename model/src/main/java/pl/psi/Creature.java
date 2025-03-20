@@ -1,14 +1,14 @@
 package pl.psi;
 
 import com.google.common.collect.Range;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 @Getter
 public class Creature implements PropertyChangeListener {
+
 
     private final int maxHp;
     private final Integer moveRange;
@@ -18,7 +18,7 @@ public class Creature implements PropertyChangeListener {
     private final Range<Integer> damage;
     private int currentHp;
     @Setter
-    private DamageCalculatorIf damageCalculator;
+    private DamageCalculatorIf damageCalculator = new DefaultDamageCalculator();
 
     Creature(int aMaxHp, int aAmount, int aAttack, int aDefence, Range<Integer> aDamage, Integer aMoveRange) {
         maxHp = aMaxHp;

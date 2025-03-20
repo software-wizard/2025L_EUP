@@ -38,6 +38,17 @@ public class MainBattleController {
             for (int y = 0; y < 10; y++) {
                 Rectangle tile = new Rectangle(60, 60, Color.WHITE);
                 tile.setStroke(Color.RED);
+
+                if(gameEngine.getCreature(new Point(x,y)) != null ){
+                    tile.setFill(Color.BLUE);
+                }
+                if(gameEngine.canMove(new Point(x,y))){
+                    tile.setFill(Color.GREY);
+                }
+                if(gameEngine.getActiveCreature(new Point(x,y))){
+                    tile.setFill(Color.GREEN);
+                }
+
                 gridMap.add(tile, x, y);
             }
         }
