@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="700" prefWidth="1024" xmlns="http://javafx.com/javafx/8.0.171">
+    <top>
+        <HBox alignment="TOP_CENTER" prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="p1Name" style="-fx-padding: 0 20 0 0;" text="Player 1">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                </Label>
+                <Label layoutX="10.0" layoutY="10.0" text="VS">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="p2Name" alignment="TOP_RIGHT" layoutX="94.0" layoutY="10.0" style="-fx-padding: 0 0 0 20;"
+                       text="Player 2">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <GridPane fx:id="gridMap" BorderPane.alignment="CENTER">
+        </GridPane>
+    </center>
+    <bottom>
+        <HBox alignment="TOP_RIGHT" prefHeight="1.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="passButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0" text="PASS"
+                        textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="windowButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0" text="SPELL"
+                        textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="defenceModeButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0"
+                        text="DEFENCE" textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
