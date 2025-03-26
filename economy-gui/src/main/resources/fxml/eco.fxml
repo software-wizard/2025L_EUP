@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1">
+    <center>
+        <HBox>
+            <HBox fx:id="heroStateHBox" styleClass="centerHBox" BorderPane.alignment="CENTER">
+            </HBox>
+            <HBox fx:id="shopsBox" styleClass="centerHBox" BorderPane.alignment="TOP_RIGHT">
+            </HBox>
+        </HBox>
+    </center>
+    <top>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="playerLabel" text="Player"/>
+                <Label fx:id="roundNumberStaticLabel" text="Round: "/>
+                <Label fx:id="roundNumberLabel" text="X"/>
+                <Label fx:id="currentStaticLabel" text="GOLD: "/>
+                <Label fx:id="currentGoldLabel" text="XXXX"/>
+            </children>
+        </HBox>
+    </top>
+    <bottom>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="readyButton" mnemonicParsing="false" text="READY"/>
+            </children>
+        </HBox>
+    </bottom>
+
+    <stylesheets>
+        <URL value="@main.css"/>
+    </stylesheets>
+</BorderPane>

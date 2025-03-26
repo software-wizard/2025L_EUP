@@ -1,0 +1,42 @@
+.button{
+    -fx-background-color:
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+        linear-gradient(#dddddd 0%, #f6f6f6 50%);
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font: bold 15pt "Arial";
+}
+
+.creatureButton {
+    -fx-max-width: infinity;
+    -fx-hgrow-policy:always;
+}
+
+.label {
+   -fx-font: bold 15pt "Arial";
+   -fx-padding: 5px
+}
+
+.centerHBox {
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-pref-width: 800;
+}
+
+.slider {
+    -fx-padding: 50 10 10 10;
+}
+
+.slider .track {
+    -fx-pref-height:20;
+}
+
+.slider .thumb {
+    -fx-pref-height: 30;
+    -fx-pref-width: 10;
+}
+
+#readyButton{
+    -fx-pref-width: 1600;
+}
