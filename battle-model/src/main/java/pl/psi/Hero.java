@@ -18,4 +18,12 @@ public class Hero
     {
         creatures = aCreatures;
     }
+
+    public void applyDamageSpell(Creature c1) {
+            final double hpToSubstract =  0.2* c1.getMaxHp();
+            int hp = c1.getCurrentHp() - hpToSubstract;
+            c1.setCurrentHp(hp);
+        }
+
+
 }

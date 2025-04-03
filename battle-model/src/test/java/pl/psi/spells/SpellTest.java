@@ -2,6 +2,7 @@ package pl.psi.spells;
 
 import com.google.common.collect.Range;
 import org.junit.jupiter.api.Test;
+import pl.psi.Hero;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
 
@@ -17,9 +18,13 @@ public class SpellTest {
                         .build())
                 .build();
 
-        Hero.applyDamageSpell(c1);
+        final Hero h1 = new Hero();
+
+        h1.applyDamageSpell(c1);
 
         aassertThat(c1.getCurrentHp()).isEqualTo(70);
     }
+
+
 
 }

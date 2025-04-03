@@ -25,6 +25,11 @@ public class Creature implements PropertyChangeListener {
     private CreatureStatisticIf stats;
     @Setter
     private int amount;
+
+    public int getCurrentHp() {
+        return currentHp;
+    }
+
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
@@ -73,7 +78,7 @@ public class Creature implements PropertyChangeListener {
         return stats.getMaxHp();
     }
 
-    protected void setCurrentHp(final int aCurrentHp) {
+    public void setCurrentHp(final int aCurrentHp) {
         currentHp = aCurrentHp;
     }
 
