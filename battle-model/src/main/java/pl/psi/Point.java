@@ -28,4 +28,12 @@ public class Point
         py -= getY();
         return Math.sqrt( px * px + py * py );
     }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
 }

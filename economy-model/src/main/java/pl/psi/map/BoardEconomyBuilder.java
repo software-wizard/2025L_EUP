@@ -1,0 +1,29 @@
+package pl.psi.map;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import pl.psi.Point;
+import pl.psi.hero.EconomyHero;
+
+public class BoardEconomyBuilder {
+    private static final int MAX_WIDTH = 14;
+    private final BiMap<Point, Object> tempMap = HashBiMap.create();
+
+    public BoardEconomyBuilder addHero(EconomyHero hero, int xPosition) {
+        tempMap.put(new Point(xPosition, 1), hero);
+        return this;
+    }
+
+    public BoardEconomyBuilder addInteractables(Map<Point, InteractableIf> interactables) {
+        interactables.forEach((point, interactable) -> tempMap.putIfAbsent(point, interactable));
+        return this;
+    }
+
+    public BoardEconomy build() {
+        return new BoardEconomy(tempMap);
+    }
+}

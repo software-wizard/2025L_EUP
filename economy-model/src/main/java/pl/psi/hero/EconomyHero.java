@@ -11,12 +11,14 @@ public class EconomyHero
     private final Fraction fraction;
     private final List< EconomyCreature > creatureList;
     private int gold;
+    private final int moveRange;
 
     public EconomyHero( final Fraction aFraction, final int aGold )
     {
         fraction = aFraction;
         gold = aGold;
         creatureList = new ArrayList<>();
+        moveRange = 5;
     }
 
     void addCreature( final EconomyCreature aCreature )
@@ -33,8 +35,11 @@ public class EconomyHero
         return gold;
     }
 
-    public void addGold( final int aAmount )
-    {
+    public int getMoveRange() {
+        return moveRange;
+    }
+
+    public void addGold(final int aAmount) {
         gold += aAmount;
     }
 

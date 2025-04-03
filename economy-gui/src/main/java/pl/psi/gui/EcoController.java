@@ -7,7 +7,6 @@ import pl.psi.EconomyEngine;
 import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.creatures.EconomyNecropolisFactory;
-import pl.psi.hero.EconomyHero;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import pl.psi.hero.EconomyHero;
 
 public class EcoController implements PropertyChangeListener
 {
@@ -32,7 +32,7 @@ public class EcoController implements PropertyChangeListener
     @FXML
     Label roundNumberLabel;
 
-    public EcoController( final EconomyHero aHero1, final EconomyHero aHero2 )
+    public EcoController(final EconomyHero aHero1, final EconomyHero aHero2 )
     {
         economyEngine = new EconomyEngine( aHero1, aHero2 );
     }
@@ -43,23 +43,7 @@ public class EcoController implements PropertyChangeListener
         refreshGui();
         economyEngine.addObserver( EconomyEngine.ACTIVE_HERO_CHANGED, this );
         economyEngine.addObserver( EconomyEngine.HERO_BOUGHT_CREATURE, this );
-        economyEngine.addObserver( EconomyEngine.NEXT_ROUND, this );
-
-        readyButton.addEventHandler( MouseEvent.MOUSE_CLICKED, ( e ) -> {
-            if( economyEngine.getRoundNumber() < 4 )
-            {
-                economyEngine.pass();
-            }
-            else
-            {
-                goToBattle();
-            }
-        } );
-    }
-
-    private void goToBattle()
-    {
-        EcoBattleConverter.startBattle( economyEngine.getPlayer1(), economyEngine.getPlayer2() );
+        economyEngine.addObserver( EconomyEngine.NEXT_ROUND, this );;
     }
 
     void refreshGui()

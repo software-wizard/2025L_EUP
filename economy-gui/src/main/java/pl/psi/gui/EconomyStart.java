@@ -1,11 +1,10 @@
 package pl.psi.gui;
 
-import pl.psi.hero.EconomyHero;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pl.psi.hero.EconomyHero;
 
 public class EconomyStart extends Application
 {
