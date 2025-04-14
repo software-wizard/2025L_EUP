@@ -30,6 +30,7 @@ public class Creature implements PropertyChangeListener {
         return currentHp;
     }
 
+
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
@@ -97,8 +98,15 @@ public class Creature implements PropertyChangeListener {
         return stats.getDamage();
     }
 
-    int getAttack() {
+    public int getAttack() {
         return stats.getAttack();
+    }
+    public void setAttack(final int newAttack) {
+        if (stats instanceof CreatureStatistic) {
+            ((CreatureStatistic) stats).setAttack(newAttack);
+        } else {
+            throw new UnsupportedOperationException("Cannot set attack on immutable stats");
+        }
     }
 
     int getArmor() {

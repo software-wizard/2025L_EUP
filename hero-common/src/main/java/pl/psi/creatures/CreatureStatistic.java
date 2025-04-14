@@ -75,6 +75,7 @@ public enum CreatureStatistic implements CreatureStatisticIf
         isUpgraded = aIsUpgraded;
     }
 
+
     String getTranslatedName()
     {
         return name;

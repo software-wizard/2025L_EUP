@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SpellTest {
     @Test
     void damagingSpellShouldApplyDamage(){
-        // given
+
         final Creature c1 = new Creature.Builder()
                 .statistic(CreatureStats.builder()
                         .maxHp(100)
@@ -29,6 +29,36 @@ public class SpellTest {
         h1.applyDamageSpell(c1);
 
         assertThat(c1.getCurrentHp()).isEqualTo(80);
+    }
+
+    @Test
+    void buffSpellShouldAddAttack(){
+        final Creature c1 = new Creature.Builder()
+                .statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(5, 10))
+                        .attack(10)
+                        .armor(5)
+                        .build())
+                .build();
+        final Hero h1 = new Hero(List.of(c1));
+        h1.applyBuffSpell(c1);
+        assertThat(c1.getAttack()).isEqualTo(12);
+    }
+
+    @Test
+    void debuffSpellSchouldSubstractDamage(){
+        final Creature c1 = new Creature.Builder()
+                .statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(5, 10))
+                        .attack(10)
+                        .armor(5)
+                        .build())
+                .build();
+        final Hero h1 = new Hero(List.of(c1));
+        h1.applyDebuffSpell(c1);
+        assertThat(c1.getAttack()).isEqualTo(8);
     }
 
 

@@ -24,6 +24,20 @@ public class Hero
             int hp = (int) (c1.getCurrentHp() - hpToSubstract);
             c1.setCurrentHp(hp);
         }
+    public void applyBuffSpell(Creature c1) {
+        final double attackToBuff = 0.2*c1.getAttack();
+        c1.setAttack((int) (c1.getAttack() + attackToBuff));
+        }
 
-
+    public void applyDebuffSpell(Creature c1) {
+        final double attackToDebuff = 0.2*c1.getAttack();
+        c1.setAttack((int) (c1.getAttack() - attackToDebuff));
+    }
 }
+
+
+
+
+
+
+
