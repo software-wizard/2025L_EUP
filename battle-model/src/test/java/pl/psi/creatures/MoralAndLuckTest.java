@@ -14,7 +14,7 @@ public class MoralAndLuckTest
 
     final CreatureStatisticIf stats = CreatureStats.builder()
             .name("Test Creature")
-            .attack(0)
+            .attack(10)
             .armor(0)
             .maxHp(100)
             .moveRange(0)
@@ -23,6 +23,8 @@ public class MoralAndLuckTest
             .description("")
             .isUpgraded(false)
             .build();
+
+//    MORAL
 
     @Test
     void creatureShouldSkipTurnWithNegativeMorale() {
@@ -100,5 +102,18 @@ public class MoralAndLuckTest
         }
 
         assertThat(extraTurnCount).isEqualTo(0);
+    }
+
+//    LUCK
+
+    @Test
+    void creatureShouldGetDoubleDamageWithPositiveLuck()
+    {
+        Hero hero = new Hero(List.of(), 0, 3);
+        Creature creature = new Creature.Builder()
+                .statistic(stats)
+                .amount(1)
+                .hero(hero)
+                .build();
     }
 }
