@@ -53,8 +53,18 @@ public class LuckyCreature extends Creature
     }
 
     @Override
+    public void setCurrentHp(int aCurrentHp) {
+        decorated.setCurrentHp(aCurrentHp);
+    }
+
+    @Override
     public void attack(final Creature aDefender) {
-        decorated.attack(aDefender);
+        if (shouldDoubleDamage()) {
+            decorated.attack(aDefender);
+            decorated.attack(aDefender);
+        } else {
+            decorated.attack(aDefender);
+        }
     }
 
     @Override

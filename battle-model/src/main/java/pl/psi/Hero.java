@@ -39,4 +39,12 @@ public class Hero
         }
         this.luck = luck;
     }
+
+    public int getMoral() {
+        return moral;
+    }
+
+    public int getLuck() {
+        return luck;
+    }
 }
