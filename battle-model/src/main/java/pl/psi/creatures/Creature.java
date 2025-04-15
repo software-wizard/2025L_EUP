@@ -45,13 +45,23 @@ public class Creature implements PropertyChangeListener {
 
     public void attack(final Creature aDefender) {
         if (isAlive()) {
-            final int damage = getCalculator().calculateDamage(this, aDefender);
+            int damage = getCalculator().calculateDamage(this, aDefender);
+
+            // Korzystannie z LuckCalculator r
+            LuckCalculator luckCalc = new LuckCalculator();
+            if (luckCalc.isLucky(hero.getLuck())) {
+                damage *= 2;
+                System.out.println("💥 Lucky hit! Double damage!");
+            }
+
             applyDamage(aDefender, damage);
+
             if (canCounterAttack(aDefender)) {
                 counterAttack(aDefender);
             }
         }
     }
+
 
     public boolean isAlive() {
         return getAmount() > 0;
