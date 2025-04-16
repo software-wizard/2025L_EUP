@@ -16,8 +16,9 @@ public class GameEngineTest
     {
         final CastleCreatureFactory creatureFactory = new CastleCreatureFactory();
         final GameEngine gameEngine =
-            new GameEngine( new Hero( List.of( creatureFactory.create( 1, false, 5 ) ) ),
-                new Hero( List.of( creatureFactory.create( 1, false, 5 ) ) ) );
+            new GameEngine(
+                    new Hero( "Hero1", 10, 10, 10, 10, List.of(creatureFactory.create(1, false, 5 ) ) ),//.....
+                    new Hero("Hero2", 10, 10, 10, 10, List.of(creatureFactory.create(1, false, 5))));//......
 
         gameEngine.attack( new Point( 1, 1 ) );
     }
