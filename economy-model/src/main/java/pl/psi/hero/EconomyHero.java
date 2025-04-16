@@ -1,11 +1,14 @@
 package pl.psi.hero;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.psi.Hero;
 import pl.psi.creatures.EconomyCreature;
 
-public class EconomyHero
+public class EconomyHero implements PropertyChangeListener
 {
 
     private final Fraction fraction;
@@ -21,7 +24,7 @@ public class EconomyHero
         moveRange = 5;
     }
 
-    void addCreature( final EconomyCreature aCreature )
+    public void addCreature(final EconomyCreature aCreature)
     {
         if( creatureList.size() >= 7 )
         {
@@ -55,6 +58,11 @@ public class EconomyHero
             throw new IllegalStateException( "Hero has not enought money" );
         }
         gold -= aAmount;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
     }
 
     public enum Fraction

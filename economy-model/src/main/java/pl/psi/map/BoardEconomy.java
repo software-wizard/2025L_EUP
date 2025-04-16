@@ -17,9 +17,14 @@ public class BoardEconomy {
         this.map = initialMap;
     }
 
-    public Optional<Object> getHero(final Point point) {
-        return Optional.ofNullable(map.get(point));
+    public Optional<EconomyHero> getHero(final Point point) {
+        Object obj = map.get(point);
+        if (obj instanceof EconomyHero hero) {
+            return Optional.of(hero);
+        }
+        return Optional.empty();
     }
+
 
     public boolean canMove(final EconomyHero hero, final Point targetPoint) {
         Object obj = map.get(targetPoint);
@@ -50,6 +55,14 @@ public class BoardEconomy {
         if (obj instanceof InteractableIf) {
             map.remove(point);
         }
+    }
+
+    public InteractableIf getInteractableAt(Point point) {
+        Object obj = map.get(point);
+        if (obj instanceof InteractableIf) {
+            return (InteractableIf) map.get(point);
+        }
+        return null;
     }
 
     public static BoardEconomyBuilder builder() {
