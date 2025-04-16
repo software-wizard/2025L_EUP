@@ -17,7 +17,7 @@ public class LuckyCreature extends Creature
         random = new Random();
     }
 
-    private boolean shouldDoubleDamage()
+    public boolean shouldDoubleDamage()
     {
         int luck = hero.getLuck();
 

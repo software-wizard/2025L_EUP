@@ -29,13 +29,21 @@ public class Creature implements PropertyChangeListener {
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
-    private Hero hero;
+    private Hero hero;  //new
 
     Creature() {
     }
 
     private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
-                     final int aAmount, final Hero aHero) {
+                     final int aAmount) {
+        stats = aStats;
+        amount = aAmount;
+        currentHp = stats.getMaxHp();
+        calculator = aCalculator;
+    }
+
+    private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
+                     final int aAmount, final Hero aHero) { //new
         stats = aStats;
         amount = aAmount;
         currentHp = stats.getMaxHp();
@@ -122,32 +130,6 @@ public class Creature implements PropertyChangeListener {
         return stats.getMoveRange();
     }
 
-    public boolean shouldSkipTurn() {
-        int morale = hero.getMoral();
-        if (morale >= 0) return false;
-        
-        double chance = 0;
-        switch (morale) {
-            case -1: chance = 0.083; break;
-            case -2: chance = 0.167; break;
-            case -3: chance = 0.25; break;
-        }
-        return new Random().nextDouble() < chance;
-    }
-
-    public boolean shouldGetExtraTurn() {
-        int morale = hero.getMoral();
-        if (morale <= 0) return false;
-        
-        double chance = 0;
-        switch (morale) {
-            case 1: chance = 0.042; break;
-            case 2: chance = 0.083; break;
-            case 3: chance = 0.125; break;
-        }
-        return new Random().nextDouble() < chance;
-    }
-
     public static class Builder {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
@@ -172,7 +154,7 @@ public class Creature implements PropertyChangeListener {
         public Builder hero(final Hero aHero) {
             hero = aHero;
             return this;
-        }
+        } //new
 
         public Creature build() {
             return new Creature(statistic, calculator, amount, hero);
