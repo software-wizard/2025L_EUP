@@ -24,5 +24,5 @@ public class Resources {
 //        resources.setWood(resources.getWood() + resourcesToAdd.getWood());
 //        resources.setOre(resources.getOre() + resourcesToAdd.getOre());
 //    }
-    //TODO trzeba dokończyć resources (napisanie klasy + gui) -> pamiętać o dodaniu kopalni 
+    //TODO trzeba dokończyć resources (napisanie klasy + gui) -> pamiętać o dodaniu kopalni
 }
