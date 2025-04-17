@@ -167,9 +167,9 @@ public class MoralAndLuckTest
 
         final CreatureStatisticIf defenderStats = CreatureStats.builder()
                 .name("Defender")
-                .attack(5)
+                .attack(0)
                 .armor(0)
-                .maxHp(50)
+                .maxHp(100)
                 .moveRange(0)
                 .damage(DMG)
                 .tier(1)
@@ -193,5 +193,7 @@ public class MoralAndLuckTest
                 .hero(defenderHero)
                 .build();
 
+//        attacker.attack(defender);
+//        assertThat(defender.getCurrentHp()).isEqualTo(80);
     }
 }
