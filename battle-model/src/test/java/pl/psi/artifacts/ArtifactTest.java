@@ -12,7 +12,7 @@ public class ArtifactTest {
 
         Hero hero = new Hero("Sir Christian",20,10,10,10, List.of());
         Artifact sword1 = new Artifact("Sword of Hellfire",6,0,0,0);// name, attack, defense,
-        //power, knowledge też???
+        //power,
         sword1.apply(hero);
 
         assertThat(hero.getAttack()).isEqualTo(26);
