@@ -34,6 +34,8 @@ public class Creature implements PropertyChangeListener {
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
+    private int buffDuration = 0;
+    private CreatureStats temporaryBuff;
 
     Creature() {
     }
@@ -101,13 +103,29 @@ public class Creature implements PropertyChangeListener {
     public int getAttack() {
         return stats.getAttack();
     }
-    public void setAttack(final int newAttack) {
-        if (stats instanceof CreatureStatistic) {
-            ((CreatureStatistic) stats).setAttack(newAttack);
-        } else {
-            throw new UnsupportedOperationException("Cannot set attack on immutable stats");
+    public void applyTemporaryBuff(CreatureStats buff, int durationInTurns) {
+        if (stats instanceof CreatureStats base) {
+            // Zapisujemy buff do późniejszego cofnięcia
+            temporaryBuff = buff;
+
+            // Dodajemy wartości
+            stats = CreatureStats.builder()
+                    .attack(base.getAttack() + buff.getAttack())
+                    .armor(base.getArmor() + buff.getArmor())
+                    .maxHp(base.getMaxHp() + buff.getMaxHp())
+                    .moveRange(base.getMoveRange() + buff.getMoveRange())
+                    .name(base.getName())
+                    .description(base.getDescription())
+                    .tier(base.getTier())
+                    .damage(base.getDamage())
+                    .isUpgraded(base.isUpgraded())
+                    .build();
+
+            buffDuration = durationInTurns;
         }
     }
+
+
 
     int getArmor() {
         return stats.getArmor();
@@ -117,8 +135,30 @@ public class Creature implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent evt) {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
+
+            // Obsługa tymczasowego buffa
+            if (buffDuration > 0) {
+                buffDuration--;
+                if (buffDuration == 0 && temporaryBuff != null && stats instanceof CreatureStats base) {
+                    // Cofamy buffa
+                    stats = CreatureStats.builder()
+                            .attack(base.getAttack() - temporaryBuff.getAttack())
+                            .armor(base.getArmor() - temporaryBuff.getArmor())
+                            .maxHp(base.getMaxHp() - temporaryBuff.getMaxHp())
+                            .moveRange(base.getMoveRange() - temporaryBuff.getMoveRange())
+                            .name(base.getName())
+                            .description(base.getDescription())
+                            .tier(base.getTier())
+                            .damage(base.getDamage())
+                            .isUpgraded(base.isUpgraded())
+                            .build();
+
+                    temporaryBuff = null; // usuwamy buff po cofnięciu
+                }
+            }
         }
     }
+
 
     protected void restoreCurrentHpToMax() {
         currentHp = stats.getMaxHp();

@@ -17,9 +17,11 @@ public class Hero
     public Hero( final List< Creature > aCreatures )
     {
         creatures = aCreatures;
+
     }
 
-    public void applyDamageSpell(Creature c1) {
+    public void apply(Spell s, Creature c) {
+        s.cast(c)
             final double hpToSubstract =  0.2* c1.getMaxHp();
             int hp = (int) (c1.getCurrentHp() - hpToSubstract);
             c1.setCurrentHp(hp);
