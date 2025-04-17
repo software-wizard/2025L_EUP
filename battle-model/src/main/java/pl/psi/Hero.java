@@ -20,7 +20,17 @@ public class Hero {
     @Getter
     private int knowledge;
 
+    @Getter
+    private final List<Creature> creatures;
 
+    public Hero(String name, int attack, int defense, int power, int knowledge, final List<Creature> aCreatures) {
+        this.name = name;
+        this.attack = attack;
+        this.defense = defense;
+        this.power = power;
+        this.knowledge = knowledge;
+        creatures = aCreatures;
+    }
     public void increaseAttack(int value) {
         this.attack += value;
     }
@@ -38,16 +48,6 @@ public class Hero {
     }
 
 
-    @Getter
-    private final List<Creature> creatures;
 
-    public Hero(String name, int attack, int defense, int power, int knowledge, final List<Creature> aCreatures) {
-        this.name = name;
-        this.attack = attack;
-        this.defense = defense;
-        this.power = power;
-        this.knowledge = knowledge;
-        creatures = aCreatures;
-    }
 
 }
