@@ -51,7 +51,7 @@ public class EcoController implements PropertyChangeListener
         playerLabel.setText( economyEngine.getActiveHero()
             .toString() );
         currentGoldLabel.setText( String.valueOf( economyEngine.getActiveHero()
-            .getGold() ) );
+                .getResources().getGold() ) );
         roundNumberLabel.setText( String.valueOf( economyEngine.getRoundNumber() ) );
         shopsBox.getChildren()
             .clear();

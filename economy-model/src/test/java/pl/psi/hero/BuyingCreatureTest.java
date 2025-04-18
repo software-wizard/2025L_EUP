@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import pl.psi.EconomyEngine;
 import pl.psi.creatures.EconomyNecropolisFactory;
+import pl.psi.map.resources.Resources;
 
 public class BuyingCreatureTest
 {
@@ -16,12 +17,15 @@ public class BuyingCreatureTest
     private EconomyHero hero1;
     private EconomyEngine economyEngine;
     private EconomyHero hero2;
+    private Resources resources;
+
 
     @BeforeEach
     void init()
     {
-        hero1 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, 1000 );
-        hero2 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, 1000 );
+        resources = new Resources(1000,0,0,0,0,0,0);
+        hero1 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources);
+        hero2 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources);
         economyEngine = new EconomyEngine( hero1, hero2 );
     }
 
@@ -30,7 +34,7 @@ public class BuyingCreatureTest
     {
         economyEngine.buy( creatureFactory.create( false, 1, 1 ) );
 
-        assertEquals( 940, hero1.getGold() );
+        assertEquals( 940, hero1.getResources().getGold() );
     }
 
     @Test
@@ -38,7 +42,7 @@ public class BuyingCreatureTest
     {
         economyEngine.buy( creatureFactory.create( false, 1, 2 ) );
 
-        assertEquals( 880, hero1.getGold() );
+        assertEquals( 880, hero1.getResources().getGold() );
     }
 
     @Test
@@ -47,7 +51,7 @@ public class BuyingCreatureTest
         economyEngine.buy( creatureFactory.create( false, 1, 2 ) );
         economyEngine.buy( creatureFactory.create( true, 2, 2 ) );
 
-        assertEquals( 630, hero1.getGold() );
+        assertEquals( 630, hero1.getResources().getGold() );
     }
 
     @Test
@@ -55,7 +59,7 @@ public class BuyingCreatureTest
     {
         assertThrows( IllegalStateException.class,
             () -> economyEngine.buy( creatureFactory.create( false, 1, 100 ) ) );
-        assertEquals( 1000, hero1.getGold() );
+        assertEquals( 1000, hero1.getResources().getGold() );
         assertEquals( 0, hero1.getCreatures()
             .size() );
     }
@@ -73,7 +77,7 @@ public class BuyingCreatureTest
         assertThrows( IllegalStateException.class,
             () -> economyEngine.buy( creatureFactory.create( false, 1, 1 ) ) );
 
-        assertEquals( 580, hero1.getGold() );
+        assertEquals( 580, hero1.getResources().getGold() );
         assertEquals( 7, hero1.getCreatures()
             .size() );
     }

@@ -12,6 +12,7 @@ import pl.psi.hero.EconomyHero;
 public class BoardEconomyBuilder {
     private static final int MAX_WIDTH = 14;
     private final BiMap<Point, Object> tempMap = HashBiMap.create();
+    private final BiMap<Point, Object> interactionMap = HashBiMap.create();
 
     public BoardEconomyBuilder addHero(EconomyHero hero, int xPosition) {
         tempMap.put(new Point(xPosition, 1), hero);
@@ -19,11 +20,11 @@ public class BoardEconomyBuilder {
     }
 
     public BoardEconomyBuilder addInteractables(Map<Point, InteractableIf> interactables) {
-        interactables.forEach((point, interactable) -> tempMap.putIfAbsent(point, interactable));
+        interactables.forEach((point, interactable) -> interactionMap.putIfAbsent(point, interactable));
         return this;
     }
 
     public BoardEconomy build() {
-        return new BoardEconomy(tempMap);
+        return new BoardEconomy(tempMap, interactionMap);
     }
 }

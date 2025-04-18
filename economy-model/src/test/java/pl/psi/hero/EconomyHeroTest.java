@@ -6,16 +6,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.EconomyNecropolisFactory;
+import pl.psi.map.resources.Resources;
 
 class EconomyHeroTest
 {
 
     private EconomyHero hero;
+    private Resources resources;
 
     @BeforeEach
     void init()
     {
-        hero = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, 3000 );
+        resources = new Resources(3000,0,0,0,0,0,0);
+        hero = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources );
     }
 
     @Test
@@ -36,6 +39,6 @@ class EconomyHeroTest
     @Test
     void shouldThrowExceptionWhileYouTrySubstractMoreGoldThanHeroHas()
     {
-        assertThrows( IllegalStateException.class, () -> hero.substractGold( 3001 ) );
+        assertThrows( IllegalStateException.class, () -> hero.pay( new Resources(3001,0,0,0,0,0,0)));
     }
 }

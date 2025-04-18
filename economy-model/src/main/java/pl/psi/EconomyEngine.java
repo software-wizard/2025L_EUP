@@ -6,6 +6,7 @@ import java.beans.PropertyChangeSupport;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.CreatureShop;
 import pl.psi.hero.EconomyHero;
+import pl.psi.map.resources.Resources;
 
 public class EconomyEngine
 {
@@ -18,6 +19,7 @@ public class EconomyEngine
     private final PropertyChangeSupport observerSupport;
     private EconomyHero activeHero;
     private int roundNumber;
+    private Resources resourcesToAdd;
 
     public EconomyEngine( final EconomyHero aHero1, final EconomyHero aHero2 )
     {
@@ -56,9 +58,12 @@ public class EconomyEngine
 
     private void endTurn()
     {
+
+        resourcesToAdd = new Resources( 2000 * roundNumber ,0,0,0,0,0,0);
         roundNumber += 1;
-        hero1.addGold( 2000 * roundNumber );
-        hero2.addGold( 2000 * roundNumber );
+
+        hero1.addResource(resourcesToAdd);
+        hero2.addResource(resourcesToAdd);
         observerSupport.firePropertyChange( NEXT_ROUND, roundNumber - 1, roundNumber );
     }
 

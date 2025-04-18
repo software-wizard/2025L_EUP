@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
+import pl.psi.map.resources.Gold;
+import pl.psi.map.resources.GoldGenerator;
+import pl.psi.map.resources.Resources;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,12 +19,14 @@ class BoardEconomyTest
 {
     private EconomyHero hero1;
     private EconomyHero hero2;
+    private Resources resources;
 
     @BeforeEach
     void init()
     {
-        hero1 = Mockito.mock( EconomyHero.class );
+        EconomyHero hero1 = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, resources);
         hero2 = Mockito.mock( EconomyHero.class );
+        resources = new Resources(1000,0,0,0,0,0,0);
     }
 
     @Test
@@ -57,10 +62,10 @@ class BoardEconomyTest
     @Test
     void setterSetsGoldCorrectly(){
 
-        EconomyHero hero1 = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, 0);
+
         Map<Point, InteractableIf> interactables = new HashMap<>();
-        interactables.put(new Point(5,5),new Gold(500));
-        interactables.put(new Point(10,10),new Gold(1000));
+        interactables.put(new Point(5,5),new Gold(new Resources(500,0,0,0,0,0,0)));
+        interactables.put(new Point(10,10),new Gold(new Resources(1000,0,0,0,0,0,0)));
         BoardEconomy board = BoardEconomy.builder()
                 .addHero(hero1, 0)
                 .addHero(hero2,14)
@@ -68,17 +73,16 @@ class BoardEconomyTest
                 .build();
 
         board.move(hero1, new Point(5,5));
-        assertThat(hero1.getGold()).isEqualTo(500);
+        assertThat(hero1.getResources()).isEqualTo(new Resources(500,0,0,0,0,0,0));
         board.move(hero1,new Point(10,10));
-        assertThat(hero1.getGold()).isEqualTo(1500);
+        assertThat(hero1.getResources()).isEqualTo(new Resources(1500,0,0,0,0,0,0));
     }
     
     @Test
     void goldDissapearsUponPickup()
     {
         Map<Point, InteractableIf> interactables = new HashMap<>();
-        EconomyHero hero1 = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, 0);
-        interactables.put(new Point(5,5),new Gold(500));
+        interactables.put(new Point(5,5),new Gold(new Resources(500,0,0,0,0,0,0)));
         BoardEconomy board = BoardEconomy.builder()
                 .addHero(hero1, 0)
                 .addHero(hero2,14)
@@ -88,16 +92,15 @@ class BoardEconomyTest
         board.move(hero1, new Point(5,5));
         board.move(hero1, new Point(10,10));
         board.move(hero1, new Point(5,5));
-        assertThat(hero1.getGold()).isEqualTo(500);
+        assertThat(hero1.getResources().getGold()).isEqualTo(500);
 
     }
 
     @Test
     void mineGeneratesGoldProperlyForOwner()
     {
-        EconomyHero hero1 = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, 0);
         Map<Point, InteractableIf> interactables = new HashMap<>();
-        interactables.put(new Point(5,5), new Mine(500));
+        interactables.put(new Point(5,5), new GoldGenerator(new Resources(500,0,0,0,0,0,0)));
         BoardEconomyEngine engine = new BoardEconomyEngine(hero1, hero2);
 
         BoardEconomy board = BoardEconomy.builder()
@@ -108,9 +111,9 @@ class BoardEconomyTest
         board.move(hero1, new Point(5,5));
         board.move(hero1, new Point(10,10));
         engine.pass();
-        assertThat(hero1.getGold()).isEqualTo(500);
+        assertThat(hero1.getResources().getGold()).isEqualTo(500);
         engine.pass();
-        assertThat(hero1.getGold()).isEqualTo(1000);
+        assertThat(hero1.getResources().getGold()).isEqualTo(1000);
     }
 
 
