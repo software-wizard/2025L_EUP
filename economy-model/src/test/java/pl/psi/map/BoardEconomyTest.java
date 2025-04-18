@@ -92,6 +92,28 @@ class BoardEconomyTest
 
     }
 
+    @Test
+    void mineGeneratesGoldProperlyForOwner()
+    {
+        EconomyHero hero1 = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, 0);
+        Map<Point, InteractableIf> interactables = new HashMap<>();
+        interactables.put(new Point(5,5), new Mine(500));
+        BoardEconomyEngine engine = new BoardEconomyEngine(hero1, hero2);
+
+        BoardEconomy board = BoardEconomy.builder()
+                .addHero(hero1, 0)
+                .addInteractables(interactables)
+                .build();
+
+        board.move(hero1, new Point(5,5));
+        board.move(hero1, new Point(10,10));
+        engine.pass();
+        assertThat(hero1.getGold()).isEqualTo(500);
+        engine.pass();
+        assertThat(hero1.getGold()).isEqualTo(1000);
+    }
+
+
 
 
 }
