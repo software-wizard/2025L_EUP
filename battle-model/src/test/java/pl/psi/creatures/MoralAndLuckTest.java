@@ -155,7 +155,7 @@ public class MoralAndLuckTest
     void CreatureShouldDoubleDamageWhenLucky() {
         final CreatureStatisticIf attackerStats = CreatureStats.builder()
                 .name("Attacker")
-                .attack(10)
+                .attack(0)
                 .armor(0)
                 .maxHp(100)
                 .moveRange(0)
@@ -180,12 +180,18 @@ public class MoralAndLuckTest
         Hero attackerHero = new Hero(List.of(), 0, 3);
         Hero defenderHero = new Hero(List.of(), 0, 0);
 
-        LuckyCreature attacker = new LuckyCreature(
+        Creature luckyAlwaysCreature = new LuckyCreature(
                 new Creature.Builder()
                         .statistic(attackerStats)
                         .amount(1)
                         .build(),
-                attackerHero);
+                attackerHero) {
+            @Override
+            public boolean shouldDoubleDamage() {
+                return true; // wymuszenie szczęścia
+            }
+        };
+
 
         Creature defender = new Creature.Builder()
                 .statistic(defenderStats)
@@ -193,7 +199,7 @@ public class MoralAndLuckTest
                 .hero(defenderHero)
                 .build();
 
-//        attacker.attack(defender);
-//        assertThat(defender.getCurrentHp()).isEqualTo(80);
+            luckyAlwaysCreature.attack(defender);
+            assertThat(defender.getCurrentHp()).isEqualTo(80);
     }
 }

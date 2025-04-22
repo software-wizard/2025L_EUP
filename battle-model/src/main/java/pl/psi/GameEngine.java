@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.MoraleCreature;
+import pl.psi.creatures.LuckyCreature;
+
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -21,51 +23,73 @@ public class GameEngine {
 
     public GameEngine(final Hero aHero1, final Hero aHero2) {
         List<Creature> hero1Creatures = aHero1.getCreatures().stream()
-            .map(c -> new MoraleCreature(c, aHero1))
-            .collect(Collectors.toList());
-            
+                .map(c -> decorateCreature(c, aHero1))
+                .collect(Collectors.toList());
+
         List<Creature> hero2Creatures = aHero2.getCreatures().stream()
-            .map(c -> new MoraleCreature(c, aHero2))
-            .collect(Collectors.toList());
-            
+                .map(c -> decorateCreature(c, aHero2))
+                .collect(Collectors.toList());
+
+
         turnQueue = new TurnQueue(hero1Creatures, hero2Creatures);
         board = new Board(hero1Creatures, hero2Creatures);
     }
+    private Creature decorateCreature(Creature base, Hero hero) {
+        return new LuckyCreature(new MoraleCreature(base, hero), hero);
+    }
+
 
     public void attack(final Point point) {
-        MoraleCreature currentCreature = (MoraleCreature) turnQueue.getCurrentCreature();
-        if (currentCreature.shouldSkipTurn()) {
-            pass();
-            return;
+        Creature currentCreature = turnQueue.getCurrentCreature();
+
+        if (currentCreature instanceof MoraleCreature) {
+            MoraleCreature morale = (MoraleCreature) currentCreature;
+            if (morale.shouldSkipTurn()) {
+                pass();
+                return;
+            }
         }
-        
+
         board.getCreature(point)
                 .ifPresent(defender -> currentCreature.attack(defender));
-                
-        if (currentCreature.shouldGetExtraTurn()) {
-            return;
+
+        if (currentCreature instanceof MoraleCreature) {
+            MoraleCreature morale = (MoraleCreature) currentCreature;
+            if (morale.shouldGetExtraTurn()) {
+                return;
+            }
         }
         pass();
     }
+
 
     public boolean canMove(final Point aPoint) {
         return board.canMove(turnQueue.getCurrentCreature(), aPoint);
     }
 
     public void move(final Point aPoint) {
-        MoraleCreature currentCreature = (MoraleCreature) turnQueue.getCurrentCreature();
-        if (currentCreature.shouldSkipTurn()) {
-            pass();
-            return;
+        Creature currentCreature = turnQueue.getCurrentCreature();
+        if (currentCreature instanceof MoraleCreature) {
+            MoraleCreature morale = (MoraleCreature) currentCreature;
+            if (morale.shouldSkipTurn()) {
+                pass();
+                return;
+            }
         }
-        
+
+
         board.move(currentCreature, aPoint);
         observerSupport.firePropertyChange(CREATURE_MOVED, null, aPoint);
-        
-        if (currentCreature.shouldGetExtraTurn()) {
-            return;
+
+        if (currentCreature instanceof MoraleCreature) {
+            MoraleCreature morale = (MoraleCreature) currentCreature;
+            if (morale.shouldGetExtraTurn()) {
+                return;
+            }
         }
+
         pass();
+
     }
 
     public Optional<Creature> getCreature(final Point aPoint) {
