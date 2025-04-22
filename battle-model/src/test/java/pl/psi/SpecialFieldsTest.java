@@ -36,8 +36,8 @@ public class SpecialFieldsTest {
         final List< Creature > c2 = List.of();
         final Board board = new Board( c1, c2 );
 
-        board.setFieldGivingDmg(new Point(3, 3), 20); //(point, howMuchDmg)
-        board.setFieldGivingDmg(new Point(4, 4), 15);
+        board.makeFieldGivingDmg(new Point(3, 3), 20); //(point, howMuchDmg)
+        board.makeFieldGivingDmg(new Point(4, 4), 15);
 
         //when
         board.move( creature, new Point( 3, 3 ) );
