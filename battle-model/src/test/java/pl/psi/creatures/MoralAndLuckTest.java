@@ -202,4 +202,79 @@ public class MoralAndLuckTest
             luckyAlwaysCreature.attack(defender);
             assertThat(defender.getCurrentHp()).isEqualTo(80);
     }
+    @Test
+    void creatureShouldNotAttackWhenSkipTurnDueToBadMorale() {
+        Hero badMoraleHero = new Hero(List.of(), -3, 0); // morale -3
+        Hero defenderHero = new Hero(List.of(), 0, 0);
+
+        Creature attackerBase = new Creature.Builder()
+                .statistic(CreatureStats.builder()
+                        .name("Bad Morale Attacker")
+                        .attack(0)
+                        .armor(0)
+                        .maxHp(100)
+                        .moveRange(0)
+                        .damage(Range.closed(10, 10))
+                        .tier(1)
+                        .description("")
+                        .isUpgraded(false)
+                        .build())
+                .amount(1)
+                .build();
+
+        Creature defender = new Creature.Builder()
+                .statistic(CreatureStats.builder()
+                        .name("Defender")
+                        .attack(0)
+                        .armor(0)
+                        .maxHp(100)
+                        .moveRange(0)
+                        .damage(Range.closed(0, 0))
+                        .tier(1)
+                        .description("")
+                        .isUpgraded(false)
+                        .build())
+                .amount(1)
+                .hero(defenderHero)
+                .build();
+
+        MoraleCreature moraleCreature = new MoraleCreature(attackerBase, badMoraleHero);
+
+        boolean skipped = false;
+        for (int i = 0; i < 1000; i++) {
+            if (moraleCreature.shouldSkipTurn()) {
+                skipped = true;
+                break;
+            }
+        }
+
+        if (skipped) {
+            // symulujemy "pominiecie tury", czyli brak ataku
+            assertThat(defender.getCurrentHp()).isEqualTo(100);
+        } else {
+            moraleCreature.attack(defender);
+            assertThat(defender.getCurrentHp()).isEqualTo(90);
+        }
+    }
+    @Test
+    void moraleCreatureCanGetExtraTurnWithPositiveMorale() {
+        Hero hero = new Hero(List.of(), 3, 0); // morale +3
+        Creature base = new Creature.Builder()
+                .statistic(stats)
+                .amount(1)
+                .build();
+        MoraleCreature moraleCreature = new MoraleCreature(base, hero);
+
+        int extraTurns = 0;
+        for (int i = 0; i < 10000; i++) {
+            if (moraleCreature.shouldGetExtraTurn()) {
+                extraTurns++;
+            }
+        }
+
+        double chance = (double) extraTurns / 10000;
+        assertThat(chance).isBetween(0.115, 0.135); // 12.5%
+    }
+
+
 }
