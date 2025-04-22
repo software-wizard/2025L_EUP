@@ -32,27 +32,24 @@ public class EcoController implements PropertyChangeListener
     @FXML
     Label roundNumberLabel;
 
-    public EcoController(final EconomyHero aHero1, final EconomyHero aHero2 )
+    public EcoController(final EconomyHero aHero1)
     {
-        economyEngine = new EconomyEngine( aHero1, aHero2 );
+        economyEngine = new EconomyEngine( aHero1);
     }
 
     @FXML
     void initialize()
     {
         refreshGui();
-        economyEngine.addObserver( EconomyEngine.ACTIVE_HERO_CHANGED, this );
         economyEngine.addObserver( EconomyEngine.HERO_BOUGHT_CREATURE, this );
-        economyEngine.addObserver( EconomyEngine.NEXT_ROUND, this );;
     }
 
     void refreshGui()
     {
-        playerLabel.setText( economyEngine.getActiveHero()
+        playerLabel.setText( economyEngine.getHero()
             .toString() );
-        currentGoldLabel.setText( String.valueOf( economyEngine.getActiveHero()
+        currentGoldLabel.setText( String.valueOf( economyEngine.getHero()
                 .getResources().getGold() ) );
-        roundNumberLabel.setText( String.valueOf( economyEngine.getRoundNumber() ) );
         shopsBox.getChildren()
             .clear();
         heroStateHBox.getChildren()
@@ -71,7 +68,7 @@ public class EcoController implements PropertyChangeListener
             .add( creatureShop );
 
         final VBox creaturesBox = new VBox();
-        economyEngine.getActiveHero()
+        economyEngine.getHero()
             .getCreatures()
             .forEach( c -> {
                 final HBox tempHbox = new HBox();

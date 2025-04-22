@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.resources.Gold;
-import pl.psi.map.resources.GoldGenerator;
+import pl.psi.map.resources.generators.GoldGenerator;
 import pl.psi.map.resources.Resources;
 
 import java.util.HashMap;

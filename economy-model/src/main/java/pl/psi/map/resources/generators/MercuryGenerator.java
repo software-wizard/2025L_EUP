@@ -1,18 +1,21 @@
-package pl.psi.map.resources;
+package pl.psi.map.resources.generators;
 
+import lombok.Getter;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.BoardEconomy;
 import pl.psi.map.InteractableIf;
+import pl.psi.map.resources.Resources;
 
 
-public class GoldGenerator implements InteractableIf, ResourceGenIf {
+public class MercuryGenerator implements InteractableIf, ResourceGenIf {
     private final Resources resources;
+    @Getter
     private EconomyHero owner;
 
 
-    public GoldGenerator(Resources resources1) {
-        this.resources = resources1;
+    public MercuryGenerator() {
+        this.resources = new Resources(0,0,0,1,0,0,0);
     }
 
 
@@ -24,14 +27,14 @@ public class GoldGenerator implements InteractableIf, ResourceGenIf {
         }
 
 
-         //po wejściu na pole owner zmienia się na hero który wszedł i co kliknięcie pass dodaje golda
-        // pokminić czy zrobić to w hero (lista kopalni) czy tak jak tutaj 
+        //po wejściu na pole owner zmienia się na hero który wszedł i co kliknięcie pass dodaje golda
+        // pokminić czy zrobić to w hero (lista kopalni) czy tak jak tutaj
 
-        }
+    }
 
     @Override
     public String getPath() {
-        return "/objects/goldGenerator.png";
+        return "/objects/mercury_lab.jpg";
     }
 
     public void generateResource(){

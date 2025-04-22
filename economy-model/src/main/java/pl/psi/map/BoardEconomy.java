@@ -1,21 +1,19 @@
 package pl.psi.map;
 
 import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 
-import java.util.Map;
 import java.util.Optional;
 
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.resources.ResourceGenIf;
+import pl.psi.map.buildings.BuildingIf;
 
 public class BoardEconomy {
     private static final int MAX_WIDTH = 14;
     private final BiMap<Point, Object> map;
-    private final BiMap<Point, Object> interactionMap;
+    private final BiMap<Point, InteractableIf> interactionMap;
 
-    public BoardEconomy(BiMap<Point, Object> initialMap, BiMap<Point, Object> interactionMap) {
+    public BoardEconomy(BiMap<Point, Object> initialMap, BiMap<Point, InteractableIf> interactionMap) {
         this.map = initialMap; //could be even hero map
         this.interactionMap = interactionMap; //map for interactables
     }
@@ -36,6 +34,14 @@ public class BoardEconomy {
         return Optional.empty();
     }
 
+    public Optional<BuildingIf> getBuildingAt(Point point) {
+        Object obj = map.get(point);
+        if (obj instanceof BuildingIf building) {
+            return Optional.of(building);
+        }
+        return Optional.empty();
+    }
+
     public boolean canMove(final EconomyHero hero, final Point targetPoint) {
         Object obj = map.get(targetPoint);
 
@@ -46,17 +52,25 @@ public class BoardEconomy {
             return false;
         }
         final Point oldPosition = getPosition(hero);
-        return targetPoint.distance(oldPosition.getX(), oldPosition.getY()) < hero.getMoveRange();
+        double distance = targetPoint.distance(oldPosition.getX(), oldPosition.getY());
+        return distance <= hero.getRemainingMoveRange();
+
     }
 
     public void move(final EconomyHero hero, final Point targetPoint) {
         if (canMove(hero, targetPoint)) {
-            map.inverse().remove(hero);
-            Object obj = interactionMap.get(targetPoint);
-            if (obj instanceof InteractableIf interactable) {
-                interactable.interact(hero, this, targetPoint);
+            Point oldPosition = getPosition(hero);
+            double distance = oldPosition.distance(targetPoint);
+
+            if (hero.canMoveTo(distance)) {
+                map.inverse().remove(hero);
+                Object obj = interactionMap.get(targetPoint);
+                if (obj instanceof InteractableIf interactable) {
+                    interactable.interact(hero, this, targetPoint);
+                }
+                map.put(targetPoint, hero);
+                hero.deductMove(distance);
             }
-            map.put(targetPoint, hero);
         }
     }
 

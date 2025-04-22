@@ -20,15 +20,33 @@ public class EconomyHero implements PropertyChangeListener
     private final List< EconomyCreature > creatureList;
     @Getter
     private Resources resources;
-    private final int moveRange;
+    @Getter
+    private final int moveRange = 10;
+    private int remainingMoves;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public EconomyHero( final Fraction aFraction, final Resources aResources)
     {
         fraction = aFraction;
         creatureList = new ArrayList<>();
-        moveRange = 5;
+        remainingMoves = moveRange;
         resources = aResources;
+    }
+
+    public void resetMoveRange() {
+        this.remainingMoves = moveRange;
+    }
+
+    public boolean canMoveTo(double distance) {
+        return distance <= remainingMoves;
+    }
+
+    public void deductMove(double distance) {
+        remainingMoves -= distance;
+    }
+
+    public int getRemainingMoveRange() {
+        return remainingMoves;
     }
 
     public void addCreature(final EconomyCreature aCreature)
@@ -38,10 +56,6 @@ public class EconomyHero implements PropertyChangeListener
             throw new IllegalStateException( "Hero has not empty slot for creature" );
         }
         creatureList.add( aCreature );
-    }
-
-    public int getMoveRange() {
-        return moveRange;
     }
 
     public void addResource(final Resources changedResources) {
