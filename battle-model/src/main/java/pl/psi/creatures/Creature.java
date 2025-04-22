@@ -23,6 +23,9 @@ import lombok.Getter;
 @Getter
 public class Creature implements PropertyChangeListener {
     private CreatureStatisticIf stats;
+    private CreatureStats temporaryBuff;
+    private CreatureStats originalStats;
+    private int buffDuration;
     @Setter
     private int amount;
 
@@ -31,11 +34,11 @@ public class Creature implements PropertyChangeListener {
     }
 
 
+    @Setter
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
-    private int buffDuration = 0;
-    private CreatureStats temporaryBuff;
+
 
     Creature() {
     }
@@ -81,10 +84,6 @@ public class Creature implements PropertyChangeListener {
         return stats.getMaxHp();
     }
 
-    public void setCurrentHp(final int aCurrentHp) {
-        currentHp = aCurrentHp;
-    }
-
     private boolean canCounterAttack(final Creature aDefender) {
         return aDefender.getCounterAttackCounter() > 0 && aDefender.getCurrentHp() > 0;
     }
@@ -103,26 +102,25 @@ public class Creature implements PropertyChangeListener {
     public int getAttack() {
         return stats.getAttack();
     }
-    public void applyTemporaryBuff(CreatureStats buff, int durationInTurns) {
-        if (stats instanceof CreatureStats base) {
-            // Zapisujemy buff do późniejszego cofnięcia
-            temporaryBuff = buff;
 
-            // Dodajemy wartości
+
+    public void applyTemporaryBuff(CreatureStats buff, int durationInTurns) {
+        CreatureStats baseStats = (CreatureStats) this.getStats();
+        temporaryBuff = buff;
+        buffDuration = durationInTurns;
+
             stats = CreatureStats.builder()
-                    .attack(base.getAttack() + buff.getAttack())
-                    .armor(base.getArmor() + buff.getArmor())
-                    .maxHp(base.getMaxHp() + buff.getMaxHp())
-                    .moveRange(base.getMoveRange() + buff.getMoveRange())
-                    .name(base.getName())
-                    .description(base.getDescription())
-                    .tier(base.getTier())
-                    .damage(base.getDamage())
-                    .isUpgraded(base.isUpgraded())
+                    .attack(baseStats.getAttack() + buff.getAttack())
+                    .armor(baseStats.getArmor() + buff.getArmor())
+                    .maxHp(baseStats.getMaxHp() + buff.getMaxHp())
+                    .moveRange(baseStats.getMoveRange() + buff.getMoveRange())
+                    .name(baseStats.getName())
+                    .description(baseStats.getDescription())
+                    .tier(baseStats.getTier())
+                    .damage(baseStats.getDamage())
+                    .isUpgraded(baseStats.isUpgraded())
                     .build();
 
-            buffDuration = durationInTurns;
-        }
     }
 
 
@@ -136,25 +134,14 @@ public class Creature implements PropertyChangeListener {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
 
-            // Obsługa tymczasowego buffa
             if (buffDuration > 0) {
                 buffDuration--;
-                if (buffDuration == 0 && temporaryBuff != null && stats instanceof CreatureStats base) {
-                    // Cofamy buffa
-                    stats = CreatureStats.builder()
-                            .attack(base.getAttack() - temporaryBuff.getAttack())
-                            .armor(base.getArmor() - temporaryBuff.getArmor())
-                            .maxHp(base.getMaxHp() - temporaryBuff.getMaxHp())
-                            .moveRange(base.getMoveRange() - temporaryBuff.getMoveRange())
-                            .name(base.getName())
-                            .description(base.getDescription())
-                            .tier(base.getTier())
-                            .damage(base.getDamage())
-                            .isUpgraded(base.isUpgraded())
-                            .build();
-
-                    temporaryBuff = null; // usuwamy buff po cofnięciu
+                if (buffDuration == 0 && originalStats != null) {
+                    stats = originalStats;
+                    originalStats = null;
+                    temporaryBuff = null;
                 }
+
             }
         }
     }

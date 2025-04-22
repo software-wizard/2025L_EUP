@@ -2,6 +2,7 @@ package pl.psi;
 
 import java.util.List;
 
+import pl.psi.Spells.Spell;
 import pl.psi.creatures.Creature;
 
 import lombok.Getter;
@@ -21,20 +22,8 @@ public class Hero
     }
 
     public void apply(Spell s, Creature c) {
-        s.cast(c)
-            final double hpToSubstract =  0.2* c1.getMaxHp();
-            int hp = (int) (c1.getCurrentHp() - hpToSubstract);
-            c1.setCurrentHp(hp);
-        }
-    public void applyBuffSpell(Creature c1) {
-        final double attackToBuff = 0.2*c1.getAttack();
-        c1.setAttack((int) (c1.getAttack() + attackToBuff));
-        }
+       s.cast(c);  }
 
-    public void applyDebuffSpell(Creature c1) {
-        final double attackToDebuff = 0.2*c1.getAttack();
-        c1.setAttack((int) (c1.getAttack() - attackToDebuff));
-    }
 }
 
 
