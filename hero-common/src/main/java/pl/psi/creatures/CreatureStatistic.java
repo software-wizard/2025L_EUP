@@ -4,6 +4,7 @@ import com.google.common.collect.Range;
 
 import lombok.Getter;
 
+
 @Getter
 public enum CreatureStatistic implements CreatureStatisticIf
 {

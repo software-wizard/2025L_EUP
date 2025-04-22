@@ -52,8 +52,8 @@ public class EconomyBoardController implements PropertyChangeListener {
 
 
     private void refreshGui() {
-        gridMap.getChildren()
-                .clear();
+        gridMap.getChildren().clear();
+
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 10; y++) {
                 Point currentPoint = new Point(x, y);
@@ -63,36 +63,39 @@ public class EconomyBoardController implements PropertyChangeListener {
 
                 final EconomyTile mapTile = new EconomyTile("");
                 hero.ifPresent(c -> mapTile.setName("hero1"));
-                //TODO create methods to get the name of each hero
-                if (gameEngine.isCurrentHero(currentPoint)) {
-                    mapTile.setBackground(Color.GREENYELLOW);
-                }
-                if (gameEngine.canMove(currentPoint)) {
-                    mapTile.setBackground(Color.GREY);
-                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                            (e) -> {
-                                gameEngine.move(currentPoint);
-                            });
-                }
-                if (gameEngine.isInteractable(currentPoint)) {
-                    interactionObj.ifPresent(interactableIf -> mapTile.setImage(interactableIf.getPath()));
-                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                            (e) -> {
-                                gameEngine.move(currentPoint);
-                            });
-                    ;
-                }
-                if( gameEngine.canAttack( currentPoint ) )
-                {
-                    mapTile.setBackground( Color.RED );
-                    mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
-                            ( e ) -> EcoBattleConverter.startBattle(battleHero1, battleHero2));
-                }
+
+                handleTileActions(currentPoint, mapTile, interactionObj);
                 gridMap.add(mapTile, x, y);
             }
         }
         updateResourceDisplay();
     }
+
+    private void handleTileActions(Point currentPoint, EconomyTile mapTile, Optional<InteractableIf> interactionObj) {
+
+        if (gameEngine.isCurrentHero(currentPoint)) {
+            mapTile.setBackground(Color.GREENYELLOW);
+        }
+
+        //movement action
+        if (gameEngine.canMove(currentPoint)) {
+            mapTile.setBackground(Color.GREY);
+            mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> gameEngine.move(currentPoint));
+        }
+
+        //interaction action
+        if (gameEngine.canInteract(currentPoint)) {
+            interactionObj.ifPresent(interactableIf -> mapTile.setImage(interactableIf.getPath()));
+            mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> gameEngine.move(currentPoint));
+        }
+
+        //attack action
+        if (gameEngine.canAttack(currentPoint)) {
+            mapTile.setBackground(Color.RED);
+            mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> EcoBattleConverter.startBattle(battleHero1, battleHero2));
+        }
+    }
+
 
     private void updateResourceDisplay() {
         Resources res = gameEngine.getCurrentHero().getResources();

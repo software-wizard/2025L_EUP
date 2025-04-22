@@ -36,24 +36,9 @@ public class EconomyEngine
         observerSupport.firePropertyChange( HERO_BOUGHT_CREATURE, null, null );
     }
 
-    public EconomyHero getActiveHero()
+    public EconomyHero getHero()
     {
         return activeHero;
-    }
-
-    public void pass()
-    {
-        if( activeHero == hero1 )
-        {
-            activeHero = hero2;
-            observerSupport.firePropertyChange( ACTIVE_HERO_CHANGED, hero1, activeHero );
-        }
-        else
-        {
-            activeHero = hero1;
-            observerSupport.firePropertyChange( ACTIVE_HERO_CHANGED, hero2, activeHero );
-            endTurn();
-        }
     }
 
     private void endTurn()

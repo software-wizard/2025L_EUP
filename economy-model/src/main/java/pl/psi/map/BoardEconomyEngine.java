@@ -45,6 +45,9 @@ public class BoardEconomyEngine {
         return nextToHelper(point);
     }
 
+    public boolean canInteract(Point point) {
+        return getInteractable(point).isPresent();
+    }
 
     public void move(final Point point) {
         board.move(turnQueue.getCurrentHero(), point);
@@ -67,28 +70,6 @@ public class BoardEconomyEngine {
         endOfTurnEvent();
         turnQueue.next();
     }
-
-    public void addObserver(final PropertyChangeListener aObserver) {
-        observerSupport.addPropertyChangeListener(aObserver);
-        turnQueue.addObserver(aObserver);
-    }
-
-    public boolean isCurrentHero(Point point) {
-        return Optional.of(turnQueue.getCurrentHero()).equals(board.getHero(point));
-    }
-
-    public boolean isInteractable(Point point) {
-        return getInteractable(point).isPresent();
-    }
-
-    private boolean nextToHelper(final Point point) {
-        double distance = board.getPosition(turnQueue.getCurrentHero())
-                .distance(point);
-        return board.getHero(point)
-                .isPresent()
-                && distance < 2 && distance > 0;
-    }
-
     public void endOfTurnEvent() {
         System.out.println("End of turn event");
         for (InteractableIf interactable : interactables.values()) {
@@ -99,4 +80,27 @@ public class BoardEconomyEngine {
             }
         }
     }
-}
+
+    public void addObserver(final PropertyChangeListener aObserver) {
+        observerSupport.addPropertyChangeListener(aObserver);
+        turnQueue.addObserver(aObserver);
+    }
+
+    public boolean isCurrentHero(Point point) {
+        return Optional.of(turnQueue.getCurrentHero()).equals(board.getHero(point));
+    }
+
+    private boolean nextToHelper(final Point point) {
+        double distance = board.getPosition(turnQueue.getCurrentHero())
+                .distance(point);
+        return board.getHero(point)
+                .isPresent()
+                && distance < 2 && distance > 0;
+    }
+
+    public void openShop(EconomyHero hero1){
+
+    }
+    }
+
+
