@@ -49,7 +49,7 @@ public class SpecialFieldsTest {
     }
 
     @Test
-    void damagekBuff(){
+    void damageBuff(){
         final Creature creature1 = new Creature.Builder().statistic(CreatureStats.builder()
                         .maxHp(100)
                         .damage(Range.closed(10, 10))
