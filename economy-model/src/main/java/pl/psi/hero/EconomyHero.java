@@ -13,9 +13,6 @@ import pl.psi.map.resources.Resources;
 
 public class EconomyHero implements PropertyChangeListener
 {
-
-    //TODO przepisać get gold i add gold na resource
-
     private final Fraction fraction;
     private final List< EconomyCreature > creatureList;
     @Getter
@@ -31,6 +28,10 @@ public class EconomyHero implements PropertyChangeListener
         creatureList = new ArrayList<>();
         remainingMoves = moveRange;
         resources = aResources;
+    }
+
+    public Resources getResources(){
+        return resources;
     }
 
     public void resetMoveRange() {
@@ -64,14 +65,6 @@ public class EconomyHero implements PropertyChangeListener
         pcs.firePropertyChange("resources", oldResources, this.resources);
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        pcs.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        pcs.removePropertyChangeListener(listener);
-    }
-
     public boolean canAfford(Resources cost) {
         return resources.enoughToPay(cost);
     }
@@ -94,7 +87,7 @@ public class EconomyHero implements PropertyChangeListener
 
     public enum Fraction
     {
-        NECROPOLIS;
+        NECROPOLIS
     }
 
 

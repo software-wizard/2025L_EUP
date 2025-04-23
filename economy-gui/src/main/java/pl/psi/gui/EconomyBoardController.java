@@ -59,8 +59,8 @@ public class EconomyBoardController implements PropertyChangeListener {
     private void refreshGui() {
         gridMap.getChildren().clear();
 
-        for (int x = 0; x < 20; x++) {
-            for (int y = 0; y < 20; y++) {
+        for (int x = 0; x < 18; x++) {
+            for (int y = 0; y < 9; y++) {
                 Point currentPoint = new Point(x, y);
 
                 Optional<InteractableIf> interactionObj = gameEngine.getInteractable(currentPoint);
@@ -102,7 +102,7 @@ public class EconomyBoardController implements PropertyChangeListener {
         }
 
         if(gameEngine.canEnterCastle(currentPoint)) {
-            buildingObj.ifPresent(buildingIf -> mapTile.setImage(buildingIf.getPath()));
+            buildingObj.ifPresent(buildingIf -> mapTile.setName("CASTLE"));
             mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> openShop(gameEngine.getCurrentHero()));
         }
     }
