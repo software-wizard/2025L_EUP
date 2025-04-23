@@ -72,6 +72,11 @@ public class EconomyBoardController implements PropertyChangeListener {
 
                 handleTileActions(currentPoint, mapTile, interactionObj, building);
                 gridMap.add(mapTile, x, y);
+                System.out.println("[" + x + "," + y + "] → " +
+                        (interactionObj.isPresent() ? interactionObj.get().getClass().getSimpleName() : "empty") + " / " +
+                        (building.isPresent() ? building.get().getClass().getSimpleName() : "no building")
+                );
+
             }
         }
         updateResourceDisplay();
@@ -105,6 +110,9 @@ public class EconomyBoardController implements PropertyChangeListener {
         if(gameEngine.canEnterCastle(currentPoint)) {
             System.out.println("CAN ENTER CASTLE AT" + currentPoint);
             building.ifPresent(buildingIf -> mapTile.setImage("/objects/castle.png"));
+            {
+                System.out.println("BUILDING FOUND AT: " + currentPoint + " => " + building.get().getClass().getSimpleName());
+            };
             mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> openShop(gameEngine.getCurrentHero()));
         }
     }

@@ -23,7 +23,7 @@ public class BoardEconomyEngine {
     private final TurnQueueEconomy turnQueue;
     private final BoardEconomy board;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
-    Map<Point, InteractableIf> interactables = new HashMap<>();
+    Map<Point, MapObjectIf> interactables = new HashMap<>();
     Map<Point, BuildingIf> buildings = new HashMap<>();
 
 
@@ -51,7 +51,7 @@ public class BoardEconomyEngine {
     }
 
     public boolean canEnterCastle(final Point point) {
-        return nextToHelper(point) && isEnterable(point);
+        return isEnterable(point);
     }
 
     public boolean canInteract(Point point) {
@@ -88,7 +88,7 @@ public class BoardEconomyEngine {
 
     public void endOfTurnEvent() {
         System.out.println("End of turn event");
-        for (InteractableIf interactable : interactables.values()) {
+        for (MapObjectIf interactable : interactables.values()) {
             System.out.println(interactable);
             if (interactable instanceof ResourceGenIf generator){
                 if(generator.getOwner() == turnQueue.getCurrentHero()){
@@ -109,7 +109,7 @@ public class BoardEconomyEngine {
     }
 
     public boolean isEnterable(final Point point) {
-        return Optional.of(board.getBuildingAt(point).isPresent()).orElse(false);
+        return board.getBuildingAt(point).isPresent();
     }
 
     private boolean nextToHelper(final Point point) {

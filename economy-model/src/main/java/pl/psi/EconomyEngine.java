@@ -10,14 +10,9 @@ import pl.psi.map.resources.Resources;
 
 public class EconomyEngine {
     public static final String HERO_BOUGHT_CREATURE = "HERO_BOUGHT_CREATURE";
-    public static final String ACTIVE_HERO_CHANGED = "ACTIVE_HERO_CHANGED";
-    public static final String NEXT_ROUND = "NEXT_ROUND";
     private final EconomyHero hero1;
     private final CreatureShop creatureShop = new CreatureShop();
     private final PropertyChangeSupport observerSupport;
-    private EconomyHero activeHero;
-    private int roundNumber;
-    private Resources resourcesToAdd;
 
     public EconomyEngine(final EconomyHero aHero1) {
         hero1 = aHero1;
@@ -25,7 +20,7 @@ public class EconomyEngine {
     }
 
     public void buy(final EconomyCreature aEconomyCreature) {
-        creatureShop.buy(activeHero, aEconomyCreature);
+        creatureShop.buy(hero1, aEconomyCreature);
         observerSupport.firePropertyChange(HERO_BOUGHT_CREATURE, null, null);
     }
 

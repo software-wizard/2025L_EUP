@@ -2,6 +2,7 @@ package pl.psi.map;
 
 import com.google.common.collect.BiMap;
 
+import java.util.Map;
 import java.util.Optional;
 
 import pl.psi.Point;
@@ -10,14 +11,12 @@ import pl.psi.map.buildings.BuildingIf;
 
 public class BoardEconomy {
     private static final int MAX_WIDTH = 14;
-    private final BiMap<Point, Object> map;
-    private final BiMap<Point, InteractableIf> interactionMap;
-    private final BiMap<Point, BuildingIf> buildingMap;
+    private final BiMap<Point, EconomyHero> map;
+    private final BiMap<Point, MapObjectIf> interactionMap;
 
-    public BoardEconomy(BiMap<Point, Object> initialMap, BiMap<Point, InteractableIf> interactionMap, BiMap<Point,BuildingIf> initbuildingMap) {
+    public BoardEconomy(BiMap<Point, EconomyHero> initialMap, BiMap<Point, MapObjectIf> interactionMap) {
         this.map = initialMap; //could be even hero map
         this.interactionMap = interactionMap; //map for interactables
-        this.buildingMap = initbuildingMap;
     }
 
     public Optional<EconomyHero> getHero(final Point point) {
@@ -37,20 +36,22 @@ public class BoardEconomy {
     }
 
     public Optional<BuildingIf> getBuildingAt(Point point) {
-        Object obj = buildingMap.get(point);
-        if (obj instanceof BuildingIf building) {
-            return Optional.of(building);
+        MapObjectIf obj = interactionMap.get(point);
+        if (obj instanceof BuildingIf) {
+            return Optional.of((BuildingIf) obj);
         }
         return Optional.empty();
     }
 
+
     public boolean canMove(final EconomyHero hero, final Point targetPoint) {
         Object obj = map.get(targetPoint);
+        Object objOnInteractionMap = interactionMap.get(targetPoint);
 
-        if (obj instanceof InteractableIf) {
+        if (objOnInteractionMap instanceof InteractableIf) {
             return true;
         }
-        if (obj instanceof BuildingIf){
+        if (objOnInteractionMap instanceof BuildingIf){
             return true;
         }
         if (obj instanceof EconomyHero) {
