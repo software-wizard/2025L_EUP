@@ -30,12 +30,12 @@ public class BoardEconomyEngine {
     public BoardEconomyEngine(final EconomyHero hero1, final EconomyHero hero2) {
         turnQueue = new TurnQueueEconomy(hero1, hero2);
         interactables.put(new Point(2,2),new GoldGenerator());
-        interactables.put(new Point(5,5),new Gold(new Resources()));
+        interactables.put(new Point(5,5),new Gold(new Resources(1000,0,0,0,0,0,0)));
         interactables.put(new Point(1,10),new MercuryGenerator());
         interactables.put(new Point(10,10), new OreGenerator());
-        buildings.put(new Point(8,8), new Castle());
+        buildings.put(new Point(0,1), new Castle());
         board = BoardEconomy.builder()
-                .addHero(hero1, 0)
+                .addHero(hero1, 5)
                 .addHero(hero2,14)
                 .addInteractables(interactables)
                 .addBuildings(buildings)

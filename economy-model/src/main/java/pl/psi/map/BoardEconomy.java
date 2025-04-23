@@ -12,10 +12,12 @@ public class BoardEconomy {
     private static final int MAX_WIDTH = 14;
     private final BiMap<Point, Object> map;
     private final BiMap<Point, InteractableIf> interactionMap;
+    private final BiMap<Point, BuildingIf> buildingMap;
 
-    public BoardEconomy(BiMap<Point, Object> initialMap, BiMap<Point, InteractableIf> interactionMap) {
+    public BoardEconomy(BiMap<Point, Object> initialMap, BiMap<Point, InteractableIf> interactionMap, BiMap<Point,BuildingIf> initbuildingMap) {
         this.map = initialMap; //could be even hero map
         this.interactionMap = interactionMap; //map for interactables
+        this.buildingMap = initbuildingMap;
     }
 
     public Optional<EconomyHero> getHero(final Point point) {
@@ -35,7 +37,7 @@ public class BoardEconomy {
     }
 
     public Optional<BuildingIf> getBuildingAt(Point point) {
-        Object obj = map.get(point);
+        Object obj = buildingMap.get(point);
         if (obj instanceof BuildingIf building) {
             return Optional.of(building);
         }
@@ -46,6 +48,9 @@ public class BoardEconomy {
         Object obj = map.get(targetPoint);
 
         if (obj instanceof InteractableIf) {
+            return true;
+        }
+        if (obj instanceof BuildingIf){
             return true;
         }
         if (obj instanceof EconomyHero) {

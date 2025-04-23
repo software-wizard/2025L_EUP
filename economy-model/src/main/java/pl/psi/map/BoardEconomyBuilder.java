@@ -34,6 +34,6 @@ public class BoardEconomyBuilder {
 
 
     public BoardEconomy build() {
-        return new BoardEconomy(tempMap, interactionMap);
+        return new BoardEconomy(tempMap, interactionMap, buildingMap);
     }
 }

@@ -3,9 +3,9 @@ package pl.psi.map;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 
-public interface InteractableIf{
-    void interact(EconomyHero hero, BoardEconomy board, Point point);
+import java.util.Map;
 
-    String getPath();
-    //TODO make this work somehow
+public interface InteractableIf extends MapObjectIf {
+    typeOfObject type = typeOfObject.PICKUPABLE;
+    void interact(EconomyHero hero, BoardEconomy board, Point point);
 }

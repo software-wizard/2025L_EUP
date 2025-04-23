@@ -77,7 +77,7 @@ public class EconomyBoardController implements PropertyChangeListener {
         updateResourceDisplay();
     }
 
-    private void handleTileActions(Point currentPoint, EconomyTile mapTile, Optional<InteractableIf> interactionObj, Optional<BuildingIf> buildingObj) {
+    private void handleTileActions(Point currentPoint, EconomyTile mapTile, Optional<InteractableIf> interactionObj, Optional<BuildingIf> building) {
 
         if (gameEngine.isCurrentHero(currentPoint)) {
             mapTile.setBackground(Color.GREENYELLOW);
@@ -91,6 +91,7 @@ public class EconomyBoardController implements PropertyChangeListener {
 
         //interaction action
         if (gameEngine.canInteract(currentPoint)) {
+            System.out.println("CAN INTERACT AT:" + currentPoint);
             interactionObj.ifPresent(interactableIf -> mapTile.setImage(interactableIf.getPath()));
             mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> gameEngine.move(currentPoint));
         }
@@ -102,7 +103,8 @@ public class EconomyBoardController implements PropertyChangeListener {
         }
 
         if(gameEngine.canEnterCastle(currentPoint)) {
-            buildingObj.ifPresent(buildingIf -> mapTile.setName("CASTLE"));
+            System.out.println("CAN ENTER CASTLE AT" + currentPoint);
+            building.ifPresent(buildingIf -> mapTile.setImage("/objects/castle.png"));
             mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> openShop(gameEngine.getCurrentHero()));
         }
     }
