@@ -1,6 +1,7 @@
 package pl.psi.artifacts;
 import org.junit.jupiter.api.Test;
 import pl.psi.Hero;
+import pl.psi.creatures.Statistics;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class ArtifactTest {
     @Test
     void testSingleStatBoostArtifact() {
 
-        Hero hero = new Hero("Sir Christian",20,10,10,10, List.of());
+        Hero hero = new Hero("Sir Christian",new Statistics(20, 10, 10, 10), List.of());
         Artifact sword1 = new Artifact("Sword of Hellfire",6,0,0,0);// name, attack, defense,
         //power,
         sword1.apply(hero);
@@ -23,7 +24,7 @@ public class ArtifactTest {
 
     @Test
     void testMultipleStatBoostArtifact2() {
-        Hero hero1 = new Hero("Tyris",20,10,10,10, List.of());
+        Hero hero1 = new Hero("Tyris",new Statistics(20, 10, 10, 10), List.of());
         Artifact sword2 = new Artifact("Sword of Judgement",5,5,5,5);
 
         sword2.apply(hero1);

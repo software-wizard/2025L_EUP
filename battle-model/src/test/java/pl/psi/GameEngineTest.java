@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.CastleCreatureFactory;
+import pl.psi.creatures.Statistics;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -17,8 +18,8 @@ public class GameEngineTest
         final CastleCreatureFactory creatureFactory = new CastleCreatureFactory();
         final GameEngine gameEngine =
             new GameEngine(
-                    new Hero( "Hero1", 10, 10, 10, 10, List.of(creatureFactory.create(1, false, 5 ) ) ),//.....
-                    new Hero("Hero2", 10, 10, 10, 10, List.of(creatureFactory.create(1, false, 5))));//......
+                    new Hero( "Hero1", new Statistics(10, 10, 10, 10), List.of(creatureFactory.create(1, false, 5 ) ) ),//.....
+                    new Hero("Hero2", new Statistics(10, 10, 10, 10), List.of(creatureFactory.create(1, false, 5))));//......
 
         gameEngine.attack( new Point( 1, 1 ) );
     }

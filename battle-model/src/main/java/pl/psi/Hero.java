@@ -5,6 +5,7 @@ import java.util.List;
 import pl.psi.creatures.Creature;
 
 import lombok.Getter;
+import pl.psi.creatures.Statistics;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -12,39 +13,51 @@ import lombok.Getter;
 public class Hero {
     private String name;
     @Getter
-    private int attack;
-    @Getter
-    private int defense;
-    @Getter
-    private int power;
-    @Getter
-    private int knowledge;
-
+    private final Statistics statistics;
     @Getter
     private final List<Creature> creatures;
 
-    public Hero(String name, int attack, int defense, int power, int knowledge, final List<Creature> aCreatures) {
+    public Hero(String name, Statistics statistics, final List<Creature> aCreatures) {
         this.name = name;
-        this.attack = attack;
-        this.defense = defense;
-        this.power = power;
-        this.knowledge = knowledge;
+        this.statistics = statistics;
         creatures = aCreatures;
     }
+    // ****
+    public int getAttack() {
+        return statistics.getAttack();
+    }
+
+    public int getDefense() {
+        return statistics.getDefense();
+    }
+
+    public int getPower() {
+        return statistics.getPower();
+    }
+
+    public int getKnowledge() {
+        return statistics.getKnowledge();
+    }
+
     public void increaseAttack(int value) {
-        this.attack += value;
+        statistics.increaseAttack(value);
     }
 
     public void increaseDefense(int value) {
-        this.defense += value;
+        statistics.increaseDefense(value);
     }
 
     public void increasePower(int value) {
-        this.power += value;
+        statistics.increasePower(value);
     }
 
     public void increaseKnowledge(int value) {
-        this.knowledge += value;
+        statistics.increaseKnowledge(value);
+    }
+
+    // ****
+    public void increaseStatistics(Statistics bonusStats) {
+        statistics.increase(bonusStats);
     }
 
 
