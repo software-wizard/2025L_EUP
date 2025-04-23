@@ -16,7 +16,7 @@ public class Hero
     @Getter
     private List< Skill > skills;
 
-    public Hero( final List< Creature > aCreatures, List<Skill> aSkills)
+    public Hero( final List< Creature > aCreatures,final List<Skill> aSkills)
     {
         creatures = aCreatures;
         skills = aSkills;

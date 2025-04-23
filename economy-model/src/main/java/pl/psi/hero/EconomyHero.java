@@ -2,6 +2,7 @@ package pl.psi.hero;
 
 import java.util.ArrayList;
 import java.util.List;
+import pl.psi.Skill;
 
 import pl.psi.creatures.EconomyCreature;
 
@@ -55,5 +56,8 @@ public class EconomyHero
     public enum Fraction
     {
         NECROPOLIS;
+    }
+    public List<Skill> getSkills() {
+        return skills;
     }
 }
