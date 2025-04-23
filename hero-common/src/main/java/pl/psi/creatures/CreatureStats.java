@@ -9,6 +9,7 @@ import lombok.*;
  */
 @RequiredArgsConstructor
 @Builder
+@Getter
 public class CreatureStats implements CreatureStatisticIf{
     private final String name;
     private final int attack;
@@ -21,48 +22,5 @@ public class CreatureStats implements CreatureStatisticIf{
     private final String description;
     private final boolean isUpgraded;
 
-    @Override
-    public String getName() {
-        return "";
-    }
 
-    @Override
-    public int getAttack() {
-        return 0;
-    }
-
-    @Override
-    public int getArmor() {
-        return 0;
-    }
-
-    @Override
-    public int getMaxHp() {
-        return 0;
-    }
-
-    @Override
-    public int getMoveRange() {
-        return 0;
-    }
-
-    @Override
-    public Range<Integer> getDamage() {
-        return null;
-    }
-
-    @Override
-    public int getTier() {
-        return 0;
-    }
-
-    @Override
-    public String getDescription() {
-        return "";
-    }
-
-    @Override
-    public boolean isUpgraded() {
-        return false;
-    }
 }

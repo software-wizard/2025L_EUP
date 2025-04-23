@@ -22,7 +22,7 @@ public class Hero
     }
 
     public void apply(Spell s, Creature c) {
-       s.cast(c);  }
+        s.cast(c);  }
 
 }
 

@@ -29,11 +29,8 @@ public class Creature implements PropertyChangeListener {
     @Setter
     private int amount;
 
-    public int getCurrentHp() {
-        return currentHp;
-    }
 
-
+    @Getter
     @Setter
     private int currentHp;
     private int counterAttackCounter = 1;
@@ -105,20 +102,20 @@ public class Creature implements PropertyChangeListener {
 
 
     public void applyTemporaryBuff(CreatureStats buff, int durationInTurns) {
-        CreatureStats baseStats = (CreatureStats) this.getStats();
+        this.originalStats = (CreatureStats) this.getStats();
         temporaryBuff = buff;
         buffDuration = durationInTurns;
 
             stats = CreatureStats.builder()
-                    .attack(baseStats.getAttack() + buff.getAttack())
-                    .armor(baseStats.getArmor() + buff.getArmor())
-                    .maxHp(baseStats.getMaxHp() + buff.getMaxHp())
-                    .moveRange(baseStats.getMoveRange() + buff.getMoveRange())
-                    .name(baseStats.getName())
-                    .description(baseStats.getDescription())
-                    .tier(baseStats.getTier())
-                    .damage(baseStats.getDamage())
-                    .isUpgraded(baseStats.isUpgraded())
+                    .attack(originalStats.getAttack() + buff.getAttack())
+                    .armor(originalStats.getArmor() + buff.getArmor())
+                    .maxHp(originalStats.getMaxHp() + buff.getMaxHp())
+                    .moveRange(originalStats.getMoveRange() + buff.getMoveRange())
+                    .name(originalStats.getName())
+                    .description(originalStats.getDescription())
+                    .tier(originalStats.getTier())
+                    .damage(originalStats.getDamage())
+                    .isUpgraded(originalStats.isUpgraded())
                     .build();
 
     }
@@ -136,15 +133,16 @@ public class Creature implements PropertyChangeListener {
 
             if (buffDuration > 0) {
                 buffDuration--;
-                if (buffDuration == 0 && originalStats != null) {
-                    stats = originalStats;
+            }
+            else if (buffDuration == 0 && originalStats != null) {
+                    this.stats = originalStats;
                     originalStats = null;
                     temporaryBuff = null;
                 }
 
             }
         }
-    }
+
 
 
     protected void restoreCurrentHpToMax() {
