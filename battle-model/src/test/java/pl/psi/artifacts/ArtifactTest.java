@@ -34,5 +34,6 @@ public class ArtifactTest {
         assertThat(hero1.getPower()).isEqualTo(15);
         assertThat(hero1.getKnowledge()).isEqualTo(15);
     }
+
 }
 
