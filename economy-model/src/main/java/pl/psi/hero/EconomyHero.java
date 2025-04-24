@@ -2,9 +2,10 @@ package pl.psi.hero;
 
 import java.util.ArrayList;
 import java.util.List;
-import pl.psi.Skill;
 
+import lombok.Getter;
 import pl.psi.creatures.EconomyCreature;
+import pl.psi.hero.skills.AbstractSkill;
 
 public class EconomyHero
 {
@@ -12,6 +13,8 @@ public class EconomyHero
     private final Fraction fraction;
     private final List< EconomyCreature > creatureList;
     private int gold;
+    @Getter
+    private List<AbstractSkill> skills = new ArrayList<>();
 
     public EconomyHero( final Fraction aFraction, final int aGold )
     {
@@ -56,8 +59,5 @@ public class EconomyHero
     public enum Fraction
     {
         NECROPOLIS;
-    }
-    public List<Skill> getSkills() {
-        return skills;
     }
 }
