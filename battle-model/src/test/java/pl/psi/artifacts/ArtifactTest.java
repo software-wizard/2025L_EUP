@@ -1,7 +1,7 @@
 package pl.psi.artifacts;
 import org.junit.jupiter.api.Test;
 import pl.psi.Hero;
-import pl.psi.creatures.Statistics;
+import pl.psi.Statistics;
 
 import java.util.List;
 

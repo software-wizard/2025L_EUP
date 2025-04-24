@@ -5,7 +5,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.CastleCreatureFactory;
-import pl.psi.creatures.Statistics;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).

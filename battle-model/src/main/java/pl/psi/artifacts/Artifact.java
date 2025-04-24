@@ -2,7 +2,7 @@ package pl.psi.artifacts;
 
 import lombok.Getter;
 import pl.psi.Hero;
-import pl.psi.creatures.Statistics;
+import pl.psi.Statistics;
 
 public class Artifact {
     private String name;

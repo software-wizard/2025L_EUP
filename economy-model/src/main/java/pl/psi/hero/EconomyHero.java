@@ -16,7 +16,7 @@ public class EconomyHero
     {
         fraction = aFraction;
         gold = aGold;
-        creatureList = new ArrayList<>();
+        creatureList = new ArrayList<>(); //eq  podlaczyc statystyki tutaj
     }
 
     void addCreature( final EconomyCreature aCreature )

@@ -5,7 +5,6 @@ import java.util.List;
 import pl.psi.creatures.Creature;
 
 import lombok.Getter;
-import pl.psi.creatures.Statistics;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -22,7 +21,7 @@ public class Hero {
         this.statistics = statistics;
         creatures = aCreatures;
     }
-    // ****
+
     public int getAttack() {
         return statistics.getAttack();
     }
@@ -39,28 +38,9 @@ public class Hero {
         return statistics.getKnowledge();
     }
 
-    public void increaseAttack(int value) {
-        statistics.increaseAttack(value);
-    }
-
-    public void increaseDefense(int value) {
-        statistics.increaseDefense(value);
-    }
-
-    public void increasePower(int value) {
-        statistics.increasePower(value);
-    }
-
-    public void increaseKnowledge(int value) {
-        statistics.increaseKnowledge(value);
-    }
-
-    // ****
     public void increaseStatistics(Statistics bonusStats) {
         statistics.increase(bonusStats);
     }
-
-
 
 
 }
