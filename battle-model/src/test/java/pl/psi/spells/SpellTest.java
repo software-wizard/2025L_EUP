@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import pl.psi.Hero;
 import pl.psi.Spells.BuffSpell;
 import pl.psi.Spells.DamageSpell;
-import pl.psi.Spells.DebuffSpell;
 import pl.psi.Spells.Spell;
 import pl.psi.TurnQueue;
 import pl.psi.creatures.Creature;
@@ -40,7 +39,7 @@ public class SpellTest {
     }
 
     @Test
-    void buffSpellShouldAddAttack(){
+    void buffSpellShouldAddStats(){
         final Creature c1 = new Creature.Builder()
                 .statistic(CreatureStats.builder()
                         .maxHp(100)
@@ -70,7 +69,7 @@ public class SpellTest {
     }
 
     @Test
-    void debuffSpellSchouldSubtrackAttack(){
+    void buffSpellSchouldBeAbleToSubtrackStats(){
         final Creature c1 = new Creature.Builder()
                 .statistic(CreatureStats.builder()
                         .maxHp(100)
@@ -92,7 +91,7 @@ public class SpellTest {
                 .isUpgraded(false)
                 .build();
 
-        Spell debuffspell = new DebuffSpell("", statDebuff, 1);
+        Spell debuffspell = new BuffSpell("", statDebuff, 1);
         h1.apply(debuffspell, c1);
 
         assertThat(c1.getAttack()).isEqualTo(5);
@@ -132,16 +131,18 @@ public class SpellTest {
         Spell buffSpell = new BuffSpell("", statBuff, 2);
         h1.apply(buffSpell, attacker);
         final TurnQueue turnQueue = new TurnQueue(List.of(attacker), List.of(defender));
-
+        turnQueue.addObserver(attacker);
         assertThat(attacker.getAttack()).isEqualTo(15);
 
         turnQueue.next();
+        turnQueue.next();
 
         assertThat(attacker.getBuffDuration()).isEqualTo(1);
-//        turnQueue.next();
-//        turnQueue.next();
-//
-//        assertThat(attacker.getAttack()).isEqualTo(10);
+
+        turnQueue.next();
+        turnQueue.next();
+
+        assertThat(attacker.getAttack()).isEqualTo(10);
     }
 
 

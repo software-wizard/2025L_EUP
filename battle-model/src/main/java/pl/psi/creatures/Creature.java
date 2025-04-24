@@ -105,6 +105,7 @@ public class Creature implements PropertyChangeListener {
         this.originalStats = (CreatureStats) this.getStats();
         temporaryBuff = buff;
         buffDuration = durationInTurns;
+        //getAttack zamaiast takiego dlugiego
 
             stats = CreatureStats.builder()
                     .attack(originalStats.getAttack() + buff.getAttack())
@@ -131,10 +132,11 @@ public class Creature implements PropertyChangeListener {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
 
+            //to do spella a nie propertycahnge
             if (buffDuration > 0) {
                 buffDuration--;
             }
-            else if (buffDuration == 0 && originalStats != null) {
+            else if (buffDuration == 0 ) {
                     this.stats = originalStats;
                     originalStats = null;
                     temporaryBuff = null;
