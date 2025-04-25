@@ -45,5 +45,4 @@ public class Resources {
                 -gems
         );
     }
-    //TODO trzeba dokończyć resources (napisanie klasy + gui) -> pamiętać o dodaniu kopalni
 }

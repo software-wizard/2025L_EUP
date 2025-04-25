@@ -34,7 +34,7 @@ public class GoldGenerator implements InteractableIf, ResourceGenIf {
 
     @Override
     public String getPath() {
-        return "/objects/goldGenerator.png";
+        return "/objects/gold_mine.jpg";
     }
 
     public void generateResource(){

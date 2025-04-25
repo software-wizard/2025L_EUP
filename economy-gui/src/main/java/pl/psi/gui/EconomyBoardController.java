@@ -85,7 +85,7 @@ public class EconomyBoardController implements PropertyChangeListener {
     private void handleTileActions(Point currentPoint, EconomyTile mapTile, Optional<InteractableIf> interactionObj, Optional<BuildingIf> building) {
 
         if (gameEngine.isCurrentHero(currentPoint)) {
-            mapTile.setBackground(Color.GREENYELLOW);
+            mapTile.setImage("/heroes/hero1.png");
         }
 
         //movement action
@@ -108,33 +108,14 @@ public class EconomyBoardController implements PropertyChangeListener {
         }
 
         if(gameEngine.canEnterCastle(currentPoint)) {
-            System.out.println("CAN ENTER CASTLE AT" + currentPoint);
             building.ifPresent(buildingIf -> mapTile.setImage("/objects/castle.png"));
-            {
-                System.out.println("BUILDING FOUND AT: " + currentPoint + " => " + building.get().getClass().getSimpleName());
-            };
-            mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> openShop(gameEngine.getCurrentHero()));
+            mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> gameEngine.openShop());
+
+            //TODO kliknięcie ma dawać event z którego odpalamy sklep
+            // gameEngine.openShop()
+            // kontroler nasłuchuje na openshop
         }
     }
-
-    private void openShop(EconomyHero hero) {
-        try {
-            final FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader()
-                    .getResource("fxml/eco.fxml"));
-            loader.setController(new EcoController(hero));
-
-            final Scene scene = new Scene(loader.load());
-            Stage aStage = new Stage();
-            aStage.setScene(scene);
-            aStage.setX(5);
-            aStage.setY(5);
-            aStage.show();
-        } catch (final IOException aE) {
-            aE.printStackTrace();
-        }
-    }
-
 
     private void updateResourceDisplay() {
         Resources res = gameEngine.getCurrentHero().getResources();
@@ -152,5 +133,12 @@ public class EconomyBoardController implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         refreshGui();
+        switch (evt.getPropertyName()){
+            case "OPEN_SHOP":
+                EconomyHero hero = (EconomyHero) evt.getNewValue();
+                WindowManager.openShop(hero);
+                break;
+        }
     }
+
 }

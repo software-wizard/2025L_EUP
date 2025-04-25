@@ -5,10 +5,7 @@ import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
 import pl.psi.map.buildings.Castle;
 import pl.psi.map.resources.Gold;
-import pl.psi.map.resources.generators.GoldGenerator;
-import pl.psi.map.resources.generators.MercuryGenerator;
-import pl.psi.map.resources.generators.OreGenerator;
-import pl.psi.map.resources.generators.ResourceGenIf;
+import pl.psi.map.resources.generators.*;
 import pl.psi.map.resources.Resources;
 
 import java.beans.PropertyChangeListener;
@@ -25,14 +22,18 @@ public class BoardEconomyEngine {
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
     Map<Point, MapObjectIf> interactables = new HashMap<>();
     Map<Point, BuildingIf> buildings = new HashMap<>();
+    private int turnCounter;
 
 
     public BoardEconomyEngine(final EconomyHero hero1, final EconomyHero hero2) {
         turnQueue = new TurnQueueEconomy(hero1, hero2);
         interactables.put(new Point(2,2),new GoldGenerator());
-        interactables.put(new Point(5,5),new Gold(new Resources(1000,0,0,0,0,0,0)));
-        interactables.put(new Point(1,10),new MercuryGenerator());
-        interactables.put(new Point(10,10), new OreGenerator());
+        interactables.put(new Point(3,2),new MercuryGenerator());
+        interactables.put(new Point(4,2), new OreGenerator());
+        interactables.put(new Point(5,2), new SulfurGenerator());
+        interactables.put(new Point(6,2), new WoodGenerator());
+        interactables.put(new Point(7,2), new CrystalGenerator());
+        interactables.put(new Point(8,2), new GemGenerator());
         buildings.put(new Point(0,1), new Castle());
         board = BoardEconomy.builder()
                 .addHero(hero1, 5)
@@ -81,23 +82,31 @@ public class BoardEconomyEngine {
 
     public void pass() {
         getCurrentHero().resetMoveRange();
-        endOfTurnEvent();
+        endOfTurn();
         turnQueue.next();
-        System.out.println("Current hero after pass: " + getCurrentHero().getResources());
     }
 
-    public void endOfTurnEvent() {
-        System.out.println("End of turn event");
-        for (MapObjectIf interactable : interactables.values()) {
-            System.out.println(interactable);
-            if (interactable instanceof ResourceGenIf generator){
-                if(generator.getOwner() == turnQueue.getCurrentHero()){
-                    System.out.println(generator);
-                    generator.generateResource();
-                }
-            }
+    private void endOfTurn() { // called after each click of the pass button
+        turnCounter++;
+        if (turnCounter >= 2){
+            turnCounter = 0;
+            endOfDay();
         }
     }
+
+    private void endOfDay(){ // called after both players pass
+        generateResourcesEndDay();
+    }
+
+    private void generateResourcesEndDay(){
+        for (MapObjectIf interactable : interactables.values()) {
+            System.out.println(interactable); // jak zmienie to można wywalić instanceof
+            if (interactable instanceof ResourceGenIf generator){
+                    generator.generateResource();
+                }
+            } //TODO zrobić "dni" które są po passach dwóch graczy, endOfDay
+        }
+
 
     public void addObserver(final PropertyChangeListener aObserver) {
         observerSupport.addPropertyChangeListener(aObserver);
@@ -120,6 +129,10 @@ public class BoardEconomyEngine {
                 && distance < 2 && distance > 0;
     }
 
+    public void openShop() {
+        observerSupport.firePropertyChange("OPEN_SHOP", null, getCurrentHero());
     }
+
+}
 
 
