@@ -32,7 +32,7 @@ public class Start extends Application
         {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation( Start.class.getClassLoader()
-                .getResource( "fxml/main-battle.fxml" ) );
+                    .getResource( "fxml/main-battle.fxml" ) );
             loader.setController( new MainBattleController( createP1(), createP2() ) );
             scene = new Scene( loader.load() );
             primaryStage.setScene( scene );
@@ -48,16 +48,14 @@ public class Start extends Application
 
     private Hero createP2()
     {
-        final Hero hero = new Hero(List.of());
-        hero.getCreatures().add(new NecropolisFactory(hero).create(true, 1, 5));
-        return hero;
+        final Hero ret = new Hero( List.of( new NecropolisFactory().create( true, 1, 5 ) ),1,1 );
+        return ret;
     }
 
     private Hero createP1()
     {
-        final Hero hero = new Hero(List.of());
-        hero.getCreatures().add(new NecropolisFactory(hero).create(false, 1, 5));
-        return hero;
+        final Hero ret = new Hero( List.of( new NecropolisFactory().create( false, 1, 5 ) ),1,1 );
+        return ret;
     }
 
 }

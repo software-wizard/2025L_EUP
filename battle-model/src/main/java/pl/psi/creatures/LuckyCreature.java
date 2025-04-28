@@ -2,6 +2,7 @@ package pl.psi.creatures;
 
 import pl.psi.Hero;
 
+import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.util.Random;
 
@@ -29,7 +30,12 @@ public class LuckyCreature extends Creature
             case 2: chance = 0.167; break;
             case 3: chance = 0.25; break;
         }
-        return random.nextDouble() < chance;
+        boolean result = random.nextDouble() < chance;
+        if (result) {
+            JOptionPane.showMessageDialog(null,
+                    decorated.getName() + " zadaje podwójne obrażenia dzięki szczęściu (" + luck + ")!");
+        }
+        return result;
     }
 
     @Override
@@ -75,6 +81,11 @@ public class LuckyCreature extends Creature
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         decorated.propertyChange(evt);
+    }
+
+    @Override
+    public String getName() {
+        return decorated.getName();
     }
 
     @Override

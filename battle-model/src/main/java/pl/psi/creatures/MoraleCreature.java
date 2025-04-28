@@ -5,6 +5,8 @@ import java.util.Random;
 
 import pl.psi.Hero;
 
+import javax.swing.*;
+
 public class MoraleCreature extends Creature {
     private final Creature decorated;
     private final Hero hero;
@@ -26,7 +28,12 @@ public class MoraleCreature extends Creature {
             case 2: chance = 0.083; break;
             case 3: chance = 0.125; break;
         }
-        return random.nextDouble() < chance;
+        boolean result = random.nextDouble() < chance;
+        if (result) {
+            JOptionPane.showMessageDialog(null,
+                    decorated.getName() + " otrzymuje dodatkowy ruch dzięki wysokim morale (" + morale + ")!");
+        }
+        return result;
     }
 
     public boolean shouldSkipTurn() {
@@ -39,13 +46,21 @@ public class MoraleCreature extends Creature {
             case -2: chance = 0.167; break;
             case -3: chance = 0.25; break;
         }
-        return random.nextDouble() < chance;
+        boolean result = random.nextDouble() < chance;
+        if (result) {
+            JOptionPane.showMessageDialog(null,
+                    decorated.getName() + " traci ruch z powodu niskich morale (" + morale + ")!");
+        }
+        return result;
     }
 
     @Override
     public CreatureStatisticIf getStats() {
         return decorated.getStats();
     }
+
+    @Override
+    public String getName() {return decorated.getName();}
 
     @Override
     public int getAmount() {
