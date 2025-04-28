@@ -78,6 +78,11 @@ public class LuckyCreature extends Creature
     }
 
     @Override
+    public String getName() {
+        return decorated.getName();
+    }
+
+    @Override
     public int getMoveRange() {
         return decorated.getMoveRange();
     }

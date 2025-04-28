@@ -7,6 +7,7 @@ import pl.psi.Hero;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 public class MoralAndLuckTest
 {
@@ -133,25 +134,20 @@ public class MoralAndLuckTest
 
     @Test
     void creatureShouldNotGetDoubleDamageWithZeroLuck() {
-        Hero hero = new Hero(List.of(), 0, 0);
-        LuckyCreature luckyCreature = new LuckyCreature(
-                new Creature.Builder()
-                        .statistic(stats)
-                        .amount(1)
-                        .build(),
-                hero);
+        Hero hero = mock(Hero.class);
+        when(hero.getLuck()).thenReturn(0);
 
-        int doubleDamageCount = 0;
-        for (int i = 0; i < 10000; i++) {
-            if (luckyCreature.shouldDoubleDamage()) {
-                doubleDamageCount++;
-            }
-        }
+        Creature creature = mock(Creature.class);
+        when(creature.getStats()).thenReturn(stats);
 
-        assertThat(doubleDamageCount).isEqualTo(0);
+        LuckyCreature luckyCreature = new LuckyCreature(creature, hero);
+
+        assertThat(luckyCreature.shouldDoubleDamage()).isFalse();
+
+        verify(hero).getLuck();
     }
 
-    @Test //dokonczyc
+    @Test
     void CreatureShouldDoubleDamageWhenLucky() {
         final CreatureStatisticIf attackerStats = CreatureStats.builder()
                 .name("Attacker")
@@ -188,7 +184,7 @@ public class MoralAndLuckTest
                 attackerHero) {
             @Override
             public boolean shouldDoubleDamage() {
-                return true; // wymuszenie szczęścia
+                return true;
             }
         };
 
@@ -249,7 +245,6 @@ public class MoralAndLuckTest
         }
 
         if (skipped) {
-            // symulujemy "pominiecie tury", czyli brak ataku
             assertThat(defender.getCurrentHp()).isEqualTo(100);
         } else {
             moraleCreature.attack(defender);

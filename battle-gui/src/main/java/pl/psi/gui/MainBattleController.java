@@ -38,7 +38,7 @@ public class MainBattleController implements PropertyChangeListener
     private void refreshGui()
     {
         gridMap.getChildren()
-            .clear();
+                .clear();
         for( int x = 0; x < 15; x++ )
         {
             for( int y = 0; y < 10; y++ )
@@ -55,13 +55,13 @@ public class MainBattleController implements PropertyChangeListener
                 {
                     mapTile.setBackground( Color.GREY );
                     mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
-                        ( e ) -> { gameEngine.move( currentPoint ); } );
+                            ( e ) -> { gameEngine.move( currentPoint ); } );
                 }
                 if( gameEngine.canAttack( currentPoint ) )
                 {
                     mapTile.setBackground( Color.RED );
                     mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
-                        ( e ) -> { gameEngine.attack( currentPoint ); } );
+                            ( e ) -> { gameEngine.attack( currentPoint ); } );
                 }
                 gridMap.add( mapTile, x, y );
             }
