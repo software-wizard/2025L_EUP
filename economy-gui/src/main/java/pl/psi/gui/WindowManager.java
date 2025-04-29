@@ -12,7 +12,7 @@ public class WindowManager {
     public static void openShop(EconomyHero hero) {
         try {
             final FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader()
+            loader.setLocation(WindowManager.class.getClassLoader()
                     .getResource("fxml/eco.fxml"));
             loader.setController(new EcoController(hero));
 
