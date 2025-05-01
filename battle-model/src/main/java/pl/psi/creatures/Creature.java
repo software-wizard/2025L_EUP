@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Random;
 
 import lombok.Setter;
+import pl.psi.Spells.Spell;
 import pl.psi.TurnQueue;
 
 import com.google.common.collect.Range;
@@ -102,10 +103,12 @@ public class Creature implements PropertyChangeListener {
 
 
     public void applyTemporaryBuff(CreatureStats buff, int durationInTurns) {
+        //może przekazać spell a nei buff duration
         this.originalStats = (CreatureStats) this.getStats();
         temporaryBuff = buff;
         buffDuration = durationInTurns;
         //getAttack zamaiast takiego dlugiego
+
 
             stats = CreatureStats.builder()
                     .attack(originalStats.getAttack() + buff.getAttack())
@@ -158,6 +161,14 @@ public class Creature implements PropertyChangeListener {
     public int getMoveRange() {
         return stats.getMoveRange();
     }
+
+    public void applyMagicDamage(Spell aDamageSpell) {
+        if (isAlive()) {
+            final int magicDamage = getCalculator().calculateMagicDamage(this, aDamageSpell);
+            applyDamage(this, magicDamage);
+        }
+    }
+
 
     public static class Builder {
         private int amount = 1;

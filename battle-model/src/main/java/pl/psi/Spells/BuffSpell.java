@@ -9,8 +9,8 @@ public class BuffSpell extends Spell{
 
     private final CreatureStats buffStats;
 
-    public BuffSpell(String name, CreatureStats buffStats, int duration) {
-        super(name, duration);
+    public BuffSpell(String name, int spellLevel, int duration, CreatureStats buffStats ) {
+        super(name, spellLevel,duration);
         this.buffStats = buffStats;
     }
 

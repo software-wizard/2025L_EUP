@@ -59,4 +59,12 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
     {
         return aDefender.getArmor();
     }
+
+@Override
+public int calculateMagicDamage( final Creature aAttacker, final Creature aDefender ) {
+
+    return 0;
 }
+
+}
+

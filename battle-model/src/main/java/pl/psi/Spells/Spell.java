@@ -4,16 +4,12 @@ import pl.psi.creatures.Creature;
 
 public abstract class Spell {
     String name;
-    double power;
+    int spellLevel;
     int duration;
 
-    public Spell(String name, double power, int duration) {
+    public Spell(String name, int spellLevel, int duration) {
         this.name = name;
-        this.power = power;
-        this.duration = duration;
-    }
-    public Spell(String name,  int duration) {
-        this.name = name;
+        this.spellLevel = spellLevel;
         this.duration = duration;
     }
 

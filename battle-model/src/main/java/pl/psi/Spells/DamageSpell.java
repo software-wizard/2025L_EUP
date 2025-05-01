@@ -4,14 +4,12 @@ import pl.psi.creatures.Creature;
 
 public class DamageSpell extends Spell{
 
-    public DamageSpell(String name, double power, int duration) {
-        super(name, power, duration);
+    public DamageSpell(String name, int spellLevel, int duration) {
+        super(name, spellLevel, duration);
     }
 
     @Override
     public void cast(Creature targetCreature) {
-        final double hpToSubtract =  power* targetCreature.getMaxHp();
-        int hp = (int) (targetCreature.getCurrentHp() - hpToSubtract);
-        targetCreature.setCurrentHp(hp); //applyspelldamage
+        targetCreature.applyMagicDamage(this);
     }
 }

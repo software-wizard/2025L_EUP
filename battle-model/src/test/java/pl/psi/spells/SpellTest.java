@@ -30,7 +30,7 @@ public class SpellTest {
                 .build();
 
         final Hero h1 = new Hero(List.of(c1));
-        final Spell deafultDamageSpell = new DamageSpell("deafult", 0.2, 1);
+        final Spell deafultDamageSpell = new DamageSpell("deafult", 1, 1);
 
 
         h1.apply(deafultDamageSpell,c1);
@@ -61,7 +61,7 @@ public class SpellTest {
                 .isUpgraded(false)
                 .build();
 
-        Spell buffSpell = new BuffSpell("", statBuff, 1);
+        Spell buffSpell = new BuffSpell("", 1,1,  statBuff);
         h1.apply(buffSpell, c1);
 
         assertThat(c1.getAttack()).isEqualTo(15);
@@ -91,7 +91,7 @@ public class SpellTest {
                 .isUpgraded(false)
                 .build();
 
-        Spell debuffspell = new BuffSpell("", statDebuff, 1);
+        Spell debuffspell = new BuffSpell("", 1, 1, statDebuff);
         h1.apply(debuffspell, c1);
 
         assertThat(c1.getAttack()).isEqualTo(5);
@@ -128,7 +128,7 @@ public class SpellTest {
                 .isUpgraded(false)
                 .build();
 
-        Spell buffSpell = new BuffSpell("", statBuff, 2);
+        Spell buffSpell = new BuffSpell("", 1, 2, statBuff);
         h1.apply(buffSpell, attacker);
         final TurnQueue turnQueue = new TurnQueue(List.of(attacker), List.of(defender));
         turnQueue.addObserver(attacker);
