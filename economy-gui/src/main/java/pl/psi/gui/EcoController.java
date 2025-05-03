@@ -3,6 +3,7 @@ package pl.psi.gui;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import lombok.Setter;
 import pl.psi.EconomyEngine;
 import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.EconomyCreature;
@@ -14,11 +15,15 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import pl.psi.creatures.UpgradeBuildings;
 import pl.psi.hero.EconomyHero;
+import pl.psi.map.buildings.Castle;
 
 public class EcoController implements PropertyChangeListener
 {
     private final EconomyEngine economyEngine;
+    @Setter
+    private final Castle castle;
     @FXML
     HBox heroStateHBox;
     @FXML
@@ -29,13 +34,13 @@ public class EcoController implements PropertyChangeListener
     Label playerLabel;
     @FXML
     Label currentGoldLabel;
-    @FXML
-    Label roundNumberLabel;
 
-    public EcoController(final EconomyHero aHero1)
-    {
-        economyEngine = new EconomyEngine( aHero1);
+
+    public EcoController(final EconomyHero aHero1, final Castle castle) {
+        economyEngine = new EconomyEngine(aHero1);
+        this.castle = castle;
     }
+
 
     @FXML
     void initialize()
@@ -57,15 +62,39 @@ public class EcoController implements PropertyChangeListener
 
         final EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
         final VBox creatureShop = new VBox();
-        for( int i = 1; i < 8; i++ )
-        {
-            creatureShop.getChildren()
-                .add( new CreatureButton( this, factory, false, i ) );
-            creatureShop.getChildren()
-                .add( new CreatureButton( this, factory, true, i ) );
+
+        for (int i = 1; i < 8; i++) {
+            EconomyCreature base = factory.create(false, i, 1);
+            EconomyCreature upgraded = factory.create(true, i, 1);
+
+            CreatureButton baseButton = new CreatureButton(this, factory, false, i);
+            CreatureButton upgradedButton = new CreatureButton(this, factory, true, i);
+
+            UpgradeBuildings.getBuildingForCreature(base.getStats())
+                    .ifPresentOrElse(
+                            building -> {
+                                if (!castle.hasBuilt(building)) {
+                                    baseButton.setDisable(true);
+                                }
+                            },
+                            () -> baseButton.setDisable(true)
+                    );
+
+            UpgradeBuildings.getBuildingForCreature(upgraded.getStats())
+                    .ifPresentOrElse(
+                            building -> {
+                                if (!castle.hasBuilt(building)) {
+                                    upgradedButton.setDisable(true);
+                                }
+                            },
+                            () -> upgradedButton.setDisable(true)
+                    );
+
+
+            creatureShop.getChildren().addAll(baseButton, upgradedButton);
         }
-        shopsBox.getChildren()
-            .add( creatureShop );
+        shopsBox.getChildren().add(creatureShop);
+
 
         final VBox creaturesBox = new VBox();
         economyEngine.getHero()

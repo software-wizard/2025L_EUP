@@ -38,9 +38,17 @@ public class MercuryGenerator implements InteractableIf, ResourceGenIf {
     }
 
     public void generateResource(){
-        System.out.println("Generating resource for: " + owner);
-        owner.addResource(resources);
-        System.out.println(owner.getResources().getGold());
+        if(owner != null) {
+            owner.addResource(resources);
+        }
+    }
+
+    @Override
+    public void endOfTurn() {
+    }
+
+    @Override
+    public void enter() {
     }
 }
 

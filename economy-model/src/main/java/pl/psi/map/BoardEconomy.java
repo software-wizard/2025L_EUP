@@ -27,7 +27,15 @@ public class BoardEconomy {
         return Optional.empty();
     }
 
-    public Optional<InteractableIf> getInteractableAt(Point point) {
+    public Optional<MapObjectIf> getObjectAt(final Point point) {
+        Object obj = interactionMap.get(point);
+        if (obj instanceof MapObjectIf mapObj) {
+            return Optional.of(mapObj);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<InteractableIf> getInteractableAt(final Point point) {
         Object obj = interactionMap.get(point);
         if (obj instanceof InteractableIf interactable) {
             return Optional.of((interactable) );
@@ -35,7 +43,7 @@ public class BoardEconomy {
         return Optional.empty();
     }
 
-    public Optional<BuildingIf> getBuildingAt(Point point) {
+    public Optional<BuildingIf> getBuildingAt(final Point point) {
         MapObjectIf obj = interactionMap.get(point);
         if (obj instanceof BuildingIf) {
             return Optional.of((BuildingIf) obj);
@@ -48,10 +56,7 @@ public class BoardEconomy {
         Object obj = map.get(targetPoint);
         Object objOnInteractionMap = interactionMap.get(targetPoint);
 
-        if (objOnInteractionMap instanceof InteractableIf) {
-            return true;
-        }
-        if (objOnInteractionMap instanceof BuildingIf){
+        if (objOnInteractionMap instanceof MapObjectIf) {
             return true;
         }
         if (obj instanceof EconomyHero) {

@@ -22,4 +22,24 @@ public class Gold implements InteractableIf {
     public String getPath(){
         return "/objects/goldPile1.png";
     }
+
+    @Override
+    public void endOfTurn() {
+
+    }
+
+    @Override
+    public void enter() {
+
+    }
+
+    @Override
+    public void generateResource() {
+
+    }
+
+    @Override
+    public EconomyHero getOwner() {
+        return null;
+    }
 }

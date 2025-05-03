@@ -45,4 +45,12 @@ public class Resources {
                 -gems
         );
     }
+
+    @Override
+    public String toString() {
+        return String.format("[Gold: %d, Wood: %d, Ore: %d, Mercury: %d, Sulphur: %d, Crystal: %d, Gems: %d]",
+                gold, wood, ore, mercury, sulphur, crystal, gems
+        );
+    }
+
 }

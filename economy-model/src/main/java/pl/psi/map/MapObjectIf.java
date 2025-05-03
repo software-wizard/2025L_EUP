@@ -1,8 +1,13 @@
 package pl.psi.map;
 
+import pl.psi.hero.EconomyHero;
+
 public interface MapObjectIf {
     String getPath();
-//    void endOfTurn(); // w tych bez wydarzeń na koniec zostaje pusty
+    void endOfTurn(); // w tych bez wydarzeń na koniec zostaje pusty
+    void enter();
+    void generateResource();
+    EconomyHero getOwner();
     //TODO dopisać te metody, na koniec tury musi być wywoływane
     public enum typeOfObject{
         GENERATOR,

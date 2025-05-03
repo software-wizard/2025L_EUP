@@ -4,9 +4,7 @@ import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
 import pl.psi.map.buildings.Castle;
-import pl.psi.map.resources.Gold;
 import pl.psi.map.resources.generators.*;
-import pl.psi.map.resources.Resources;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -48,7 +46,7 @@ public class BoardEconomyEngine {
     }
 
     public boolean canAttack(final Point point) {
-        return nextToHelper(point) && getHero(point).isPresent();
+        return isHeroAdjacent(point) && getHero(point).isPresent();
     }
 
     public boolean canEnterCastle(final Point point) {
@@ -70,6 +68,10 @@ public class BoardEconomyEngine {
 
     public EconomyHero getCurrentHero() {
         return turnQueue.getCurrentHero();
+    }
+
+    public Optional<MapObjectIf> getMapObject(final Point point) {
+        return board.getObjectAt(point);
     }
 
     public Optional<InteractableIf> getInteractable(final Point point) {
@@ -117,21 +119,32 @@ public class BoardEconomyEngine {
         return Optional.of(turnQueue.getCurrentHero()).equals(board.getHero(point));
     }
 
+    public boolean isHero(Point point) {
+        return board.getHero(point).isPresent();
+    }
+
     public boolean isEnterable(final Point point) {
         return board.getBuildingAt(point).isPresent();
     }
 
-    private boolean nextToHelper(final Point point) {
-        double distance = board.getPosition(turnQueue.getCurrentHero())
-                .distance(point);
-        return board.getHero(point)
-                .isPresent()
-                && distance < 2 && distance > 0;
+    public boolean isHeroAdjacent(Point target) {
+        Point heroPos = board.getPosition(getCurrentHero());
+        return heroPos.distance(target) == 1; // Manhattan distance
     }
 
-    public void openShop() {
-        observerSupport.firePropertyChange("OPEN_SHOP", null, getCurrentHero());
+
+    public void openShop(Optional<BuildingIf> buildingOpt) {
+        observerSupport.firePropertyChange("OPEN_SHOP", null, new Object[]{getCurrentHero(), buildingOpt});
     }
+
+    public void openUpgrades(Optional<BuildingIf> buildingOpt) {
+        buildingOpt.ifPresent(building -> {
+            if (building instanceof Castle) {
+                observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),building});
+            }
+        });
+    }
+
 
 }
 

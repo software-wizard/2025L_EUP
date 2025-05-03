@@ -38,4 +38,9 @@ public class EconomyCreature
     {
         return stats.getTier();
     }
+
+    public CreatureStatistic getStats() {
+        return stats;
+    }
+
 }
