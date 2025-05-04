@@ -12,4 +12,9 @@ public class DamageSpell extends Spell{
     public void cast(Creature targetCreature) {
         targetCreature.applyMagicDamage(this);
     }
+
+    @Override
+    public void expire(Creature creature) {
+
+    }
 }

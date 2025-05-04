@@ -8,7 +8,6 @@ public class ActiveSpellEffect {
     private final Spell spell;
     private int remainingTurns;
 
-
     public ActiveSpellEffect(Spell spell, int duration) {
         this.spell = spell;
         this.remainingTurns = duration;

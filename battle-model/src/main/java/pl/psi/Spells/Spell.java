@@ -2,22 +2,28 @@ package pl.psi.Spells;
 
 import lombok.Getter;
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.CreatureStats;
 
+@Getter
 public abstract class Spell {
+
     String name;
-    @Getter
     int spellLevel;
-    @Getter
     int duration;
 
-    public Spell(String name, int spellLevel, int duration) {
+    public Spell(String name, int spellLevel) {
         this.name = name;
         this.spellLevel = spellLevel;
+    }
+
+    public Spell(String name, int duration, int spellLevel) {
+        this.name = name;
         this.duration = duration;
+        this.spellLevel = spellLevel;
     }
 
     public abstract void cast(Creature targetCreature);
-    public abstract void expire(Creature targetCreature);
 
+    public abstract void expire(Creature creature);
 }
 

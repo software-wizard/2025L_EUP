@@ -31,7 +31,6 @@ public class Creature implements PropertyChangeListener {
     private CreatureStatisticIf stats;
     private CreatureStats temporaryBuff;
     private CreatureStats originalStats;
-    private int buffDuration;
     @Setter
     private int amount;
 
@@ -110,7 +109,6 @@ public class Creature implements PropertyChangeListener {
     public void applyTemporaryBuff(BuffSpell buffSpell) {
         this.originalStats = (CreatureStats) this.getStats();
         temporaryBuff = buffSpell.getBuffStats();
-        buffDuration = buffSpell.getDuration();
         //getAttack zamaiast takiego dlugiego
 
 
@@ -128,6 +126,11 @@ public class Creature implements PropertyChangeListener {
 
     }
 
+    public void comeBackToStatsBeforeBuff(BuffSpell buffSpell) {
+        this.stats = this.originalStats;
+    }
+
+
 
 
     int getArmor() {
@@ -144,22 +147,10 @@ public class Creature implements PropertyChangeListener {
                 ActiveSpellEffect effect = iterator.next();
                 effect.decreaseDuration();
                 if (effect.isExpired()) {
-                    effect.getSpell().expire(this);  // cofnięcie efektu np. buffa
+                    effect.getSpell().expire(this);
                     iterator.remove();
                 }
             }
-
-
-            //to do spella a nie propertycahnge
-            if (buffDuration > 0) {
-                buffDuration--;
-            }
-            else if (buffDuration == 0 ) {
-                    this.stats = originalStats;
-                    originalStats = null;
-                    temporaryBuff = null;
-                }
-
             }
         }
 

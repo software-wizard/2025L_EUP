@@ -129,20 +129,60 @@ public class SpellTest {
                 .build();
 
         Spell buffSpell = new BuffSpell("", 1, 2, statBuff);
-        h1.apply(buffSpell, attacker);
         final TurnQueue turnQueue = new TurnQueue(List.of(attacker), List.of(defender));
-        turnQueue.addObserver(attacker);
+
+        h1.apply(buffSpell, attacker);
         assertThat(attacker.getAttack()).isEqualTo(15);
 
         turnQueue.next();
         turnQueue.next();
 
-        assertThat(attacker.getBuffDuration()).isEqualTo(1);
-
         turnQueue.next();
         turnQueue.next();
 
         assertThat(attacker.getAttack()).isEqualTo(10);
+    }
+
+    @Test
+    void creatureCanHaveMoreThanOneBuffSpell(){
+        final Creature c1 = new Creature.Builder()
+                .statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(5, 10))
+                        .attack(10)
+                        .armor(5)
+                        .build())
+                .build();
+        final Hero h1 = new Hero(List.of(c1));
+
+        CreatureStats statBuff = CreatureStats.builder()
+                .attack(5)
+                .armor(0)
+                .maxHp(0)
+                .moveRange(0)
+                .name("Buff")
+                .description("Powerful boost")
+                .tier(1)
+                .damage(Range.closed(0, 0))
+                .isUpgraded(false)
+                .build();
+
+        Spell buffSpellOne = new BuffSpell("", 1,1,  statBuff);
+        Spell buffSpellTwo = new BuffSpell("", 1,2,  statBuff);
+        final TurnQueue turnQueue = new TurnQueue(List.of(c1), List.of());
+
+        h1.apply(buffSpellOne, c1);
+        h1.apply(buffSpellTwo, c1);
+
+        assertThat(c1.getAttack()).isEqualTo(20);
+
+        turnQueue.next();
+        assertThat(c1.getAttack()).isEqualTo(15);
+
+
+        turnQueue.next();
+        assertThat(c1.getActiveSpellEffects().size()).isEqualTo(0);
+        assertThat(c1.getAttack()).isEqualTo(10);
     }
 
 
