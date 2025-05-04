@@ -16,7 +16,7 @@ public class BuffSpell extends Spell{
 
     @Override
     public void cast(Creature targetCreature) {
-        targetCreature.applyTemporaryBuff(buffStats, duration);   }
+        targetCreature.applyTemporaryBuff(buffStats, this);   }
 
 
 }

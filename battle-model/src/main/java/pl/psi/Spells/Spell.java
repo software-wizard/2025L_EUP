@@ -1,10 +1,13 @@
 package pl.psi.Spells;
 
+import lombok.Getter;
 import pl.psi.creatures.Creature;
 
 public abstract class Spell {
     String name;
+    @Getter
     int spellLevel;
+    @Getter
     int duration;
 
     public Spell(String name, int spellLevel, int duration) {
@@ -14,5 +17,6 @@ public abstract class Spell {
     }
 
     public abstract void cast(Creature targetCreature);
+
 }
 

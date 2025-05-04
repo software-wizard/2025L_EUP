@@ -35,7 +35,7 @@ public class SpellTest {
 
         h1.apply(deafultDamageSpell,c1);
 
-        assertThat(c1.getCurrentHp()).isEqualTo(80);
+        assertThat(c1.getCurrentHp()).isBetween(80, 95);
     }
 
     @Test

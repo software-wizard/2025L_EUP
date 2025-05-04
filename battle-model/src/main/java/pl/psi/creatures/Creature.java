@@ -102,11 +102,11 @@ public class Creature implements PropertyChangeListener {
     }
 
 
-    public void applyTemporaryBuff(CreatureStats buff, int durationInTurns) {
+    public void applyTemporaryBuff(CreatureStats buff, Spell buffSpell) {
         //może przekazać spell a nei buff duration
         this.originalStats = (CreatureStats) this.getStats();
         temporaryBuff = buff;
-        buffDuration = durationInTurns;
+        buffDuration = buffSpell.getDuration();
         //getAttack zamaiast takiego dlugiego
 
 
@@ -134,6 +134,7 @@ public class Creature implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent evt) {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
+
 
             //to do spella a nie propertycahnge
             if (buffDuration > 0) {

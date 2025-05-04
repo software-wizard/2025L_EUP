@@ -1,5 +1,7 @@
 package pl.psi.creatures;
 
+import pl.psi.Spells.Spell;
+
 import java.util.Random;
 
 /**
@@ -11,4 +13,5 @@ class DefaultDamageCalculator extends AbstractCalculateDamageStrategy
     {
         super( aRand );
     }
+
 }
