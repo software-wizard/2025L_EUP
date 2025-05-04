@@ -69,7 +69,7 @@ public class SpellTest {
     }
 
     @Test
-    void buffSpellSchouldBeAbleToSubtrackStats(){
+    void buffSpellShouldSubtractStats(){
         final Creature c1 = new Creature.Builder()
                 .statistic(CreatureStats.builder()
                         .maxHp(100)

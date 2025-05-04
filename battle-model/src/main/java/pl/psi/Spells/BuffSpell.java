@@ -1,5 +1,6 @@
 package pl.psi.Spells;
 
+import lombok.Getter;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
 
@@ -7,6 +8,7 @@ import pl.psi.creatures.CreatureStats;
 
 public class BuffSpell extends Spell{
 
+    @Getter
     private final CreatureStats buffStats;
 
     public BuffSpell(String name, int spellLevel, int duration, CreatureStats buffStats ) {
@@ -16,7 +18,12 @@ public class BuffSpell extends Spell{
 
     @Override
     public void cast(Creature targetCreature) {
-        targetCreature.applyTemporaryBuff(buffStats, this);   }
+        targetCreature.applyTemporaryBuff(this);   }
+
+    public void expire(Creature targetCreature){
+        targetCreature.stats = targetCreature.getOriginalStats();
+        temporaryBuff = null;
+    }
 
 
 }

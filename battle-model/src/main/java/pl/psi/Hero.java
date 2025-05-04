@@ -2,6 +2,7 @@ package pl.psi;
 
 import java.util.List;
 
+import pl.psi.Spells.ActiveSpellEffect;
 import pl.psi.Spells.Spell;
 import pl.psi.creatures.Creature;
 
@@ -22,7 +23,9 @@ public class Hero
     }
 
     public void apply(Spell s, Creature c) {
-        s.cast(c);  }
+        s.cast(c);
+        c.getActiveSpellEffects().add(new ActiveSpellEffect(s, s.getDuration()));
+    }
 
 }
 

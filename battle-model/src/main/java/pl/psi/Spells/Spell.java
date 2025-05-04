@@ -17,6 +17,7 @@ public abstract class Spell {
     }
 
     public abstract void cast(Creature targetCreature);
+    public abstract void expire(Creature targetCreature);
 
 }
 

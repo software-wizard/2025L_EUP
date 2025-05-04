@@ -8,9 +8,14 @@ package pl.psi.creatures;//  ***************************************************
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import lombok.Setter;
+import pl.psi.Spells.ActiveSpellEffect;
+import pl.psi.Spells.BuffSpell;
 import pl.psi.Spells.Spell;
 import pl.psi.TurnQueue;
 
@@ -36,7 +41,7 @@ public class Creature implements PropertyChangeListener {
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
-
+    private final List<ActiveSpellEffect> activeSpellEffects = new ArrayList<>();
 
     Creature() {
     }
@@ -102,19 +107,18 @@ public class Creature implements PropertyChangeListener {
     }
 
 
-    public void applyTemporaryBuff(CreatureStats buff, Spell buffSpell) {
-        //może przekazać spell a nei buff duration
+    public void applyTemporaryBuff(BuffSpell buffSpell) {
         this.originalStats = (CreatureStats) this.getStats();
-        temporaryBuff = buff;
+        temporaryBuff = buffSpell.getBuffStats();
         buffDuration = buffSpell.getDuration();
         //getAttack zamaiast takiego dlugiego
 
 
             stats = CreatureStats.builder()
-                    .attack(originalStats.getAttack() + buff.getAttack())
-                    .armor(originalStats.getArmor() + buff.getArmor())
-                    .maxHp(originalStats.getMaxHp() + buff.getMaxHp())
-                    .moveRange(originalStats.getMoveRange() + buff.getMoveRange())
+                    .attack(originalStats.getAttack() + temporaryBuff.getAttack())
+                    .armor(originalStats.getArmor() + temporaryBuff.getArmor())
+                    .maxHp(originalStats.getMaxHp() + temporaryBuff.getMaxHp())
+                    .moveRange(originalStats.getMoveRange() + temporaryBuff.getMoveRange())
                     .name(originalStats.getName())
                     .description(originalStats.getDescription())
                     .tier(originalStats.getTier())
@@ -134,6 +138,16 @@ public class Creature implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent evt) {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
+
+            Iterator<ActiveSpellEffect> iterator = activeSpellEffects.iterator();
+            while (iterator.hasNext()) {
+                ActiveSpellEffect effect = iterator.next();
+                effect.decreaseDuration();
+                if (effect.isExpired()) {
+                    effect.getSpell().expire(this);  // cofnięcie efektu np. buffa
+                    iterator.remove();
+                }
+            }
 
 
             //to do spella a nie propertycahnge
