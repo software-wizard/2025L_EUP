@@ -177,6 +177,7 @@ public class SpellTest {
         assertThat(c1.getAttack()).isEqualTo(20);
 
         turnQueue.next();
+        assertThat(c1.getActiveSpellEffects().size()).isEqualTo(1);
         assertThat(c1.getAttack()).isEqualTo(15);
 
 

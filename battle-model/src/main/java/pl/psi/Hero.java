@@ -23,9 +23,7 @@ public class Hero
     }
 
     public void apply(Spell s, Creature c) {
-        s.cast(c);
-        c.getActiveSpellEffects().add(new ActiveSpellEffect(s, s.getDuration()));
-    }
+        s.cast(c);    }
 
 }
 

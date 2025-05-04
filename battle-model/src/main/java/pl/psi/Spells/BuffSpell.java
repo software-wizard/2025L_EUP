@@ -11,19 +11,30 @@ public class BuffSpell extends Spell{
     private final CreatureStats buffStats;
 
 
-    public BuffSpell(String name, int spellLevel, int duration, CreatureStats buffStats ) {
-        super(name, spellLevel,duration);
+    public BuffSpell(String name, int spellLevel, int duration, CreatureStats buffStats) {
+        super(name, spellLevel, duration);
         this.buffStats = buffStats;
     }
 
     @Override
     public void cast(Creature targetCreature) {
-        targetCreature.applyTemporaryBuff(this);   }
-
-    @Override
-    public void expire(Creature targetCreature) {
-        targetCreature.comeBackToStatsBeforeBuff(this);
-
+        targetCreature.applyTemporaryBuff(this);
     }
 
+@Override
+    public CreatureStats modifyStats(CreatureStats base) {
+        return CreatureStats.builder()
+                .attack(base.getAttack() + buffStats.getAttack())
+                .armor(base.getArmor() + buffStats.getArmor())
+                .maxHp(base.getMaxHp() + buffStats.getMaxHp())
+                .moveRange(base.getMoveRange() + buffStats.getMoveRange())
+                .name(base.getName())
+                .description(base.getDescription())
+                .tier(base.getTier())
+                .damage(base.getDamage())
+                .isUpgraded(base.isUpgraded())
+                .build();
+
+
+    }
 }

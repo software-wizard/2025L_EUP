@@ -29,7 +29,6 @@ import lombok.Getter;
 @Getter
 public class Creature implements PropertyChangeListener {
     private CreatureStatisticIf stats;
-    private CreatureStats temporaryBuff;
     private CreatureStats originalStats;
     @Setter
     private int amount;
@@ -51,6 +50,7 @@ public class Creature implements PropertyChangeListener {
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
+        this.originalStats = (CreatureStats) this.getStats();
     }
 
     public void attack(final Creature aDefender) {
@@ -107,30 +107,15 @@ public class Creature implements PropertyChangeListener {
 
 
     public void applyTemporaryBuff(BuffSpell buffSpell) {
-        this.originalStats = (CreatureStats) this.getStats();
-        temporaryBuff = buffSpell.getBuffStats();
-        //getAttack zamaiast takiego dlugiego
+        this.getActiveSpellEffects().add(new ActiveSpellEffect(buffSpell, buffSpell.getDuration()));
+        CreatureStats modifiedStats = originalStats;
+        for (ActiveSpellEffect effect : activeSpellEffects) {
+            modifiedStats  = effect.getSpell().modifyStats(modifiedStats );
 
-
-            stats = CreatureStats.builder()
-                    .attack(originalStats.getAttack() + temporaryBuff.getAttack())
-                    .armor(originalStats.getArmor() + temporaryBuff.getArmor())
-                    .maxHp(originalStats.getMaxHp() + temporaryBuff.getMaxHp())
-                    .moveRange(originalStats.getMoveRange() + temporaryBuff.getMoveRange())
-                    .name(originalStats.getName())
-                    .description(originalStats.getDescription())
-                    .tier(originalStats.getTier())
-                    .damage(originalStats.getDamage())
-                    .isUpgraded(originalStats.isUpgraded())
-                    .build();
+        }
+        this.stats = modifiedStats;
 
     }
-
-    public void comeBackToStatsBeforeBuff(BuffSpell buffSpell) {
-        this.stats = this.originalStats;
-    }
-
-
 
 
     int getArmor() {
@@ -141,19 +126,28 @@ public class Creature implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent evt) {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
+            updateActiveSpells();
+        }
+    }
 
-            Iterator<ActiveSpellEffect> iterator = activeSpellEffects.iterator();
-            while (iterator.hasNext()) {
-                ActiveSpellEffect effect = iterator.next();
-                effect.decreaseDuration();
-                if (effect.isExpired()) {
-                    effect.getSpell().expire(this);
-                    iterator.remove();
-                }
-            }
+    private void updateActiveSpells() {
+        Iterator<ActiveSpellEffect> iterator = activeSpellEffects.iterator();
+        while (iterator.hasNext()) {
+            ActiveSpellEffect effect = iterator.next();
+            effect.decreaseDuration();
+
+            if (effect.isExpired()) {
+                iterator.remove();
             }
         }
 
+        CreatureStats modifiedStats = originalStats;
+        for (ActiveSpellEffect effect : activeSpellEffects) {
+            modifiedStats  = effect.getSpell().modifyStats(modifiedStats );
+
+        }
+        this.stats = modifiedStats;
+    }
 
 
     protected void restoreCurrentHpToMax() {

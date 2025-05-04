@@ -1,6 +1,7 @@
 package pl.psi.Spells;
 
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.CreatureStatisticIf;
 
 public class DamageSpell extends Spell{
 
@@ -13,8 +14,5 @@ public class DamageSpell extends Spell{
         targetCreature.applyMagicDamage(this);
     }
 
-    @Override
-    public void expire(Creature creature) {
 
-    }
 }
