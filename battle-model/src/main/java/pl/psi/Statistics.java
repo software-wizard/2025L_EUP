@@ -20,21 +20,21 @@ public class Statistics {
         this.knowledge = knowledge;
     }
 
-    public void increaseAttack(int value) {
-        this.attack += value;
-    }
-
-    public void increaseDefense(int value) {
-        this.defense += value;
-    }
-
-    public void increasePower(int value) {
-        this.power += value;
-    }
-
-    public void increaseKnowledge(int value) {
-        this.knowledge += value;
-    }
+//    public void increaseAttack(int value) {
+//        this.attack += value;
+//    }
+//
+//    public void increaseDefense(int value) {
+//        this.defense += value;
+//    }
+//
+//    public void increasePower(int value) {
+//        this.power += value;
+//    }
+//
+//    public void increaseKnowledge(int value) {
+//        this.knowledge += value;
+//    }  ???????
 
     public void increase(Statistics stats) {
         this.attack += stats.getAttack();
