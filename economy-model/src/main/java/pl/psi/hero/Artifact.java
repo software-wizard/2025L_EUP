@@ -1,8 +1,8 @@
-package pl.psi.artifacts;
+package pl.psi.hero;
 
 import lombok.Getter;
-import pl.psi.Hero;
-import pl.psi.Statistics;
+//import pl.psi.Hero;
+import pl.psi.hero.Statistics;
 
 public class Artifact {
     private String name;
@@ -14,7 +14,4 @@ public class Artifact {
         this.bonuses = new Statistics(attackBonus, defenseBonus, powerBonus, knowledgeBonus);
     }
 
-//    public void apply(Hero hero) {
-//        hero.increaseStatistics(bonuses );
-//    }
 }

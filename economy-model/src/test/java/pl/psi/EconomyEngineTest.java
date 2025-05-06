@@ -19,8 +19,8 @@ class EconomyEngineTest
     @BeforeEach
     void init()
     {
-        h1 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, 1000 );
-        h2 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, 1000 );
+        h1 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, 1000, aStats);
+        h2 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, 1000, aStats);
         economyEngine = new EconomyEngine( h1, h2 );
         creatureFactory = new EconomyNecropolisFactory();
     }

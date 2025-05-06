@@ -1,7 +1,9 @@
 package pl.psi;
 
+import java.util.ArrayList;
 import java.util.List;
 
+///////////import pl.psi.artifacts.Artifact;
 import pl.psi.creatures.Creature;
 
 import lombok.Getter;
@@ -11,36 +13,53 @@ import lombok.Getter;
  */
 public class Hero {
     private String name;
-    @Getter
-    private final Statistics statistics;
-    @Getter
-    private final List<Creature> creatures;
+//    @Getter
+//    private final Statistics baseStatistics;
+//    @Getter
+//    private final List<Creature> creatures;
+//
+//    private final List<Artifact> artifacts = new ArrayList<>();
 
-    public Hero(String name, Statistics statistics, final List<Creature> aCreatures) {
+    public Hero(String name, final List<Creature> aCreatures) {
         this.name = name;
-        this.statistics = statistics;
-        creatures = aCreatures;
+//        this.baseStatistics = baseStatistics;
+//        this.creatures = aCreatures;
     }
 
-    public int getAttack() {
-        return statistics.getAttack();
-    }
-
-    public int getDefense() {
-        return statistics.getDefense();
-    }
-
-    public int getPower() {
-        return statistics.getPower();
-    }
-
-    public int getKnowledge() {
-        return statistics.getKnowledge();
-    }
-
-    public void increaseStatistics(Statistics bonusStats) {
-        statistics.increase(bonusStats);
-    }
-
-
+//    public void addArtifact(Artifact artifact) {
+//        artifacts.add(artifact);
+//    }
+//
+//    public List<Artifact> getArtifacts() {
+//        return List.copyOf(artifacts);
+//    }
+//
+//    public Statistics getTotalStatistics() {
+//        Statistics total = new Statistics(
+//                baseStatistics.getAttack(),
+//                baseStatistics.getDefense(),
+//                baseStatistics.getPower(),
+//                baseStatistics.getKnowledge()
+//        );
+//        for (Artifact artifact : artifacts) {
+//            total.increase(artifact.getBonuses());
+//        }
+//        return total;
+//    }
+//
+//    public int getAttack() {
+//        return getTotalStatistics().getAttack();
+//    }
+//
+//    public int getDefense() {
+//        return getTotalStatistics().getDefense();
+//    }
+//
+//    public int getPower() {
+//        return getTotalStatistics().getPower();
+//    }
+//
+//    public int getKnowledge() {
+//        return getTotalStatistics().getKnowledge();
+//    }
 }

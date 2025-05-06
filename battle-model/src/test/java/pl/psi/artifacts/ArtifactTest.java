@@ -12,9 +12,9 @@ public class ArtifactTest {
     void testSingleStatBoostArtifact() {
 
         Hero hero = new Hero("Sir Christian",new Statistics(20, 10, 10, 10), List.of());
-        Artifact sword1 = new Artifact("Sword of Hellfire",6,0,0,0);// name, attack, defense,
-        //power,
-        sword1.apply(hero);
+        Artifact sword1 = new Artifact("Sword of Hellfire",6,0,0,0);// name, attack, defense, power,
+        //sword1.apply(hero);
+        hero.addArtifact(sword1);
 
         assertThat(hero.getAttack()).isEqualTo(26);
         assertThat(hero.getDefense()).isEqualTo(10);
@@ -27,7 +27,8 @@ public class ArtifactTest {
         Hero hero1 = new Hero("Tyris",new Statistics(20, 10, 10, 10), List.of());
         Artifact sword2 = new Artifact("Sword of Judgement",5,5,5,5);
 
-        sword2.apply(hero1);
+        //sword2.apply(hero1);
+        hero1.addArtifact(sword2);
 
         assertThat(hero1.getAttack()).isEqualTo(25);
         assertThat(hero1.getDefense()).isEqualTo(15);
