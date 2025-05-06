@@ -1,9 +1,9 @@
 package pl.psi;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-///////////import pl.psi.artifacts.Artifact;
+
 import pl.psi.creatures.Creature;
 
 import lombok.Getter;
