@@ -15,6 +15,6 @@ public class Artifact {
     }
 
     public void apply(Hero hero) {
-        hero.increaseStatistics(bonuses);
+        hero.increaseStatistics(bonuses );
     }
 }
