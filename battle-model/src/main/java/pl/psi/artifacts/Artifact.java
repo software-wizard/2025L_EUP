@@ -14,7 +14,7 @@ public class Artifact {
         this.bonuses = new Statistics(attackBonus, defenseBonus, powerBonus, knowledgeBonus);
     }
 
-    public void apply(Hero hero) {
-        hero.increaseStatistics(bonuses );
-    }
+//    public void apply(Hero hero) {
+//        hero.increaseStatistics(bonuses );
+//    }
 }
