@@ -16,6 +16,7 @@ class EconomyHeroTest
     @BeforeEach
     void init()
     {
+        Statistics aStats = new Statistics(10, 10, 10, 10);///
         hero = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, 3000, aStats);
     }
 
