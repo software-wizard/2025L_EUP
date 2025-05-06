@@ -12,7 +12,7 @@ import pl.psi.creatures.EconomyNecropolisFactory;
 
 class EcoBattleConverterTest
 {
-
+    private final Statistics aStats = new Statistics(10, 10, 10, 10);
     @Test
     void shouldConvertCreaturesCorrectly()
     {

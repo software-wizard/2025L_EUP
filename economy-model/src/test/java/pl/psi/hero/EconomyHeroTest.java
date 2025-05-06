@@ -45,7 +45,7 @@ class EconomyHeroTest
         Statistics baseStats = new Statistics(10, 10, 10, 10);
         Artifact artifact = new Artifact("Amulet of Glory", 5, 3, 2, 1);
 
-        // Zastąp starego bohatera nowym z bazowymi statystykami
+
         hero = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, 3000, baseStats);
         hero.addArtifact(artifact);
 
