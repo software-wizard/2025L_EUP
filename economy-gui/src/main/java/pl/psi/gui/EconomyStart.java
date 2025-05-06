@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pl.psi.hero.Statistics;
 
 public class EconomyStart extends Application
 {
@@ -18,6 +19,7 @@ public class EconomyStart extends Application
     @Override
     public void start( final Stage aStage ) throws Exception
     {
+        Statistics aStats = new Statistics(10, 10, 10, 10);///
         final FXMLLoader loader = new FXMLLoader();
         loader.setLocation( getClass().getClassLoader()
             .getResource( "fxml/eco.fxml" ) );
