@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class SpecialField
 {
-    private String typeOfField;
+    private final String typeOfField;
 
     private SpecialField(final String aTypeOfField)
     {
