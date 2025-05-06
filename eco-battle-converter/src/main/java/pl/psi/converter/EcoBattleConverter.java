@@ -47,7 +47,7 @@ public class EcoBattleConverter
             .forEach( ecoCreature -> creatures.add( factory.create( ecoCreature.isUpgraded(),
                 ecoCreature.getTier(), ecoCreature.getAmount() ) ) );
         return new Hero( creatures );
-    // TODO
+    //  TODO
 
     }
 }
