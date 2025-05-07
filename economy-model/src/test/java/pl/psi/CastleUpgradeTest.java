@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.psi.creatures.CreatureStatistic;
 import pl.psi.hero.EconomyHero;
+import pl.psi.hero.Statistics;
 import pl.psi.map.buildings.Castle;
 import pl.psi.creatures.UpgradeBuildings;
 import pl.psi.map.resources.Resources;
@@ -20,7 +21,8 @@ public class CastleUpgradeTest {
     void init() {
         castle = new Castle();
         resources = new Resources(100000,1000,1000,1000,1000,1000,1000);
-        hero = new EconomyHero(EconomyHero.Fraction.NECROPOLIS,resources);
+        Statistics aStats = new Statistics(10, 10, 10, 10);
+        hero = new EconomyHero(EconomyHero.Fraction.NECROPOLIS,resources, aStats);
     }
 
     @Test

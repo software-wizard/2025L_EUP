@@ -61,21 +61,24 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
     public int calculateMagicDamage(Creature aDefender, Spell aSpell) {
         final int armor = getArmor(aDefender);
 
-        int minDamage, maxDamage;
+        int minDamage;
+        int maxDamage;
+
         switch (aSpell.getSpellLevel()) {
-            case 1 -> {
+            case 1:
                 minDamage = 10;
                 maxDamage = 20;
-            }
-            case 2 -> {
+                break;
+            case 2:
                 minDamage = 20;
                 maxDamage = 30;
-            }
-            case 3 -> {
+                break;
+            case 3:
                 minDamage = 30;
                 maxDamage = 40;
-            }
-            default -> throw new IllegalArgumentException(STR."Invalid spell level: \{aSpell.getSpellLevel()}");
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid spell level: " + aSpell.getSpellLevel());
         }
 
         int randValue = rand.nextInt(maxDamage - minDamage + 1) + minDamage;

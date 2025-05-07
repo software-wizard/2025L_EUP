@@ -25,7 +25,7 @@ public abstract class Spell {
 
     public abstract void cast(Creature targetCreature);
 
-    public CreatureStats modifyStats(CreatureStats baseStats) {
+    public CreatureStatisticIf modifyStats(CreatureStats baseStats) {
         return baseStats;
     }
 }

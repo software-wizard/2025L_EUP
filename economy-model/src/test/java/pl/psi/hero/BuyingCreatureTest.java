@@ -27,7 +27,7 @@ public class BuyingCreatureTest
         resources = new Resources(1000,0,0,0,0,0,0);
         hero1 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources, aStats);
         hero2 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources, aStats);
-        economyEngine = new EconomyEngine( hero1, hero2 );
+        economyEngine = new EconomyEngine( hero1 );
     }
 
     @Test

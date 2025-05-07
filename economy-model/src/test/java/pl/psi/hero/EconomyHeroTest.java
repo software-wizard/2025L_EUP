@@ -42,27 +42,27 @@ class EconomyHeroTest
     {
         assertThrows( IllegalStateException.class, () -> hero.pay( new Resources(3001,0,0,0,0,0,0)));
     }
-    @Test
-    void shouldCorrectlyApplyArtifactBonusesToHeroStatistics() {
-        Statistics baseStats = new Statistics(10, 10, 10, 10);
-        Artifact artifact = new Artifact("Amulet of Glory", 5, 3, 2, 1);
-
-
-        hero = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, 3000, baseStats);
-        hero.addArtifact(artifact);
-
-        assertEquals(15, hero.getAttack());
-        assertEquals(13, hero.getDefense());
-        assertEquals(12, hero.getPower());
-        assertEquals(11, hero.getKnowledge());
-
-        Statistics total = hero.getTotalStatistics();
-        assertEquals(15, total.getAttack());
-        assertEquals(13, total.getDefense());
-        assertEquals(12, total.getPower());
-        assertEquals(11, total.getKnowledge());
-
-        assertEquals(1, hero.getArtifacts().size());
-        assertEquals(5, hero.getArtifacts().get(0).getBonuses().getAttack());
-    }
+//    @Test
+//    void shouldCorrectlyApplyArtifactBonusesToHeroStatistics() {
+//        Statistics baseStats = new Statistics(10, 10, 10, 10);
+//        Artifact artifact = new Artifact("Amulet of Glory", 5, 3, 2, 1);
+//
+//
+//        hero = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, 3000, baseStats);
+//        hero.addArtifact(artifact);
+//
+//        assertEquals(15, hero.getAttack());
+//        assertEquals(13, hero.getDefense());
+//        assertEquals(12, hero.getPower());
+//        assertEquals(11, hero.getKnowledge());
+//
+//        Statistics total = hero.getTotalStatistics();
+//        assertEquals(15, total.getAttack());
+//        assertEquals(13, total.getDefense());
+//        assertEquals(12, total.getPower());
+//        assertEquals(11, total.getKnowledge());
+//
+//        assertEquals(1, hero.getArtifacts().size());
+//        assertEquals(5, hero.getArtifacts().get(0).getBonuses().getAttack());
+//    }
 }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
+import pl.psi.hero.Statistics;
 import pl.psi.map.resources.Gold;
 import pl.psi.map.resources.generators.GoldGenerator;
 import pl.psi.map.resources.Resources;
@@ -19,14 +20,11 @@ class BoardEconomyTest
 {
     private EconomyHero hero1;
     private EconomyHero hero2;
-    private Resources resources;
 
     @BeforeEach
     void init()
     {
-        EconomyHero hero1 = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, resources);
         hero2 = Mockito.mock( EconomyHero.class );
-        resources = new Resources(1000,0,0,0,0,0,0);
     }
 
     @Test
@@ -63,7 +61,7 @@ class BoardEconomyTest
     void setterSetsGoldCorrectly(){
 
 
-        Map<Point, InteractableIf> interactables = new HashMap<>();
+        Map<Point, MapObjectIf> interactables = new HashMap<>();
         interactables.put(new Point(5,5),new Gold(new Resources(500,0,0,0,0,0,0)));
         interactables.put(new Point(10,10),new Gold(new Resources(1000,0,0,0,0,0,0)));
         BoardEconomy board = BoardEconomy.builder()
@@ -81,7 +79,7 @@ class BoardEconomyTest
     @Test
     void goldDissapearsUponPickup()
     {
-        Map<Point, InteractableIf> interactables = new HashMap<>();
+        Map<Point, MapObjectIf> interactables = new HashMap<>();
         interactables.put(new Point(5,5),new Gold(new Resources(500,0,0,0,0,0,0)));
         BoardEconomy board = BoardEconomy.builder()
                 .addHero(hero1, 0)
@@ -99,8 +97,8 @@ class BoardEconomyTest
     @Test
     void mineGeneratesGoldProperlyForOwner()
     {
-        Map<Point, InteractableIf> interactables = new HashMap<>();
-        interactables.put(new Point(5,5), new GoldGenerator(new Resources(500,0,0,0,0,0,0)));
+        Map<Point, MapObjectIf> interactables = new HashMap<>();
+        interactables.put(new Point(5,5), new GoldGenerator());
         BoardEconomyEngine engine = new BoardEconomyEngine(hero1, hero2);
 
         BoardEconomy board = BoardEconomy.builder()
