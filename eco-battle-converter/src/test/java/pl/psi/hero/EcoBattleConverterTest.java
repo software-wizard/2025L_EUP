@@ -13,11 +13,11 @@ import pl.psi.map.resources.Resources;
 
 class EcoBattleConverterTest
 {
-
+    private final Statistics aStats = new Statistics(10, 10, 10, 10);
     @Test
     void shouldConvertCreaturesCorrectly()
     {
-        final EconomyHero ecoHero = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, new Resources(1000,0,0,0,0,0,0));
+        final EconomyHero ecoHero = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, new Resources(1000,0,0,0,0,0,0), aStats);
         final EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
         ecoHero.addCreature( factory.create( false, 1, 1 ) );
         ecoHero.addCreature( factory.create( false, 2, 2 ) );

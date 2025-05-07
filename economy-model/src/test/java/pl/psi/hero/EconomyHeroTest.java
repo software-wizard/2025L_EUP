@@ -17,8 +17,9 @@ class EconomyHeroTest
     @BeforeEach
     void init()
     {
+        Statistics aStats = new Statistics(10, 10, 10, 10);
         resources = new Resources(3000,0,0,0,0,0,0);
-        hero = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources );
+        hero = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources, aStats );
     }
 
     @Test
@@ -40,5 +41,28 @@ class EconomyHeroTest
     void shouldThrowExceptionWhileYouTrySubstractMoreGoldThanHeroHas()
     {
         assertThrows( IllegalStateException.class, () -> hero.pay( new Resources(3001,0,0,0,0,0,0)));
+    }
+    @Test
+    void shouldCorrectlyApplyArtifactBonusesToHeroStatistics() {
+        Statistics baseStats = new Statistics(10, 10, 10, 10);
+        Artifact artifact = new Artifact("Amulet of Glory", 5, 3, 2, 1);
+
+
+        hero = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, 3000, baseStats);
+        hero.addArtifact(artifact);
+
+        assertEquals(15, hero.getAttack());
+        assertEquals(13, hero.getDefense());
+        assertEquals(12, hero.getPower());
+        assertEquals(11, hero.getKnowledge());
+
+        Statistics total = hero.getTotalStatistics();
+        assertEquals(15, total.getAttack());
+        assertEquals(13, total.getDefense());
+        assertEquals(12, total.getPower());
+        assertEquals(11, total.getKnowledge());
+
+        assertEquals(1, hero.getArtifacts().size());
+        assertEquals(5, hero.getArtifacts().get(0).getBonuses().getAttack());
     }
 }

@@ -22,12 +22,16 @@ public class EconomyHero implements PropertyChangeListener
     private int remainingMoves;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    public EconomyHero( final Fraction aFraction, final Resources aResources)
+    private final Statistics baseStatistics;
+    private final List<Artifact> artifacts = new ArrayList<>();
+
+    public EconomyHero( final Fraction aFraction, final Resources aResources, final Statistics aStats)
     {
         fraction = aFraction;
         creatureList = new ArrayList<>();
         remainingMoves = moveRange;
         resources = aResources;
+        baseStatistics = aStats;
     }
 
     public Resources getResources(){
@@ -91,5 +95,40 @@ public class EconomyHero implements PropertyChangeListener
     }
 
 
+    public void addArtifact(Artifact artifact) {
+        artifacts.add(artifact);
+    }
 
+    public List<Artifact> getArtifacts() {
+        return List.copyOf(artifacts);
+    }
+
+    public Statistics getTotalStatistics() {
+        Statistics total = new Statistics(
+                baseStatistics.getAttack(),
+                baseStatistics.getDefense(),
+                baseStatistics.getPower(),
+                baseStatistics.getKnowledge()
+        );
+        for (Artifact artifact : artifacts) {
+            total.increase(artifact.getBonuses());
+        }
+        return total;
+    }
+
+    public int getAttack() {
+        return getTotalStatistics().getAttack();
+    }
+
+    public int getDefense() {
+        return getTotalStatistics().getDefense();
+    }
+
+    public int getPower() {
+        return getTotalStatistics().getPower();
+    }
+
+    public int getKnowledge() {
+        return getTotalStatistics().getKnowledge();
+    }
 }

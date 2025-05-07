@@ -23,9 +23,10 @@ public class BuyingCreatureTest
     @BeforeEach
     void init()
     {
+        Statistics aStats = new Statistics(10, 10, 10, 10); ///
         resources = new Resources(1000,0,0,0,0,0,0);
-        hero1 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources);
-        hero2 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources);
+        hero1 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources, aStats);
+        hero2 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources, aStats);
         economyEngine = new EconomyEngine( hero1, hero2 );
     }
 
