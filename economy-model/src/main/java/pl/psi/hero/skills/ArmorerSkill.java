@@ -5,15 +5,30 @@ import pl.psi.creatures.EconomyCreature;
 public class ArmorerSkill extends AbstractSkill {
     private final float reducedDamageFactor;
 
-    public ArmorerSkill( final String aName, final String aLevel, final float aReducedDamageFactor )
+    public ArmorerSkill( final String aLevel )
     {
-        super( aName, aLevel );
-        reducedDamageFactor= aReducedDamageFactor;
+        super( aLevel );
+        if ( aLevel.equals( "Basic" ) )
+        {
+            reducedDamageFactor = 0.1f;
+        }
+        else if ( aLevel.equals( "Advanced" ) )
+        {
+            reducedDamageFactor = 0.2f;
+        }
+        else if ( aLevel.equals( "Expert" ) )
+        {
+            reducedDamageFactor = 0.3f;
+        }
+        else
+        {
+            throw new IllegalArgumentException( "Invalid level: " + aLevel );
+        }
     }
 
     @Override
     public void apply( final EconomyCreature creature )
     {
-        creature.setReduceDemegeFactor(reducedDamageFactor);
+        creature.setReduceDamageFactor(creature.getReduceDamageFactor()+reducedDamageFactor);
     }
 }

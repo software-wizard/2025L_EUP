@@ -47,7 +47,7 @@ public class EcoBattleConverter
         final NecropolisFactory factory = new NecropolisFactory();
         aPlayer1.getCreatures()
             .forEach( ecoCreature -> creatures.add( factory.create( ecoCreature.isUpgraded(),
-                ecoCreature.getTier(), ecoCreature.getAmount(), ecoCreature.getReduceDemegeFactor() ) ) );
+                ecoCreature.getTier(), ecoCreature.getAmount(), ecoCreature.getReduceDamageFactor() ) ) );
         aPlayer1.getCreatures().forEach(c->skills.forEach(s->{s.apply(c);}));
         return new Hero(creatures);
     }

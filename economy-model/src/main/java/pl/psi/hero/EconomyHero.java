@@ -6,6 +6,8 @@ import java.util.List;
 import lombok.Getter;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.skills.AbstractSkill;
+import pl.psi.hero.skills.ArmorerSkill;
+import pl.psi.hero.skills.OffenceSkill;
 
 public class EconomyHero
 {
@@ -14,7 +16,7 @@ public class EconomyHero
     private final List< EconomyCreature > creatureList;
     private int gold;
     @Getter
-    private List<AbstractSkill> skills = new ArrayList<>();
+    private List<AbstractSkill> skills;
 
     public EconomyHero( final Fraction aFraction, final int aGold )
     {
@@ -56,8 +58,25 @@ public class EconomyHero
         gold -= aAmount;
     }
 
+
     public enum Fraction
     {
         NECROPOLIS;
+    }
+    public void addSkill(final ArmorerSkill aSkill)
+    {
+        if( skills == null )
+        {
+            skills = new ArrayList<>();
+        }
+        skills.add( aSkill );
+    }
+    public void addSkill(final OffenceSkill aSkill)
+    {
+        if( skills == null )
+        {
+            skills = new ArrayList<>();
+        }
+        skills.add( aSkill );
     }
 }

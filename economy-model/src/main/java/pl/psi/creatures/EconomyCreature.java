@@ -1,23 +1,21 @@
 package pl.psi.creatures;
 
 import lombok.Getter;
-import lombok.Setter;
 
 public class EconomyCreature
 {
-    @Setter
     @Getter
     private final CreatureStatistic stats;
     private final int amount;
     private final int goldCost;
-    private final float reduceDemegeFactor;
+    private float reduceDamageFactor;
 
     EconomyCreature( final CreatureStatistic aStats, final int aAmount, final int aGoldCost , float aReducedDamageFactor )
     {
         stats = aStats;
         amount = aAmount;
         goldCost = aGoldCost;
-        reduceDemegeFactor=aReducedDamageFactor;
+        reduceDamageFactor =aReducedDamageFactor;
     }
 
     public int getAmount()
@@ -45,11 +43,8 @@ public class EconomyCreature
         return stats.getTier();
     }
 
-    public float getReduceDemegeFactor() {
-        return reduceDemegeFactor;
-    }
-    public void setReduceDemegeFactor(float aReduceDemegeFactor)
-    {
-        reduceDemegeFactor = aReduceDemegeFactor;
-    }
+    public float getReduceDamageFactor() {return reduceDamageFactor;}
+
+    public void setReduceDamageFactor(float aReduceDemegeFactor) {
+        reduceDamageFactor = aReduceDemegeFactor;}
 }

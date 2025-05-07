@@ -5,10 +5,18 @@ import pl.psi.creatures.EconomyCreature;
 public class OffenceSkill extends AbstractSkill {
     private final float attackBonus;
 
-    public OffenceSkill( final String aName, final String aLevel, final float aAttackBonus )
+    public OffenceSkill( final String aLevel)
     {
-        super( aName, aLevel );
-        attackBonus= aAttackBonus;
+        super( aLevel );
+        if (aLevel.equals("Basic")) {
+            attackBonus = 0.1f;
+        } else if (aLevel.equals("Advanced")) {
+            attackBonus = 0.2f;
+        } else if (aLevel.equals("Expert")) {
+            attackBonus = 0.3f;
+        } else {
+            throw new IllegalArgumentException("Invalid level: " + aLevel);
+        }
     }
 
     @Override
