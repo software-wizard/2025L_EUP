@@ -2,6 +2,8 @@ package pl.psi;
 
 import java.util.List;
 
+import pl.psi.Spells.ActiveSpellEffect;
+import pl.psi.Spells.Spell;
 import pl.psi.creatures.Creature;
 
 import lombok.Getter;
@@ -17,5 +19,17 @@ public class Hero
     public Hero( final List< Creature > aCreatures )
     {
         creatures = aCreatures;
+
     }
+
+    public void apply(Spell s, Creature c) {
+        s.cast(c);    }
+
 }
+
+
+
+
+
+
+

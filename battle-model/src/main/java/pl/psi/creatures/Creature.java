@@ -8,9 +8,15 @@ package pl.psi.creatures;//  ***************************************************
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import lombok.Setter;
+import pl.psi.Spells.ActiveSpellEffect;
+import pl.psi.Spells.BuffSpell;
+import pl.psi.Spells.Spell;
 import pl.psi.TurnQueue;
 
 import com.google.common.collect.Range;
@@ -23,11 +29,17 @@ import lombok.Getter;
 @Getter
 public class Creature implements PropertyChangeListener {
     private CreatureStatisticIf stats;
+    private CreatureStats originalStats;
     @Setter
     private int amount;
+
+
+    @Getter
+    @Setter
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
+    private final List<ActiveSpellEffect> activeSpellEffects = new ArrayList<>();
 
     Creature() {
     }
@@ -38,6 +50,7 @@ public class Creature implements PropertyChangeListener {
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
+        this.originalStats = (CreatureStats) this.getStats();
     }
 
     public void attack(final Creature aDefender) {
@@ -73,10 +86,6 @@ public class Creature implements PropertyChangeListener {
         return stats.getMaxHp();
     }
 
-    protected void setCurrentHp(final int aCurrentHp) {
-        currentHp = aCurrentHp;
-    }
-
     private boolean canCounterAttack(final Creature aDefender) {
         return aDefender.getCounterAttackCounter() > 0 && aDefender.getCurrentHp() > 0;
     }
@@ -92,9 +101,22 @@ public class Creature implements PropertyChangeListener {
         return stats.getDamage();
     }
 
-    int getAttack() {
+    public int getAttack() {
         return stats.getAttack();
     }
+
+
+    public void applyTemporaryBuff(BuffSpell buffSpell) {
+        this.getActiveSpellEffects().add(new ActiveSpellEffect(buffSpell, buffSpell.getDuration()));
+        CreatureStats modifiedStats = originalStats;
+        for (ActiveSpellEffect effect : activeSpellEffects) {
+            modifiedStats  = effect.getSpell().modifyStats(modifiedStats );
+
+        }
+        this.stats = modifiedStats;
+
+    }
+
 
     int getArmor() {
         return stats.getArmor();
@@ -104,8 +126,29 @@ public class Creature implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent evt) {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
+            updateActiveSpells();
         }
     }
+
+    private void updateActiveSpells() {
+        Iterator<ActiveSpellEffect> iterator = activeSpellEffects.iterator();
+        while (iterator.hasNext()) {
+            ActiveSpellEffect effect = iterator.next();
+            effect.decreaseDuration();
+
+            if (effect.isExpired()) {
+                iterator.remove();
+            }
+        }
+
+        CreatureStats modifiedStats = originalStats;
+        for (ActiveSpellEffect effect : activeSpellEffects) {
+            modifiedStats  = effect.getSpell().modifyStats(modifiedStats );
+
+        }
+        this.stats = modifiedStats;
+    }
+
 
     protected void restoreCurrentHpToMax() {
         currentHp = stats.getMaxHp();
@@ -118,6 +161,14 @@ public class Creature implements PropertyChangeListener {
     public int getMoveRange() {
         return stats.getMoveRange();
     }
+
+    public void applyMagicDamage(Spell aDamageSpell) {
+        if (isAlive()) {
+            final int magicDamage = getCalculator().calculateMagicDamage(this, aDamageSpell);
+            applyDamage(this, magicDamage);
+        }
+    }
+
 
     public static class Builder {
         private int amount = 1;

@@ -1,5 +1,7 @@
 package pl.psi.creatures;
 
+import pl.psi.Spells.Spell;
+
 import java.util.Random;
 
 abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
@@ -55,8 +57,42 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
         return (int)(aAttacker.getAmount() * oneCreatureDamageToDeal);
     }
 
+    @Override
+    public int calculateMagicDamage(Creature aDefender, Spell aSpell) {
+        final int armor = getArmor(aDefender);
+
+        int minDamage, maxDamage;
+        switch (aSpell.getSpellLevel()) {
+            case 1 -> {
+                minDamage = 10;
+                maxDamage = 20;
+            }
+            case 2 -> {
+                minDamage = 20;
+                maxDamage = 30;
+            }
+            case 3 -> {
+                minDamage = 30;
+                maxDamage = 40;
+            }
+            default -> throw new IllegalArgumentException(STR."Invalid spell level: \{aSpell.getSpellLevel()}");
+        }
+
+        int randValue = rand.nextInt(maxDamage - minDamage + 1) + minDamage;
+
+        double reducedDamage = randValue * (1 - (armor * 0.025));
+        if (reducedDamage < 0) {
+            reducedDamage = 0;
+        }
+
+        return (int) reducedDamage;
+    }
+
     protected int getArmor( final Creature aDefender )
     {
         return aDefender.getArmor();
     }
+
+
 }
+

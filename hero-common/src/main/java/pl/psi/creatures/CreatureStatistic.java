@@ -4,7 +4,6 @@ import com.google.common.collect.Range;
 
 import lombok.Getter;
 
-
 @Getter
 public enum CreatureStatistic implements CreatureStatisticIf
 {
@@ -76,7 +75,7 @@ public enum CreatureStatistic implements CreatureStatisticIf
         isUpgraded = aIsUpgraded;
     }
 
-    public String getTranslatedName()
+    String getTranslatedName()
     {
         return name;
     }
