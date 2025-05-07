@@ -1,9 +1,12 @@
-package pl.psi.map.buildings;
+package pl.psi.map.buildings.bank;
 
 import pl.psi.hero.EconomyHero;
+import pl.psi.map.buildings.BuildingIf;
+import pl.psi.map.buildings.EnterAction;
+import pl.psi.map.buildings.EnterActionType;
 import pl.psi.map.resources.Resources;
 
-public class Bank implements BuildingIf{
+public class Bank implements BuildingIf {
     final Resources prize;
 
     public Bank(Resources prize) {
@@ -12,7 +15,7 @@ public class Bank implements BuildingIf{
 
     @Override
     public String getPath() {
-        return "";
+        return "/objects/bank.png";
     }
 
     @Override
