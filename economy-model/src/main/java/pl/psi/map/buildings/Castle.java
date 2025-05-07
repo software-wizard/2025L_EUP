@@ -2,7 +2,6 @@ package pl.psi.map.buildings;
 
 import pl.psi.creatures.UpgradeBuildings;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.MapObjectIf;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -46,15 +45,12 @@ public class Castle implements BuildingIf {
     }
 
     @Override
-    public void Enter() {
-    }
-
-    @Override
     public void endOfTurn() {
     }
 
     @Override
-    public void enter() {
+    public void enter(EconomyHero hero) {
+
     }
 
     @Override
@@ -65,4 +61,16 @@ public class Castle implements BuildingIf {
     public EconomyHero getOwner() {
         return null;
     }
+
+    @Override
+    public EnterAction onEnter() {
+        return new EnterAction(EnterActionType.OPEN_SHOP, this);
+    }
+
+    @Override
+    public EnterAction secondInteraction() {
+        return new EnterAction(EnterActionType.OPEN_UPGRADE, this);
+    }
+
+
 }

@@ -89,22 +89,23 @@ public class EconomyBoardController implements PropertyChangeListener {
         }
 
         if (gameEngine.canInteract(point)) {
-            tile.setOnMouseClicked(e -> gameEngine.move(point));
+            tile.setOnMouseClicked(e -> {
+                gameEngine.move(point);
+                gameEngine.interact(point);
+            });
         }
 
         if (gameEngine.canAttack(point)) {
             tile.setOnMouseClicked(e -> EcoBattleConverter.startBattle(battleHero1, battleHero2));
         }
 
-        if (gameEngine.canEnterCastle(point)) {
+        if (gameEngine.canEnter(point)) {
             tile.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
                     gameEngine.move(point); // Ensure hero enters
-                    gameEngine.getBuilding(point)
-                            .ifPresent(building -> gameEngine.openShop(Optional.of(building)));
+                    gameEngine.enter(point);
                 } else if (e.getButton() == MouseButton.SECONDARY) {
-                    gameEngine.getBuilding(point)
-                            .ifPresent(building -> gameEngine.openUpgrades(Optional.of(building)));
+                    gameEngine.secondInteraction(point);
                 }
             });
         }
@@ -129,8 +130,8 @@ public class EconomyBoardController implements PropertyChangeListener {
             case "OPEN_SHOP":
                 Object[] data = (Object[]) evt.getNewValue();
                 EconomyHero hero = (EconomyHero) data[0];
-                Optional<Castle> optionalCastle = (Optional<Castle>) data[1];
-                optionalCastle.ifPresent(castle -> WindowManager.openShop(hero, castle));
+                Castle optionalCastle = (Castle) data[1];
+                WindowManager.openShop(hero, optionalCastle);
                 break;
 
             case "OPEN_UPGRADES":

@@ -29,7 +29,7 @@ public class Gold implements InteractableIf {
     }
 
     @Override
-    public void enter() {
+    public void enter(EconomyHero hero) {
 
     }
 

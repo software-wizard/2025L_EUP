@@ -48,7 +48,7 @@ public class WoodGenerator implements InteractableIf, ResourceGenIf {
     }
 
     @Override
-    public void enter() {
+    public void enter(EconomyHero hero) {
 
     }
 }

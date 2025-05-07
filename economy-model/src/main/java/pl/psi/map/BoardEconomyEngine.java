@@ -2,8 +2,8 @@ package pl.psi.map;
 
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.buildings.BuildingIf;
-import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.*;
+import pl.psi.map.resources.Resources;
 import pl.psi.map.resources.generators.*;
 
 import java.beans.PropertyChangeListener;
@@ -33,6 +33,7 @@ public class BoardEconomyEngine {
         interactables.put(new Point(7,2), new CrystalGenerator());
         interactables.put(new Point(8,2), new GemGenerator());
         buildings.put(new Point(0,1), new Castle());
+        buildings.put(new Point(10, 10), new Bank(new Resources(0,0,0,0,0,0,0)));
         board = BoardEconomy.builder()
                 .addHero(hero1, 5)
                 .addHero(hero2,14)
@@ -49,7 +50,7 @@ public class BoardEconomyEngine {
         return isHeroAdjacent(point) && getHero(point).isPresent();
     }
 
-    public boolean canEnterCastle(final Point point) {
+    public boolean canEnter(final Point point) {
         return isEnterable(point);
     }
 
@@ -61,6 +62,25 @@ public class BoardEconomyEngine {
         board.move(turnQueue.getCurrentHero(), point);
         observerSupport.firePropertyChange(HERO_MOVED, null, point);
     }
+
+    public void interact(final Point point){
+        board.interact(turnQueue.getCurrentHero(), point);
+    }
+
+    public void enter(final Point point){
+        EnterAction action = board.enter(turnQueue.getCurrentHero(), point);
+        switch (action.getType()){
+            case OPEN_SHOP -> openShop(action.getBuilding());
+        }
+    }
+
+    public void secondInteraction(final Point point){
+        EnterAction action = board.secondInteraction(turnQueue.getCurrentHero(), point);
+        switch (action.getType()){
+            case OPEN_UPGRADE -> openUpgrades(action.getBuilding());
+        }
+    }
+
 
     public Optional<EconomyHero> getHero(final Point point) {
         return board.getHero(point);
@@ -106,7 +126,7 @@ public class BoardEconomyEngine {
             if (interactable instanceof ResourceGenIf generator){
                     generator.generateResource();
                 }
-            } //TODO zrobić "dni" które są po passach dwóch graczy, endOfDay
+            }
         }
 
 
@@ -133,16 +153,13 @@ public class BoardEconomyEngine {
     }
 
 
-    public void openShop(Optional<BuildingIf> buildingOpt) {
+    public void openShop(BuildingIf buildingOpt) {
         observerSupport.firePropertyChange("OPEN_SHOP", null, new Object[]{getCurrentHero(), buildingOpt});
     }
 
-    public void openUpgrades(Optional<BuildingIf> buildingOpt) {
-        buildingOpt.ifPresent(building -> {
-            if (building instanceof Castle) {
-                observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),building});
-            }
-        });
+    public void openUpgrades(BuildingIf buildingOpt) {
+                observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),buildingOpt});
+        ;
     }
 
 

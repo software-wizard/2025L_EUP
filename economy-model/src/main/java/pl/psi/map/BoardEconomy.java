@@ -1,5 +1,6 @@
 package pl.psi.map;
 
+import com.google.common.base.internal.Finalizer;
 import com.google.common.collect.BiMap;
 
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Optional;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
+import pl.psi.map.buildings.EnterAction;
 
 public class BoardEconomy {
     private static final int MAX_WIDTH = 14;
@@ -72,18 +74,37 @@ public class BoardEconomy {
         if (canMove(hero, targetPoint)) {
             Point oldPosition = getPosition(hero);
             double distance = oldPosition.distance(targetPoint);
-
             if (hero.canMoveTo(distance)) {
                 map.inverse().remove(hero);
-                Object obj = interactionMap.get(targetPoint);
-                if (obj instanceof InteractableIf interactable) {
-                    interactable.interact(hero, this, targetPoint);
-                }
                 map.put(targetPoint, hero);
                 hero.deductMove(distance);
             }
         }
     }
+
+
+    public void interact(final EconomyHero hero, final Point targetPoint){
+        MapObjectIf obj = interactionMap.get(targetPoint);
+        if (obj instanceof InteractableIf interactable) {
+            interactable.interact(hero, this, targetPoint);
+        }
+    }
+    public EnterAction enter(final EconomyHero hero, final Point targetPoint){
+        MapObjectIf obj = interactionMap.get(targetPoint);
+        if (obj instanceof BuildingIf building){
+            return building.onEnter();
+        }
+        return null;
+    }
+
+    public EnterAction secondInteraction(final EconomyHero hero, final Point targetPoint){
+        MapObjectIf obj = interactionMap.get(targetPoint);
+        if(obj instanceof BuildingIf building){
+            return building.secondInteraction();
+        }
+        return null;
+    }
+
 
     public Point getPosition(EconomyHero hero) {
         return map.inverse().get(hero);
