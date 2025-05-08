@@ -3,9 +3,12 @@ package pl.psi.converter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import pl.psi.Hero;
+import pl.psi.Point;
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.CreatureStatistic;
 import pl.psi.gui.MainBattleController;
 import pl.psi.creatures.NecropolisFactory;
 
@@ -38,6 +41,29 @@ public class EcoBattleConverter
             aE.printStackTrace();
         }
     }
+
+    public static void startBankBattle(final EconomyHero aPlayer1, final Map<Point, Creature> bankEnemy)
+    {
+        Scene scene = null;
+        try
+        {
+            final FXMLLoader loader = new FXMLLoader();
+            loader.setLocation( EcoBattleConverter.class.getClassLoader()
+                    .getResource( "fxml/main-battle.fxml" ) );
+            loader.setController( new MainBattleController( convert( aPlayer1 ),bankEnemy ));
+            scene = new Scene( loader.load() );
+            final Stage aStage = new Stage();
+            aStage.setScene( scene );
+            aStage.setX( 5 );
+            aStage.setY( 5 );
+            aStage.show();
+        }
+        catch( final IOException aE )
+        {
+            aE.printStackTrace();
+        }
+    }
+
 
     public static Hero convert( final EconomyHero aPlayer1 )
     {

@@ -11,10 +11,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
+import pl.psi.creatures.Creature;
+import pl.psi.creatures.CreatureStatistic;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.BoardEconomyEngine;
 import pl.psi.map.InteractableIf;
 import pl.psi.map.MapObjectIf;
+import pl.psi.map.buildings.Bank;
 import pl.psi.map.buildings.BuildingIf;
 import pl.psi.map.buildings.Castle;
 import pl.psi.map.resources.Resources;
@@ -22,6 +25,7 @@ import pl.psi.map.resources.Resources;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
 
 public class EconomyBoardController implements PropertyChangeListener {
@@ -140,6 +144,13 @@ public class EconomyBoardController implements PropertyChangeListener {
                 Castle castle1 = (Castle) data1[1];
                 WindowManager.openUpgrades(hero1, castle1);
                 break;
+
+            case "ENTER_BANK":
+                Object[] data2 = (Object[]) evt.getNewValue();
+                EconomyHero hero2 = (EconomyHero) data2[0];
+                Bank bank = (Bank) data2[1];
+                Map<Point, Creature> enemies = bank.getEnemies();
+                EcoBattleConverter.startBankBattle(hero2, enemies);
         }
     }
 }

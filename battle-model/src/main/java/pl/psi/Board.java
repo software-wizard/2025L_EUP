@@ -1,6 +1,7 @@
 package pl.psi;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.google.common.collect.BiMap;
@@ -29,6 +30,12 @@ public class Board
         addSpecialFields( aSpecialFields );
     }
 
+    public Board (final Map<Point,Creature> bankCreatures, final List<Creature> heroCreatures )
+    {
+        addCreaturesSetPositions(bankCreatures);
+        addCreaturesInCircle(heroCreatures, new Point(5,5),4.0);
+    }
+
     private void addCreatures( final List< Creature > aCreatures, final int aXPosition )
     {
         for( int i = 0; i < aCreatures.size(); i++ )
@@ -36,6 +43,24 @@ public class Board
             map.put( new Point( aXPosition, i * 2 + 1 ), aCreatures.get( i ) );
         }
     }
+
+    private void addCreaturesSetPositions(final Map<Point,Creature> creaturesToPositions) {
+        map.putAll(creaturesToPositions);
+    }
+
+    private void addCreaturesInCircle(final List<Creature> aCreatures, final Point center, final double radius) {
+        int numberOfCreatures = aCreatures.size();
+
+        for (int i = 0; i < numberOfCreatures; i++) {
+            double angle = 2 * Math.PI * i / numberOfCreatures;
+            int x = (int) Math.round(center.getX() + radius * Math.cos(angle));
+            int y = (int) Math.round(center.getY() + radius * Math.sin(angle));
+
+            Point position = new Point(x, y);
+            map.put(position, aCreatures.get(i));
+        }
+    }
+
 
     private void addSpecialFields( final List<String> aSpecialFields)
     {

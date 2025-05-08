@@ -33,7 +33,7 @@ public class BoardEconomyEngine {
         interactables.put(new Point(7,2), new CrystalGenerator());
         interactables.put(new Point(8,2), new GemGenerator());
         buildings.put(new Point(0,1), new Castle());
-        buildings.put(new Point(10, 10), new Bank(new Resources(0,0,0,0,0,0,0)));
+        buildings.put(new Point(10, 3), new Bank(new Resources(0,0,0,0,0,0,0)));
         board = BoardEconomy.builder()
                 .addHero(hero1, 5)
                 .addHero(hero2,14)
@@ -71,7 +71,7 @@ public class BoardEconomyEngine {
         EnterAction action = board.enter(turnQueue.getCurrentHero(), point);
         switch (action.getType()){
             case OPEN_SHOP -> openShop(action.getBuilding());
-            //case ENTER_BANK -> enterBank(action.getBuilding());
+            case ENTER_BANK -> enterBank(action.getBuilding());
         }
     }
 
@@ -153,6 +153,10 @@ public class BoardEconomyEngine {
 
     public void openUpgrades(BuildingIf buildingOpt) {
                 observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),buildingOpt});
+    }
+
+    public void enterBank(BuildingIf building){
+        observerSupport.firePropertyChange("ENTER_BANK", null, new Object[]{getCurrentHero(), building});
     }
 
 
