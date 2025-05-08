@@ -7,7 +7,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 import pl.psi.creatures.Creature;
-import pl.psi.creatures.MovementType;
+//import pl.psi.creatures.MovementType;
 
 public class Board
 {
@@ -88,7 +88,7 @@ public class Board
     private List<Point> findPath( Creature creature, Point goal )
     {
         final Point start = getPosition( creature );
-        final boolean canFly = creature.getStats().getMovementType() == MovementType.FLYING;
+        //final boolean canFly = creature.getStats().getMovementType() == MovementType.FLYING;
         final int range = creature.getMoveRange();
 
         Queue<List<Point>> queue = new LinkedList<>();
@@ -112,7 +112,7 @@ public class Board
                 if( !isInBounds( neighbor ) ) continue;
                 if( visited.contains( neighbor ) ) continue;
                 if( map.containsKey( neighbor ) ) continue;
-                if( !canFly && obstacles.contains( neighbor ) ) continue;
+                //if( !canFly && obstacles.contains( neighbor ) ) continue;
 
                 List<Point> newPath = new ArrayList<>( path );
                 newPath.add( neighbor );
