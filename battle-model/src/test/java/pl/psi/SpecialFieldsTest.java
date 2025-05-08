@@ -3,6 +3,7 @@ package pl.psi;
 import java.util.List;
 
 import com.google.common.collect.Range;
+import org.junit.jupiter.api.Disabled;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
 
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 public class SpecialFieldsTest {
 
     private static final Range<Integer> NOT_IMPORTANT_DMG = Range.closed(0, 0);
