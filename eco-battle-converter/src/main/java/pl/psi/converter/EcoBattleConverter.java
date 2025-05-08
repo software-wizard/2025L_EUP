@@ -48,7 +48,12 @@ public class EcoBattleConverter
         aPlayer1.getCreatures()
             .forEach( ecoCreature -> creatures.add( factory.create( ecoCreature.isUpgraded(),
                 ecoCreature.getTier(), ecoCreature.getAmount(), ecoCreature.getReduceDamageFactor() ) ) );
-        aPlayer1.getCreatures().forEach(c->skills.forEach(s->{s.apply(c);}));
-        return new Hero(creatures);
+        if (skills == null)
+        {
+            return new Hero(creatures);
+        }else {
+            aPlayer1.getCreatures().forEach(c->skills.forEach(s->{s.apply(c);}));
+            return new Hero(creatures);
+        }
     }
 }

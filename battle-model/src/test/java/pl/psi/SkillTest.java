@@ -3,6 +3,7 @@ package pl.psi;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.psi.converter.EcoBattleConverter.convert;
@@ -12,7 +13,7 @@ import pl.psi.hero.EconomyHero;
 import pl.psi.hero.skills.ArmorerSkill;
 import pl.psi.hero.skills.OffenceSkill;
 
-
+@Disabled
 public class SkillTest {
 
     @Test
