@@ -1,32 +1,23 @@
 package pl.psi.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.Creature;
-import pl.psi.creatures.CreatureStatistic;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.BoardEconomyEngine;
-import pl.psi.map.InteractableIf;
-import pl.psi.map.MapObjectIf;
-import pl.psi.map.buildings.Bank;
-import pl.psi.map.buildings.BuildingIf;
+import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.buildings.Castle;
 import pl.psi.map.resources.Resources;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.Map;
-import java.util.Optional;
 
 public class EconomyBoardController implements PropertyChangeListener {
     private final BoardEconomyEngine gameEngine;

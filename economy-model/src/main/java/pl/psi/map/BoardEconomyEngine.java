@@ -3,7 +3,8 @@ package pl.psi.map;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.*;
-import pl.psi.map.resources.Resources;
+import pl.psi.map.buildings.bank.Bank;
+import pl.psi.map.buildings.bank.BankStatistics;
 import pl.psi.map.resources.generators.*;
 
 import java.beans.PropertyChangeListener;
@@ -33,7 +34,7 @@ public class BoardEconomyEngine {
         interactables.put(new Point(7,2), new CrystalGenerator());
         interactables.put(new Point(8,2), new GemGenerator());
         buildings.put(new Point(0,1), new Castle());
-        buildings.put(new Point(10, 3), new Bank(new Resources(0,0,0,0,0,0,0)));
+        buildings.put(new Point(10, 3), new Bank(BankStatistics.CASTLE_2));
         board = BoardEconomy.builder()
                 .addHero(hero1, 5)
                 .addHero(hero2,14)
