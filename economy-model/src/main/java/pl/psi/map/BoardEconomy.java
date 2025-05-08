@@ -81,6 +81,7 @@ public class BoardEconomy {
                 interactionMap.inverse().remove(obj);
             }
     }
+
     public EnterAction enter(final EconomyHero hero, final Point targetPoint){
         MapObjectIf obj = interactionMap.get(targetPoint);
             return obj.onEnter();
