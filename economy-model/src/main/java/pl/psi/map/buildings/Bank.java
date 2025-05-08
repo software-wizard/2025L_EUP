@@ -1,6 +1,8 @@
 package pl.psi.map.buildings;
 
+import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
+import pl.psi.map.BoardEconomy;
 import pl.psi.map.resources.Resources;
 
 public class Bank implements BuildingIf{
@@ -27,6 +29,11 @@ public class Bank implements BuildingIf{
 
     @Override
     public void generateResource() {
+
+    }
+
+    @Override
+    public void interact(EconomyHero hero, BoardEconomy board, Point point) {
 
     }
 

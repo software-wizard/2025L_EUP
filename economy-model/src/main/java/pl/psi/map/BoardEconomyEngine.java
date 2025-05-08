@@ -71,6 +71,7 @@ public class BoardEconomyEngine {
         EnterAction action = board.enter(turnQueue.getCurrentHero(), point);
         switch (action.getType()){
             case OPEN_SHOP -> openShop(action.getBuilding());
+            //case ENTER_BANK -> enterBank(action.getBuilding());
         }
     }
 
@@ -98,10 +99,6 @@ public class BoardEconomyEngine {
         return board.getInteractableAt(point);
     }
 
-    public Optional<BuildingIf> getBuilding(final Point point) {
-        return board.getBuildingAt(point);
-    }
-
     public void pass() {
         getCurrentHero().resetMoveRange();
         endOfTurn();
@@ -122,10 +119,7 @@ public class BoardEconomyEngine {
 
     private void generateResourcesEndDay(){
         for (MapObjectIf interactable : interactables.values()) {
-            System.out.println(interactable); // jak zmienie to można wywalić instanceof
-            if (interactable instanceof ResourceGenIf generator){
-                    generator.generateResource();
-                }
+            interactable.generateResource();
             }
         }
 
@@ -159,7 +153,6 @@ public class BoardEconomyEngine {
 
     public void openUpgrades(BuildingIf buildingOpt) {
                 observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),buildingOpt});
-        ;
     }
 
 

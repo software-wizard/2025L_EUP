@@ -5,6 +5,7 @@ import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.BoardEconomy;
 import pl.psi.map.InteractableIf;
+import pl.psi.map.buildings.EnterAction;
 import pl.psi.map.resources.Resources;
 
 
@@ -30,6 +31,16 @@ public class CrystalGenerator implements InteractableIf, ResourceGenIf {
         //po wejściu na pole owner zmienia się na hero który wszedł i co kliknięcie pass dodaje golda
         // pokminić czy zrobić to w hero (lista kopalni) czy tak jak tutaj
 
+    }
+
+    @Override
+    public EnterAction onEnter() {
+        return null;
+    }
+
+    @Override
+    public EnterAction secondInteraction() {
+        return null;
     }
 
     @Override

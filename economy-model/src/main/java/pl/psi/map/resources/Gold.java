@@ -4,6 +4,7 @@ import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.BoardEconomy;
 import pl.psi.map.InteractableIf;
+import pl.psi.map.buildings.EnterAction;
 
 public class Gold implements InteractableIf {
     private final Resources resources;
@@ -40,6 +41,16 @@ public class Gold implements InteractableIf {
 
     @Override
     public EconomyHero getOwner() {
+        return null;
+    }
+
+    @Override
+    public EnterAction onEnter() {
+        return null;
+    }
+
+    @Override
+    public EnterAction secondInteraction() {
         return null;
     }
 }

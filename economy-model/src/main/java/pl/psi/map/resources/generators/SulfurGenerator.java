@@ -5,6 +5,7 @@ import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.BoardEconomy;
 import pl.psi.map.InteractableIf;
+import pl.psi.map.buildings.EnterAction;
 import pl.psi.map.resources.Resources;
 
 
@@ -51,6 +52,16 @@ public class SulfurGenerator implements InteractableIf, ResourceGenIf {
     @Override
     public void enter(EconomyHero hero) {
 
+    }
+
+    @Override
+    public EnterAction onEnter() {
+        return null;
+    }
+
+    @Override
+    public EnterAction secondInteraction() {
+        return null;
     }
 }
 

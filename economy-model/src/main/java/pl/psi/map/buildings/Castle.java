@@ -1,7 +1,9 @@
 package pl.psi.map.buildings;
 
+import pl.psi.Point;
 import pl.psi.creatures.UpgradeBuildings;
 import pl.psi.hero.EconomyHero;
+import pl.psi.map.BoardEconomy;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,10 +37,6 @@ public class Castle implements BuildingIf {
         return builtBuildings.contains(building);
     }
 
-    public Set<UpgradeBuildings> getBuiltBuildings() {
-        return Set.copyOf(builtBuildings);
-    }
-
     @Override
     public String getPath() {
         return "/objects/castle.png";
@@ -55,6 +53,11 @@ public class Castle implements BuildingIf {
 
     @Override
     public void generateResource() {
+    }
+
+    @Override
+    public void interact(EconomyHero hero, BoardEconomy board, Point point) {
+
     }
 
     @Override
