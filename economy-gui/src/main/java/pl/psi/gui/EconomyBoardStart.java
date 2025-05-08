@@ -33,7 +33,7 @@ public class EconomyBoardStart extends Application {
     private EconomyHero hero1()
     {
         Statistics aStats = new Statistics(10, 10, 10, 10);
-        final EconomyHero hero1 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, new Resources(3000,0,0,0,0,0,0), aStats);
+        final EconomyHero hero1 = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, new Resources(3000,50,50,50,50,50,50), aStats);
         final EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
         hero1.addCreature( factory.create( false, 1, 1 ));
         hero1.addCreature( factory.create( false, 1, 1 ));

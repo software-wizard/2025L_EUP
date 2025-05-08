@@ -2,11 +2,12 @@ package pl.psi.Spells;
 
 import lombok.Getter;
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.CreatureStatisticIf;
 import pl.psi.creatures.CreatureStats;
 
 
 @Getter
-public class BuffSpell extends Spell{
+public class BuffSpell extends Spell {
 
     private final CreatureStats buffStats;
 
@@ -21,8 +22,8 @@ public class BuffSpell extends Spell{
         targetCreature.applyTemporaryBuff(this);
     }
 
-@Override
-    public CreatureStats modifyStats(CreatureStats base) {
+    @Override
+    public CreatureStats modifyStats(CreatureStatisticIf base) {
         return CreatureStats.builder()
                 .attack(base.getAttack() + buffStats.getAttack())
                 .armor(base.getArmor() + buffStats.getArmor())

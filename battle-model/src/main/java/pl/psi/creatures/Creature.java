@@ -29,7 +29,7 @@ import lombok.Getter;
 @Getter
 public class Creature implements PropertyChangeListener {
     private CreatureStatisticIf stats;
-    private CreatureStats originalStats;
+    private CreatureStatisticIf originalStats;
     @Setter
     private int amount;
 
@@ -50,7 +50,7 @@ public class Creature implements PropertyChangeListener {
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
-//        this.originalStats = (CreatureStats) this.getStats();
+        this.originalStats = this.getStats();
     }
 
     public void attack(final Creature aDefender) {
@@ -108,12 +108,12 @@ public class Creature implements PropertyChangeListener {
 
     public void applyTemporaryBuff(BuffSpell buffSpell) {
         this.getActiveSpellEffects().add(new ActiveSpellEffect(buffSpell, buffSpell.getDuration()));
-        CreatureStats modifiedStats = originalStats;
-//        for (ActiveSpellEffect effect : activeSpellEffects) {
-//            modifiedStats  = effect.getSpell().modifyStats(modifiedStats );
-//
-//        }
-//        this.stats = modifiedStats;
+        CreatureStatisticIf modifiedStats = originalStats;
+        for (ActiveSpellEffect effect : activeSpellEffects) {
+            modifiedStats  =  effect.getSpell().modifyStats(modifiedStats );
+
+        }
+        this.stats = modifiedStats;
 
     }
 
@@ -141,12 +141,12 @@ public class Creature implements PropertyChangeListener {
             }
         }
 
-//        CreatureStats modifiedStats = originalStats;
-//        for (ActiveSpellEffect effect : activeSpellEffects) {
-//            modifiedStats  = effect.getSpell().modifyStats(modifiedStats );
-//
-//        }
-//        this.stats = modifiedStats;
+        CreatureStatisticIf modifiedStats = originalStats;
+        for (ActiveSpellEffect effect : activeSpellEffects) {
+            modifiedStats  =  effect.getSpell().modifyStats(modifiedStats );
+
+        }
+        this.stats = modifiedStats;
     }
 
 
