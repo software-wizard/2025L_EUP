@@ -15,7 +15,7 @@ public class Hero {
     @Getter
     private final List< Creature > creatures;
 
-    public Hero( final List< Creature > aCreatures )
+    public Hero( final List< Creature > aCreatures)
     {
         creatures = aCreatures;
     }
