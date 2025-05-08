@@ -9,7 +9,8 @@ public interface MapObjectIf {
     void endOfTurn(); // w tych bez wydarzeń na koniec zostaje pusty
     void enter(EconomyHero hero);
     void generateResource();
-    void interact(EconomyHero hero, BoardEconomy board, Point point);
+    void interact(EconomyHero hero, Point point);
+    typeOfObject getTypeOfObject();
     EconomyHero getOwner();
     EnterAction onEnter();
     EnterAction secondInteraction();
@@ -18,5 +19,6 @@ public interface MapObjectIf {
         GENERATOR,
         BUILDING,
         PICKUPABLE,
+        UNKNOWN
     }
 }

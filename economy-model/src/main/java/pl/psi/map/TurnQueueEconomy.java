@@ -1,5 +1,6 @@
 package pl.psi.map;
 
+import lombok.Getter;
 import pl.psi.hero.EconomyHero;
 
 import java.beans.PropertyChangeListener;
@@ -16,6 +17,7 @@ public class TurnQueueEconomy {
     private final Collection<EconomyHero> heroes;
     private final Queue<EconomyHero> heroQueue;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
+    @Getter
     private EconomyHero currentHero;
     private int roundNumber;
 
@@ -30,10 +32,6 @@ public class TurnQueueEconomy {
 
     private void initQueue() {
         heroQueue.addAll(heroes);
-    }
-
-    public EconomyHero getCurrentHero() {
-        return currentHero;
     }
 
     public void next() {

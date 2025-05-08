@@ -9,6 +9,8 @@ import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
 import pl.psi.map.buildings.EnterAction;
 
+import static pl.psi.map.MapObjectIf.typeOfObject.PICKUPABLE;
+
 public class BoardEconomy {
     private final BiMap<Point, EconomyHero> map;
     private final BiMap<Point, MapObjectIf> interactionMap;
@@ -74,7 +76,10 @@ public class BoardEconomy {
 
     public void interact(final EconomyHero hero, final Point targetPoint){
         MapObjectIf obj = interactionMap.get(targetPoint);
-            obj.interact(hero, this, targetPoint);
+            obj.interact(hero, targetPoint);
+            if(obj.getTypeOfObject() == PICKUPABLE) {
+                interactionMap.inverse().remove(obj);
+            }
     }
     public EnterAction enter(final EconomyHero hero, final Point targetPoint){
         MapObjectIf obj = interactionMap.get(targetPoint);

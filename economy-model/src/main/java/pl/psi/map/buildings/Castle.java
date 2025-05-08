@@ -3,7 +3,6 @@ package pl.psi.map.buildings;
 import pl.psi.Point;
 import pl.psi.creatures.UpgradeBuildings;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.BoardEconomy;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -56,8 +55,13 @@ public class Castle implements BuildingIf {
     }
 
     @Override
-    public void interact(EconomyHero hero, BoardEconomy board, Point point) {
+    public void interact(EconomyHero hero, Point point) {
 
+    }
+
+    @Override
+    public typeOfObject getTypeOfObject() {
+        return null;
     }
 
     @Override
