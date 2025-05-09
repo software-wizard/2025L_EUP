@@ -77,9 +77,9 @@ public class BoardEconomy {
     public void interact(final EconomyHero hero, final Point targetPoint){
         MapObjectIf obj = interactionMap.get(targetPoint);
             obj.interact(hero, targetPoint);
-            if(obj.getTypeOfObject() == PICKUPABLE) {
-                interactionMap.inverse().remove(obj);
-            }
+        if(obj.getTypeOfObject() == PICKUPABLE) {
+            interactionMap.remove(targetPoint);
+        }
     }
 
     public EnterAction enter(final EconomyHero hero, final Point targetPoint){

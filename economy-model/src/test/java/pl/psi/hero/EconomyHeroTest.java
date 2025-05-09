@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import pl.psi.creatures.EconomyNecropolisFactory;
 import pl.psi.map.resources.Resources;
 
-class EconomyHeroTest
+class  EconomyHeroTest
 {
 
     private EconomyHero hero;

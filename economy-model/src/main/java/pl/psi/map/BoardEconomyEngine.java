@@ -36,7 +36,10 @@ public class BoardEconomyEngine {
     }
 
     public boolean canMove(final Point point) {
-        return board.canMove(turnQueue.getCurrentHero(), point);
+        if (!isHero(point)) {
+            return board.canMove(turnQueue.getCurrentHero(), point);
+        }
+        return false;
     }
 
     public boolean canAttack(final Point point) {
@@ -44,11 +47,17 @@ public class BoardEconomyEngine {
     }
 
     public boolean canEnter(final Point point) {
-        return isEnterable(point);
+        if (!isHero(point)) {
+            return isEnterable(point);
+        }
+        return false;
     }
 
     public boolean canInteract(Point point) {
-        return getInteractable(point).isPresent();
+        if (!isHero(point)) {
+            return getInteractable(point).isPresent();
+        }
+        return false;
     }
 
     public void move(final Point point) {

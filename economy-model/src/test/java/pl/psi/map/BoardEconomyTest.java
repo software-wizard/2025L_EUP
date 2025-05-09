@@ -23,6 +23,7 @@ class BoardEconomyTest
     @BeforeEach
     void init()
     {
+        hero1 = Mockito.mock(EconomyHero.class);
         hero2 = Mockito.mock( EconomyHero.class );
     }
 
