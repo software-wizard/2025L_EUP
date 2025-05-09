@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.hero.Statistics;
 import pl.psi.map.resources.Gold;
 import pl.psi.map.resources.generators.GoldGenerator;
 import pl.psi.map.resources.Resources;
@@ -31,8 +30,8 @@ class BoardEconomyTest
     void unitsMoveProperly()
     {
         BoardEconomy board = BoardEconomy.builder()
-                .addHero(hero1, 0)
-                .addHero(hero2,14)
+                .addHero(hero1, new Point(0,0))
+                .addHero(hero2,new Point(14,0))
                 .build();
         Mockito.when(hero1.getMoveRange()).thenReturn(10);
         Mockito.when(hero2.getMoveRange()).thenReturn(20);
@@ -48,8 +47,8 @@ class BoardEconomyTest
     void heroesCannotMove()
     {
         BoardEconomy board = BoardEconomy.builder()
-                .addHero(hero1, 0)
-                .addHero(hero2,14)
+                .addHero(hero1, new Point(0,0))
+                .addHero(hero2,new Point(14,14))
                 .build();
         Mockito.when(hero1.getMoveRange()).thenReturn(1);
         board.move(hero1, new Point( 3, 3 ) );
@@ -65,8 +64,8 @@ class BoardEconomyTest
         interactables.put(new Point(5,5),new Gold(new Resources(500,0,0,0,0,0,0)));
         interactables.put(new Point(10,10),new Gold(new Resources(1000,0,0,0,0,0,0)));
         BoardEconomy board = BoardEconomy.builder()
-                .addHero(hero1, 0)
-                .addHero(hero2,14)
+                .addHero(hero1, new Point(0,0))
+                .addHero(hero2,new Point(14,14))
                 .addInteractables(interactables)
                 .build();
 
@@ -82,8 +81,8 @@ class BoardEconomyTest
         Map<Point, MapObjectIf> interactables = new HashMap<>();
         interactables.put(new Point(5,5),new Gold(new Resources(500,0,0,0,0,0,0)));
         BoardEconomy board = BoardEconomy.builder()
-                .addHero(hero1, 0)
-                .addHero(hero2,14)
+                .addHero(hero1, new Point(0,0))
+                .addHero(hero2,new Point(14,14))
                 .addInteractables(interactables)
                 .build();
 
@@ -97,13 +96,13 @@ class BoardEconomyTest
     @Test
     void mineGeneratesGoldProperlyForOwner()
     {
-        Map<Point, MapObjectIf> interactables = new HashMap<>();
-        interactables.put(new Point(5,5), new GoldGenerator());
-        BoardEconomyEngine engine = new BoardEconomyEngine(hero1, hero2);
+        Map<Point, MapObjectIf> map = new HashMap<>();
+        map.put(new Point(5,5), new GoldGenerator());
+        BoardEconomyEngine engine = new BoardEconomyEngine(hero1, hero2, map);
 
         BoardEconomy board = BoardEconomy.builder()
-                .addHero(hero1, 0)
-                .addInteractables(interactables)
+                .addHero(hero1, new Point(0,0))
+                .addInteractables(map)
                 .build();
 
         board.move(hero1, new Point(5,5));

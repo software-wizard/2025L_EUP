@@ -5,6 +5,7 @@ import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.*;
 import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.buildings.bank.BankStatistics;
+import pl.psi.map.buildings.enterAction.EnterAction;
 import pl.psi.map.resources.generators.*;
 
 import java.beans.PropertyChangeListener;
@@ -24,22 +25,13 @@ public class BoardEconomyEngine {
     private int turnCounter;
 
 
-    public BoardEconomyEngine(final EconomyHero hero1, final EconomyHero hero2) {
+    public BoardEconomyEngine(final EconomyHero hero1, final EconomyHero hero2, Map<Point, MapObjectIf> map) {
+        this.interactables = map;
         turnQueue = new TurnQueueEconomy(hero1, hero2);
-        interactables.put(new Point(2,2),new GoldGenerator());
-        interactables.put(new Point(3,2),new MercuryGenerator());
-        interactables.put(new Point(4,2), new OreGenerator());
-        interactables.put(new Point(5,2), new SulfurGenerator());
-        interactables.put(new Point(6,2), new WoodGenerator());
-        interactables.put(new Point(7,2), new CrystalGenerator());
-        interactables.put(new Point(8,2), new GemGenerator());
-        buildings.put(new Point(0,1), new Castle());
-        buildings.put(new Point(10, 3), new Bank(BankStatistics.CASTLE_2));
         board = BoardEconomy.builder()
-                .addHero(hero1, 5)
-                .addHero(hero2,14)
-                .addInteractables(interactables)
-                .addBuildings(buildings)
+                .addHero(hero1, new Point(0,0))
+                .addHero(hero2,new Point(17,8))
+                .addInteractables(map)
                 .build();
     }
 
@@ -108,6 +100,7 @@ public class BoardEconomyEngine {
 
     private void endOfTurn() { // called after each click of the pass button
         turnCounter++;
+        System.out.println("End of turn");
         if (turnCounter >= 2){
             turnCounter = 0;
             endOfDay();
@@ -115,6 +108,7 @@ public class BoardEconomyEngine {
     }
 
     private void endOfDay(){ // called after both players pass
+        System.out.println("End of day");
         generateResourcesEndDay();
     }
 

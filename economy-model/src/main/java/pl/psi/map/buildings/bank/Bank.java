@@ -5,8 +5,8 @@ import pl.psi.Point;
 import pl.psi.creatures.Creature;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
-import pl.psi.map.buildings.EnterAction;
-import pl.psi.map.buildings.EnterActionType;
+import pl.psi.map.buildings.enterAction.EnterAction;
+import pl.psi.map.buildings.enterAction.EnterActionType;
 import pl.psi.map.resources.Resources;
 
 import java.util.Map;
@@ -23,7 +23,7 @@ public class Bank implements BuildingIf {
 
     @Override
     public String getPath() {
-        return "/objects/goldPile1.png";
+        return "/objects/bank.png";
     }
 
     @Override

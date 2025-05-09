@@ -4,7 +4,7 @@ import lombok.Getter;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.InteractableIf;
-import pl.psi.map.buildings.EnterAction;
+import pl.psi.map.buildings.enterAction.EnterAction;
 import pl.psi.map.resources.Resources;
 
 

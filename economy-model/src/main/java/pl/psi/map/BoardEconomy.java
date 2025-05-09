@@ -7,7 +7,7 @@ import java.util.Optional;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
-import pl.psi.map.buildings.EnterAction;
+import pl.psi.map.buildings.enterAction.EnterAction;
 
 import static pl.psi.map.MapObjectIf.typeOfObject.PICKUPABLE;
 

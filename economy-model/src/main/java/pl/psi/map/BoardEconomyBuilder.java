@@ -14,8 +14,8 @@ public class BoardEconomyBuilder {
     private final BiMap<Point, EconomyHero> heroMap = HashBiMap.create();
     private final BiMap<Point, MapObjectIf> interactionMap = HashBiMap.create();
 
-    public BoardEconomyBuilder addHero(EconomyHero hero, int xPosition) {
-        heroMap.put(new Point(xPosition, 1), hero);
+    public BoardEconomyBuilder addHero(EconomyHero hero, final Point point) {
+        heroMap.put(point, hero);
         return this;
     }
 

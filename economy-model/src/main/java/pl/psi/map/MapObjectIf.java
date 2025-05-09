@@ -2,7 +2,7 @@ package pl.psi.map;
 
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.buildings.EnterAction;
+import pl.psi.map.buildings.enterAction.EnterAction;
 
 public interface MapObjectIf {
     String getPath();

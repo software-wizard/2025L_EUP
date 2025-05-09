@@ -3,6 +3,8 @@ package pl.psi.map.buildings;
 import pl.psi.Point;
 import pl.psi.creatures.UpgradeBuildings;
 import pl.psi.hero.EconomyHero;
+import pl.psi.map.buildings.enterAction.EnterAction;
+import pl.psi.map.buildings.enterAction.EnterActionType;
 
 import java.util.HashSet;
 import java.util.Set;
