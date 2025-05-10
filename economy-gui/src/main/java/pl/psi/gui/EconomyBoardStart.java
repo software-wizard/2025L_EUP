@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.psi.Point;
 import pl.psi.creatures.EconomyNecropolisFactory;
+import pl.psi.gui.startchoice.HeroSelection;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.Statistics;
 import pl.psi.map.MapObjectIf;
@@ -18,6 +19,7 @@ import pl.psi.map.resources.generators.GoldGenerator;
 import pl.psi.map.resources.generators.MercuryGenerator;
 import pl.psi.map.resources.generators.WoodGenerator;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class EconomyBoardStart extends Application {
@@ -28,18 +30,26 @@ public class EconomyBoardStart extends Application {
     }
 
     @Override
-    public void start( final Stage aStage ) throws Exception
-    {
-        final FXMLLoader loader = new FXMLLoader();
-        loader.setLocation( getClass().getClassLoader()
-                .getResource( "fxml/economy-board.fxml" ) );
-        loader.setController( new EconomyBoardController( hero1(), hero2(), map() ));
-        final Scene scene = new Scene( loader.load() );
-        aStage.setScene( scene );
-        aStage.setX( 5 );
-        aStage.setY( 5 );
-        aStage.show();
+    public void start(Stage primaryStage) {
+        HeroSelection.showAndWait().thenAccept(heroes -> {
+            EconomyHero hero1 = heroes[0];
+            EconomyHero hero2 = heroes[1];
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/economy-board.fxml"));
+                loader.setController(new EconomyBoardController(hero1, hero2, map()));
+                Scene scene = new Scene(loader.load());
+
+                primaryStage.setScene(scene);
+                primaryStage.setTitle("Mapa Ekonomiczna");
+                primaryStage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
+
 
     private EconomyHero hero1()
     {

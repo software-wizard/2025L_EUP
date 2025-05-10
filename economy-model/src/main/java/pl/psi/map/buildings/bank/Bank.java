@@ -27,9 +27,7 @@ public class Bank implements BuildingIf {
     }
 
     @Override
-    public void endOfTurn() {
-
-    }
+    public void endOfTurn() {}
 
     @Override
     public void enter(EconomyHero hero) {

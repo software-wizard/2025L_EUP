@@ -18,7 +18,7 @@ public class WindowManager {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(WindowManager.class.getClassLoader()
                     .getResource("fxml/eco.fxml"));
-            loader.setController(new EcoController(hero, castle)); // pass castle here
+            loader.setController(new EcoController(hero, castle));
 
             final Scene scene = new Scene(loader.load());
             Stage aStage = new Stage();

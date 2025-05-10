@@ -28,19 +28,13 @@ public class Gold implements InteractableIf {
     }
 
     @Override
-    public void endOfTurn() {
-
-    }
+    public void endOfTurn() {}
 
     @Override
-    public void enter(EconomyHero hero) {
-
-    }
+    public void enter(EconomyHero hero) {}
 
     @Override
-    public void generateResource() {
-
-    }
+    public void generateResource() {}
 
     @Override
     public EconomyHero getOwner() {
