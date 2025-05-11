@@ -156,7 +156,7 @@ public class BoardEconomyEngine {
     }
 
     public void openUpgrades(BuildingIf buildingOpt) {
-                observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),buildingOpt});
+        observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),buildingOpt});
     }
 
     public void enterBank(BuildingIf building){

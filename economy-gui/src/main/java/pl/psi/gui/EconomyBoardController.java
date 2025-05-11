@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.BoardEconomyEngine;
 import pl.psi.map.MapObjectIf;
@@ -101,6 +102,7 @@ public class EconomyBoardController implements PropertyChangeListener {
                     gameEngine.move(point); // Ensure hero enters
                     gameEngine.enter(point);
                 } else if (e.getButton() == MouseButton.SECONDARY) {
+                    gameEngine.move(point);
                     gameEngine.secondInteraction(point);
                 }
             });
@@ -141,8 +143,9 @@ public class EconomyBoardController implements PropertyChangeListener {
                 Object[] data2 = (Object[]) evt.getNewValue();
                 EconomyHero hero2 = (EconomyHero) data2[0];
                 Bank bank = (Bank) data2[1];
-                Map<Point, Creature> enemies = bank.getEnemies();
+                Map<Point, EconomyCreature> enemies = bank.getEnemies();
                 EcoBattleConverter.startBankBattle(hero2, enemies);
+                break;
         }
     }
 }

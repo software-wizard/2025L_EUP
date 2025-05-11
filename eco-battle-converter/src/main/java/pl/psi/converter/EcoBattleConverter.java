@@ -2,6 +2,7 @@ package pl.psi.converter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import pl.psi.Hero;
 import pl.psi.Point;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStatistic;
+import pl.psi.creatures.EconomyCreature;
 import pl.psi.gui.MainBattleController;
 import pl.psi.creatures.NecropolisFactory;
 
@@ -42,15 +44,17 @@ public class EcoBattleConverter
         }
     }
 
-    public static void startBankBattle(final EconomyHero aPlayer1, final Map<Point, Creature> bankEnemy)
+    public static void startBankBattle(final EconomyHero aPlayer1, final Map<Point, EconomyCreature> bankEnemy)
     {
+        Map<Point, Creature> bankEnemy1 = convertEnemies(bankEnemy);
+
         Scene scene = null;
         try
         {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation( EcoBattleConverter.class.getClassLoader()
                     .getResource( "fxml/main-battle.fxml" ) );
-            loader.setController( new MainBattleController( convert( aPlayer1 ),bankEnemy ));
+            loader.setController( new MainBattleController( convert( aPlayer1 ),bankEnemy1 ));
             scene = new Scene( loader.load() );
             final Stage aStage = new Stage();
             aStage.setScene( scene );
@@ -74,4 +78,18 @@ public class EcoBattleConverter
                 ecoCreature.getTier(), ecoCreature.getAmount() ) ) );
         return new Hero( creatures );
     }
+
+    public static Map<Point, Creature> convertEnemies(Map<Point, EconomyCreature> economyMap) {
+        NecropolisFactory factory = new NecropolisFactory();
+        Map<Point, Creature> result = new HashMap<>();
+        for (Map.Entry<Point, EconomyCreature> entry : economyMap.entrySet()) {
+            EconomyCreature ecoCreature = entry.getValue();
+            Creature creature = factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), ecoCreature.getAmount());
+            result.put(entry.getKey(), creature);
+        }
+        return result;
+    }
+
+
+
 }

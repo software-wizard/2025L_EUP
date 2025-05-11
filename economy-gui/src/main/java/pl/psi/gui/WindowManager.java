@@ -34,17 +34,15 @@ public class WindowManager {
 
     public static void openUpgrades(EconomyHero hero, Castle castle) {
         try {
-            final FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(WindowManager.class.getClassLoader()
-                    .getResource("fxml/upgrades.fxml"));
-            loader.setController(new UpgradeController(hero, castle));
+            FXMLLoader loader = new FXMLLoader(WindowManager.class.getResource("/fxml/upgrades.fxml"));
+            loader.setControllerFactory(param -> new UpgradeController());
+            Parent root = loader.load();
+            UpgradeController controller = loader.getController();
+            controller.setData(hero, castle); // Pass your objects safely
 
-            final Scene scene = new Scene(loader.load());
-            Stage aStage = new Stage();
-            aStage.setScene(scene);
-            aStage.setX(5);
-            aStage.setY(5);
-            aStage.show();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (final IOException aE) {
             aE.printStackTrace();
         }

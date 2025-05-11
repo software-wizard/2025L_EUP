@@ -16,14 +16,26 @@ public class UpgradeController {
     private Castle castle;
     private EconomyHero hero;
 
-    public UpgradeController(EconomyHero hero, Castle castle) {
-        this.castle = castle;
-        this.hero = hero;
+    public UpgradeController() {
+    }
+
+    @FXML
+    public void initialize() {
         refreshUpgrades();
     }
 
+    public void setData(EconomyHero hero, Castle castle) {
+        this.hero = hero;
+        this.castle = castle;
+
+        // Can be safely called here if upgradeList is already injected
+        if (upgradeList != null) {
+            refreshUpgrades();
+        }
+    }
+
     private void refreshUpgrades() {
-        if (castle == null || hero == null) {
+        if (castle == null || hero == null || upgradeList == null) {
             return;
         }
 

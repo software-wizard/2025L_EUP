@@ -3,6 +3,7 @@ package pl.psi.map.buildings.bank;
 import lombok.Getter;
 import pl.psi.Point;
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
 import pl.psi.map.buildings.enterAction.EnterAction;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class Bank implements BuildingIf {
     final Resources prize;
     @Getter
-    final Map<Point, Creature> enemies;
+    final Map<Point, EconomyCreature> enemies;
 
     public Bank(BankStatistics statistics) {
         this.prize = statistics.getPrize();
