@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pl.psi.gui.shops.CreatureShopController;
 
 public class CreatureButton extends Button
 {
@@ -18,8 +19,8 @@ public class CreatureButton extends Button
     private final String creatureName;
     private Stage dialog;
 
-    public CreatureButton( final EcoController aEcoController, final EconomyNecropolisFactory aFactory,
-        final boolean aUpgraded, final int aTier )
+    public CreatureButton(final CreatureShopController aCreatureShopController, final EconomyNecropolisFactory aFactory,
+                          final boolean aUpgraded, final int aTier )
     {
         super( aFactory.create( aUpgraded, aTier, 1 )
             .getName() );
@@ -31,9 +32,9 @@ public class CreatureButton extends Button
             final int amount = startDialogAndGetCreatureAmount();
             if( amount != 0 )
             {
-                aEcoController.buy( aFactory.create( aUpgraded, aTier, amount ) );
+                aCreatureShopController.buy( aFactory.create( aUpgraded, aTier, amount ) );
             }
-            aEcoController.refreshGui();
+            aCreatureShopController.refreshGui();
         } );
     }
 

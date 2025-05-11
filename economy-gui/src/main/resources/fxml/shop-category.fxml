@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="pl.psi.gui.shops.ShopCategoryController">
+    <Label text="Wybierz typ sklepu:" />
+    <Button fx:id="creaturesButton" text="Jednostki" />
+    <Button fx:id="spellsButton" text="Czary" />
+    <Button fx:id="artifactsButton" text="Artefakty" />
+    <Button fx:id="skillsButton" text="Umiejętności" />
+</VBox>

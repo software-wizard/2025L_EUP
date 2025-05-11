@@ -1,29 +1,28 @@
-package pl.psi.gui;
+package pl.psi.gui.shops;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import lombok.Setter;
 import pl.psi.EconomyEngine;
-import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.creatures.EconomyNecropolisFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import pl.psi.creatures.UpgradeBuildings;
+import pl.psi.gui.CreatureButton;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.Castle;
 
-public class EcoController implements PropertyChangeListener
+public class CreatureShopController implements PropertyChangeListener
 {
     private final EconomyEngine economyEngine;
     @Setter
-    private final Castle castle;
+    private Castle castle;
     @FXML
     HBox heroStateHBox;
     @FXML
@@ -36,7 +35,7 @@ public class EcoController implements PropertyChangeListener
     Label currentGoldLabel;
 
 
-    public EcoController(final EconomyHero aHero1, final Castle castle) {
+    public CreatureShopController(final EconomyHero aHero1, final Castle castle) {
         economyEngine = new EconomyEngine(aHero1);
         this.castle = castle;
     }
@@ -49,7 +48,7 @@ public class EcoController implements PropertyChangeListener
         economyEngine.addObserver( EconomyEngine.HERO_BOUGHT_CREATURE, this );
     }
 
-    void refreshGui()
+    public void refreshGui()
     {
         playerLabel.setText( economyEngine.getHero()
             .toString() );
@@ -112,7 +111,7 @@ public class EcoController implements PropertyChangeListener
             .add( creaturesBox );
     }
 
-    void buy( final EconomyCreature aCreature )
+    public void buy( final EconomyCreature aCreature )
     {
         economyEngine.buy( aCreature );
     }

@@ -16,12 +16,8 @@ public class UpgradeController {
     private Castle castle;
     private EconomyHero hero;
 
-    public void setCastle(Castle castle) {
+    public UpgradeController(EconomyHero hero, Castle castle) {
         this.castle = castle;
-        refreshUpgrades();
-    }
-
-    public void setHero(EconomyHero hero) {
         this.hero = hero;
         refreshUpgrades();
     }
