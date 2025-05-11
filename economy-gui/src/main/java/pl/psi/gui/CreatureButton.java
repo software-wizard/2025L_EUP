@@ -22,7 +22,7 @@ public class CreatureButton extends Button
     public CreatureButton(final CreatureShopController aCreatureShopController, final EconomyNecropolisFactory aFactory,
                           final boolean aUpgraded, final int aTier )
     {
-        super( aFactory.create( aUpgraded, aTier, 1 )
+        super( aFactory.create( aUpgraded, aTier, 1)
             .getName() );
         creatureName = aFactory.create( aUpgraded, aTier, 1 )
             .getName();

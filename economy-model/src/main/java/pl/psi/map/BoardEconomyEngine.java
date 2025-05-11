@@ -6,6 +6,11 @@ import pl.psi.map.buildings.*;
 import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.buildings.bank.BankStatistics;
 import pl.psi.map.buildings.enterAction.EnterAction;
+import pl.psi.map.buildings.BuildingIf;
+import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.EnterAction;
+import pl.psi.map.buildings.bank.Bank;
+import pl.psi.map.resources.Resources;
 import pl.psi.map.resources.generators.*;
 
 import java.beans.PropertyChangeListener;
@@ -65,22 +70,31 @@ public class BoardEconomyEngine {
         observerSupport.firePropertyChange(HERO_MOVED, null, point);
     }
 
-    public void interact(final Point point){
+    public void interact(final Point point) {
         board.interact(turnQueue.getCurrentHero(), point);
     }
 
-    public void enter(final Point point){
+    public void enter(final Point point) {
         EnterAction action = board.enter(turnQueue.getCurrentHero(), point);
-        switch (action.getType()){
-            case OPEN_SHOP -> openShop(action.getBuilding());
-            case ENTER_BANK -> enterBank(action.getBuilding());
+        switch (action.getType()) {
+            case OPEN_SHOP: {
+                openShop(action.getBuilding());
+                break;
+            }
+            case ENTER_BANK: {
+                enterBank(action.getBuilding());
+                break;
+            }
         }
     }
 
-    public void secondInteraction(final Point point){
+    public void secondInteraction(final Point point) {
         EnterAction action = board.secondInteraction(turnQueue.getCurrentHero(), point);
-        switch (action.getType()){
-            case OPEN_UPGRADE -> openUpgrades(action.getBuilding());
+        switch (action.getType()) {
+            case OPEN_UPGRADE:{
+                openUpgrades(action.getBuilding());
+                break;
+            }
         }
     }
 

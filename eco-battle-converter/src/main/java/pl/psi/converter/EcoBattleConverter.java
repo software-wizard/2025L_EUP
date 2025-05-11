@@ -8,6 +8,7 @@ import java.util.Map;
 
 import pl.psi.Hero;
 import pl.psi.Point;
+import pl.psi.hero.skills.AbstractSkill;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStatistic;
 import pl.psi.creatures.EconomyCreature;
@@ -72,6 +73,7 @@ public class EcoBattleConverter
     public static Hero convert( final EconomyHero aPlayer1 )
     {
         final List< Creature > creatures = new ArrayList<>();
+        final List<AbstractSkill> skills = aPlayer1.getSkills();
         final NecropolisFactory factory = new NecropolisFactory();
         aPlayer1.getCreatures()
             .forEach( ecoCreature -> creatures.add( factory.create( ecoCreature.isUpgraded(),
@@ -88,8 +90,13 @@ public class EcoBattleConverter
             result.put(entry.getKey(), creature);
         }
         return result;
+                ecoCreature.getTier(), ecoCreature.getAmount(), ecoCreature.getReduceDamageFactor() ) ) );
+        if (skills == null)
+        {
+            return new Hero(creatures);
+        }else {
+            aPlayer1.getCreatures().forEach(c->skills.forEach(s->{s.apply(c);}));
+            return new Hero(creatures);
+        }
     }
-
-
-
 }

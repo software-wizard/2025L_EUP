@@ -40,16 +40,18 @@ public class Creature implements PropertyChangeListener {
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
     private final List<ActiveSpellEffect> activeSpellEffects = new ArrayList<>();
+    private float reduceDemegeFactor;
 
     Creature() {
     }
 
     private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
-                     final int aAmount) {
+                     final int aAmount ) {
         stats = aStats;
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
+        reduceDemegeFactor = 1;
         this.originalStats = this.getStats();
     }
 
@@ -79,7 +81,7 @@ public class Creature implements PropertyChangeListener {
         else{
             aDefender.setCurrentHp(hp);
         }
-        aDefender.setAmount(aDefender.getAmount() - amountToSubstract);
+        aDefender.setAmount(aDefender.getAmount() - amountToSubstract * (int) Math.ceil(1-reduceDemegeFactor));
     }
 
     public int getMaxHp() {
@@ -182,6 +184,9 @@ public class Creature implements PropertyChangeListener {
 
         public Builder amount(final int aAmount) {
             amount = aAmount;
+            return this;
+        }
+        public  Builder reduceDemegeFactor(float aReduceDemegeFactor) {
             return this;
         }
 
