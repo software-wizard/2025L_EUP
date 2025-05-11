@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="pl.psi.gui.shops.ArtifactShopController" spacing="10" alignment="TOP_LEFT" fx:id="artifactBox">
+<VBox xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="TOP_LEFT" fx:id="artifactBox">
     <Label text="Artifact Shop" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
 </VBox>
 
