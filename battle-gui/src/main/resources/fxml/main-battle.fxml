@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity"
-            prefHeight="700" prefWidth="1024" xmlns="http://javafx.com/javafx/8.0.171">
+            prefHeight="600" prefWidth="1024" xmlns="http://javafx.com/javafx/8.0.171">
     <top>
         <HBox alignment="TOP_CENTER" prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -46,7 +46,7 @@
                         <Font size="16.0"/>
                     </font>
                 </Button>
-                <Button fx:id="windowButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0" text="SPELL"
+                <Button fx:id="spellButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0" text="SPELL"
                         textAlignment="CENTER">
                     <font>
                         <Font size="16.0"/>
