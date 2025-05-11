@@ -1,15 +1,12 @@
 package pl.psi.map;
 
-import com.google.common.base.internal.Finalizer;
 import com.google.common.collect.BiMap;
-
-import java.util.Map;
-import java.util.Optional;
-
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
 import pl.psi.map.buildings.EnterAction;
+
+import java.util.Optional;
 
 public class BoardEconomy {
     private static final int MAX_WIDTH = 14;
@@ -23,24 +20,24 @@ public class BoardEconomy {
 
     public Optional<EconomyHero> getHero(final Point point) {
         Object obj = map.get(point);
-        if (obj instanceof EconomyHero hero) {
-            return Optional.of(hero);
+        if (obj instanceof EconomyHero) {
+            return Optional.of((EconomyHero) obj);
         }
         return Optional.empty();
     }
 
     public Optional<MapObjectIf> getObjectAt(final Point point) {
         Object obj = interactionMap.get(point);
-        if (obj instanceof MapObjectIf mapObj) {
-            return Optional.of(mapObj);
+        if (obj instanceof MapObjectIf) {
+            return Optional.of((MapObjectIf) obj);
         }
         return Optional.empty();
     }
 
     public Optional<InteractableIf> getInteractableAt(final Point point) {
         Object obj = interactionMap.get(point);
-        if (obj instanceof InteractableIf interactable) {
-            return Optional.of((interactable) );
+        if (obj instanceof InteractableIf) {
+            return Optional.of((InteractableIf) obj);
         }
         return Optional.empty();
     }
@@ -83,24 +80,25 @@ public class BoardEconomy {
     }
 
 
-    public void interact(final EconomyHero hero, final Point targetPoint){
+    public void interact(final EconomyHero hero, final Point targetPoint) {
         MapObjectIf obj = interactionMap.get(targetPoint);
-        if (obj instanceof InteractableIf interactable) {
-            interactable.interact(hero, this, targetPoint);
+        if (obj instanceof InteractableIf) {
+            ((InteractableIf) obj).interact(hero, this, targetPoint);
         }
     }
-    public EnterAction enter(final EconomyHero hero, final Point targetPoint){
+
+    public EnterAction enter(final EconomyHero hero, final Point targetPoint) {
         MapObjectIf obj = interactionMap.get(targetPoint);
-        if (obj instanceof BuildingIf building){
-            return building.onEnter();
+        if (obj instanceof BuildingIf) {
+            return ((BuildingIf) obj).onEnter();
         }
         return null;
     }
 
-    public EnterAction secondInteraction(final EconomyHero hero, final Point targetPoint){
+    public EnterAction secondInteraction(final EconomyHero hero, final Point targetPoint) {
         MapObjectIf obj = interactionMap.get(targetPoint);
-        if(obj instanceof BuildingIf building){
-            return building.secondInteraction();
+        if (obj instanceof BuildingIf) {
+            return ((BuildingIf) obj).secondInteraction();
         }
         return null;
     }

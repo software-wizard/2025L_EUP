@@ -9,11 +9,11 @@ public class EconomyCreature {
     private final int goldCost;
     private float reduceDamageFactor;
 
-    EconomyCreature( final CreatureStatistic aStats, final int aAmount, final int aGoldCost , float aReducedDamageFactor ){
+    EconomyCreature( final CreatureStatistic aStats, final int aAmount, final int aGoldCost ){
         stats = aStats;
         amount = aAmount;
         goldCost = aGoldCost;
-        reduceDamageFactor = aReducedDamageFactor;
+        reduceDamageFactor = 1;
     }
 
     public int getAmount() {

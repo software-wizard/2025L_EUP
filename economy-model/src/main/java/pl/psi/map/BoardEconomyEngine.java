@@ -2,7 +2,9 @@ package pl.psi.map;
 
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.buildings.*;
+import pl.psi.map.buildings.BuildingIf;
+import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.EnterAction;
 import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.resources.Resources;
 import pl.psi.map.resources.generators.*;
@@ -26,18 +28,18 @@ public class BoardEconomyEngine {
 
     public BoardEconomyEngine(final EconomyHero hero1, final EconomyHero hero2) {
         turnQueue = new TurnQueueEconomy(hero1, hero2);
-        interactables.put(new Point(2,2),new GoldGenerator());
-        interactables.put(new Point(3,2),new MercuryGenerator());
-        interactables.put(new Point(4,2), new OreGenerator());
-        interactables.put(new Point(5,2), new SulfurGenerator());
-        interactables.put(new Point(6,2), new WoodGenerator());
-        interactables.put(new Point(7,2), new CrystalGenerator());
-        interactables.put(new Point(8,2), new GemGenerator());
-        buildings.put(new Point(0,1), new Castle());
-        buildings.put(new Point(10, 3), new Bank(new Resources(0,0,0,0,0,0,0)));
+        interactables.put(new Point(2, 2), new GoldGenerator());
+        interactables.put(new Point(3, 2), new MercuryGenerator());
+        interactables.put(new Point(4, 2), new OreGenerator());
+        interactables.put(new Point(5, 2), new SulfurGenerator());
+        interactables.put(new Point(6, 2), new WoodGenerator());
+        interactables.put(new Point(7, 2), new CrystalGenerator());
+        interactables.put(new Point(8, 2), new GemGenerator());
+        buildings.put(new Point(0, 1), new Castle());
+        buildings.put(new Point(10, 3), new Bank(new Resources(0, 0, 0, 0, 0, 0, 0)));
         board = BoardEconomy.builder()
                 .addHero(hero1, 5)
-                .addHero(hero2,14)
+                .addHero(hero2, 14)
                 .addInteractables(interactables)
                 .addBuildings(buildings)
                 .build();
@@ -64,22 +66,31 @@ public class BoardEconomyEngine {
         observerSupport.firePropertyChange(HERO_MOVED, null, point);
     }
 
-    public void interact(final Point point){
+    public void interact(final Point point) {
         board.interact(turnQueue.getCurrentHero(), point);
     }
 
-    public void enter(final Point point){
+    public void enter(final Point point) {
         EnterAction action = board.enter(turnQueue.getCurrentHero(), point);
-        switch (action.getType()){
-            case OPEN_SHOP -> openShop(action.getBuilding());
-            case ENTER_BANK -> enterBank(action.getBuilding());
+        switch (action.getType()) {
+            case OPEN_SHOP: {
+                openShop(action.getBuilding());
+                break;
+            }
+            case ENTER_BANK: {
+                enterBank(action.getBuilding());
+                break;
+            }
         }
     }
 
-    public void secondInteraction(final Point point){
+    public void secondInteraction(final Point point) {
         EnterAction action = board.secondInteraction(turnQueue.getCurrentHero(), point);
-        switch (action.getType()){
-            case OPEN_UPGRADE -> openUpgrades(action.getBuilding());
+        switch (action.getType()) {
+            case OPEN_UPGRADE:{
+                openUpgrades(action.getBuilding());
+                break;
+            }
         }
     }
 
@@ -112,24 +123,24 @@ public class BoardEconomyEngine {
 
     private void endOfTurn() { // called after each click of the pass button
         turnCounter++;
-        if (turnCounter >= 2){
+        if (turnCounter >= 2) {
             turnCounter = 0;
             endOfDay();
         }
     }
 
-    private void endOfDay(){ // called after both players pass
+    private void endOfDay() { // called after both players pass
         generateResourcesEndDay();
     }
 
-    private void generateResourcesEndDay(){
+    private void generateResourcesEndDay() {
         for (MapObjectIf interactable : interactables.values()) {
             System.out.println(interactable); // jak zmienie to można wywalić instanceof
-            if (interactable instanceof ResourceGenIf generator){
-                    generator.generateResource();
-                }
+            if (interactable instanceof ResourceGenIf) {
+                ((ResourceGenIf) (interactable)).generateResource();
             }
         }
+    }
 
 
     public void addObserver(final PropertyChangeListener aObserver) {
@@ -160,10 +171,10 @@ public class BoardEconomyEngine {
     }
 
     public void openUpgrades(BuildingIf buildingOpt) {
-        observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),buildingOpt});
+        observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(), buildingOpt});
     }
 
-    public void enterBank(BuildingIf building){
+    public void enterBank(BuildingIf building) {
         observerSupport.firePropertyChange("ENTER_BANK", null, new Object[]{getCurrentHero(), building});
     }
 

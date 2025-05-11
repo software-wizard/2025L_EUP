@@ -21,9 +21,9 @@ public class CreatureButton extends Button
     public CreatureButton( final EcoController aEcoController, final EconomyNecropolisFactory aFactory,
         final boolean aUpgraded, final int aTier )
     {
-        super( aFactory.create( aUpgraded, aTier, 1,0 )
+        super( aFactory.create( aUpgraded, aTier, 1)
             .getName() );
-        creatureName = aFactory.create( aUpgraded, aTier, 1,0 )
+        creatureName = aFactory.create( aUpgraded, aTier, 1 )
             .getName();
         getStyleClass().add( "creatureButton" );
 
@@ -31,7 +31,7 @@ public class CreatureButton extends Button
             final int amount = startDialogAndGetCreatureAmount();
             if( amount != 0 )
             {
-                aEcoController.buy( aFactory.create( aUpgraded, aTier, amount,0 ) );
+                aEcoController.buy( aFactory.create( aUpgraded, aTier, amount ) );
             }
             aEcoController.refreshGui();
         } );

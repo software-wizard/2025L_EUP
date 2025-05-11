@@ -46,12 +46,12 @@ public class Creature implements PropertyChangeListener {
     }
 
     private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
-                     final int aAmount,float aReduceDemegeFactor) {
+                     final int aAmount ) {
         stats = aStats;
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
-        reduceDemegeFactor = aReduceDemegeFactor;
+        reduceDemegeFactor = 1;
         this.originalStats = this.getStats();
     }
 
@@ -187,7 +187,6 @@ public class Creature implements PropertyChangeListener {
             return this;
         }
         public  Builder reduceDemegeFactor(float aReduceDemegeFactor) {
-            reduceDemegeFactor = aReduceDemegeFactor;
             return this;
         }
 
@@ -197,7 +196,7 @@ public class Creature implements PropertyChangeListener {
         }
 
         public Creature build() {
-            return new Creature(statistic, calculator, amount, reduceDemegeFactor);
+            return new Creature(statistic, calculator, amount);
         }
     }
 

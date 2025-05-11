@@ -33,7 +33,7 @@ public class BuyingCreatureTest
     @Test
     void heroShouldCanBuyCreature()
     {
-        economyEngine.buy( creatureFactory.create( false, 1, 1 ) );
+        economyEngine.buy( creatureFactory.create( false, 1, 1) );
 
         assertEquals( 940, hero1.getResources().getGold() );
     }
@@ -41,7 +41,7 @@ public class BuyingCreatureTest
     @Test
     void heroShouldCanBuyMoreThanOneCreatureInOneStack()
     {
-        economyEngine.buy( creatureFactory.create( false, 1, 2 ) );
+        economyEngine.buy( creatureFactory.create( false, 1, 2) );
 
         assertEquals( 880, hero1.getResources().getGold() );
     }

@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
-import pl.psi.Hero;
 import pl.psi.creatures.EconomyCreature;
+import pl.psi.hero.skills.AbstractSkill;
+import pl.psi.hero.skills.ArmorerSkill;
+import pl.psi.hero.skills.OffenceSkill;
 import pl.psi.map.resources.Resources;
 
 public class EconomyHero implements PropertyChangeListener
