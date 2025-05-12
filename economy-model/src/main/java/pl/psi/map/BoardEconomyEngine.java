@@ -8,7 +8,7 @@ import pl.psi.map.buildings.bank.BankStatistics;
 import pl.psi.map.buildings.enterAction.EnterAction;
 import pl.psi.map.buildings.BuildingIf;
 import pl.psi.map.buildings.Castle;
-import pl.psi.map.buildings.EnterAction;
+import pl.psi.map.buildings.enterAction.EnterAction;
 import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.resources.Resources;
 import pl.psi.map.resources.generators.*;

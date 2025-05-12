@@ -2,7 +2,6 @@ package pl.psi.map.buildings.bank;
 
 import lombok.Getter;
 import pl.psi.Point;
-import pl.psi.creatures.Creature;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;

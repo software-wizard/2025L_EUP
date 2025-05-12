@@ -1,28 +1,10 @@
-<<<<<<<< HEAD:economy-model/src/main/java/pl/psi/map/testMapObjectPickupable.java
 package pl.psi.map;
-========
-package pl.psi.map.buildings.bank;
->>>>>>>> develop:economy-model/src/main/java/pl/psi/map/buildings/bank/Bank.java
 
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-<<<<<<<< HEAD:economy-model/src/main/java/pl/psi/map/testMapObjectPickupable.java
 import pl.psi.map.buildings.enterAction.EnterAction;
-========
-import pl.psi.map.buildings.BuildingIf;
-import pl.psi.map.buildings.EnterAction;
-import pl.psi.map.buildings.EnterActionType;
-import pl.psi.map.resources.Resources;
 
-public class Bank implements BuildingIf {
-    final Resources prize;
-
-    public Bank(Resources prize) {
-        this.prize = prize;
-    }
->>>>>>>> develop:economy-model/src/main/java/pl/psi/map/buildings/bank/Bank.java
-
-public class testMapObjectPickupable implements MapObjectIf{
+public class testMapObjectPickupable implements MapObjectIf {
     @Override
     public String getPath() {
         return "/objects/bank.png";
