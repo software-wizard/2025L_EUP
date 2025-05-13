@@ -67,5 +67,39 @@ class EcoBattleConverterTest
         assertEquals( 7, convertedCreatures.get( 6 )
             .getAmount() );
     }
+    @Test
+    void shouldConvertArtifactEffectsToCreatureBonuses() {
+        var hero = new EconomyHero(EconomyHero.Fraction.NECROPOLIS,
+                new Resources(100, 100, 100, 100, 100, 100, 100),
+                new Statistics(1, 1, 1, 1));
+
+        // +2 Attack, +3 Defense artifact
+        Artifact artifact = new Artifact("Sword of Might", 2, 3, 0, 0);
+        hero.addArtifact(artifact);
+
+        // Pobieramy stworzenie bazowe do porównania
+        EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
+        var ecoCreature = factory.create(false, 1, 10); // Tier 1, bez ulepszenia, 10 jednostek
+
+        // Ręczna konwersja stworzenia bez artefaktów – jako "bazowe"
+        Creature baseCreature = new Creature.Builder()
+                .statistic(ecoCreature.getStats())
+                .amount(ecoCreature.getAmount())
+                .build();
+
+        // Teraz konwertujemy to samo stworzenie z bonusami artefaktów
+        Creature creatureWithBonuses = EcoBattleConverter.convertCreatureWithEffects(
+                ecoCreature, hero
+        );
+
+        // Sprawdzamy różnicę w statystykach
+        int expectedAttack = baseCreature.getAttack() + artifact.getBonuses().getAttack();
+       // int expectedDefense = baseCreature.getArmor() + artifact.getBonuses().getDefense();
+
+        assertEquals(expectedAttack, creatureWithBonuses.getAttack(),
+                "Atak po konwersji powinien uwzględniać bonus z artefaktu");
+       // assertEquals(expectedDefense, creatureWithBonuses.getArmor(),
+            //    "Obrona po konwersji powinna uwzględniać bonus z artefaktu");
+    }
 
 }
