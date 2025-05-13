@@ -2,6 +2,9 @@ package pl.psi;
 
 import lombok.Value;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
@@ -29,11 +32,11 @@ public class Point
         return Math.sqrt( px * px + py * py );
     }
 
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 }

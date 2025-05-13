@@ -1,21 +1,20 @@
 package pl.psi;
 
 import lombok.Getter;
+import pl.psi.creatures.Creature;
 
 @Getter
 public class SpecialField
 {
+    @Getter
     private final String typeOfField;
 
-    private SpecialField(final String aTypeOfField)
+
+    protected SpecialField(final String aTypeOfField)
     {
         typeOfField = aTypeOfField;
     }
 
-    public static void doSomething(String typeOfField)
-    {
-        if (typeOfField == "fieldGivingDmg") {
-            //Do something
-        }
+    public void doSomething(Creature aCreature) {
     }
 }

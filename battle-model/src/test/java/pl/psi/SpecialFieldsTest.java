@@ -36,7 +36,7 @@ public class SpecialFieldsTest {
 
         final List< Creature > c1 = List.of( creature, dragon );
         final List< Creature > c2 = List.of();
-        final List< String > specialFields = List.of("fieldGivingDmg");
+        final List< SpecialField > specialFields = List.of(new SpecialField("fieldGivingDmg"));
         final Board board = new Board( c1, c2,  specialFields);
 
         //when

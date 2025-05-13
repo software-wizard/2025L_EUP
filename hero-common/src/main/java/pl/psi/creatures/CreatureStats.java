@@ -23,4 +23,5 @@ public class CreatureStats implements CreatureStatisticIf{
     private final boolean isUpgraded;
 
 
+
 }

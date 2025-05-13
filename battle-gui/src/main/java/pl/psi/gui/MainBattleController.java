@@ -13,87 +13,64 @@ import pl.psi.GameEngine;
 import pl.psi.Hero;
 import pl.psi.Point;
 import pl.psi.creatures.Creature;
-import pl.psi.gui.SpellGUI.SpellCastingManager;
-import pl.psi.gui.SpellGUI.SpellUIManager;
 
-
-public class MainBattleController implements PropertyChangeListener {
-
+public class MainBattleController implements PropertyChangeListener
+{
     private final GameEngine gameEngine;
-    private final SpellCastingManager spellManager = new SpellCastingManager();
-    private SpellUIManager spellUIManager;
-
     @FXML
     private GridPane gridMap;
     @FXML
     private Button passButton;
-    @FXML
-    private Button spellButton;
 
-    public MainBattleController(final Hero aHero1, final Hero aHero2) {
-        gameEngine = new GameEngine(aHero1, aHero2);
+    public MainBattleController( final Hero aHero1, final Hero aHero2 )
+    {
+        gameEngine = new GameEngine( aHero1, aHero2 );
     }
 
     @FXML
-    private void initialize() {
-        spellUIManager = new SpellUIManager(gameEngine, spellManager, this::refreshGui);
-
+    private void initialize()
+    {
         refreshGui();
-        gameEngine.addObserver(this);
-
-        passButton.setOnMouseClicked(e -> pass());
-
-        if (spellButton != null) {
-            spellButton.setOnMouseClicked(e -> spellUIManager.openSpellDialog());
-        }
+        gameEngine.addObserver( this );
+        passButton.addEventHandler( MouseEvent.MOUSE_CLICKED, ( e ) -> gameEngine.pass() );
     }
 
-    private void refreshGui() {
-        gridMap.getChildren().clear();
-
-        for (int x = 0; x < 15; x++) {
-            for (int y = 0; y < 10; y++) {
-                Point currentPoint = new Point(x, y);
-                Optional<Creature> creature = gameEngine.getCreature(currentPoint);
-                final MapTile mapTile = new MapTile("");
-
-                creature.ifPresent(c -> mapTile.setName(c.toString()));
-
-                if (gameEngine.isCurrentCreature(currentPoint)) {
-                    mapTile.setBackground(Color.GREENYELLOW);
+    private void refreshGui()
+    {
+        gridMap.getChildren()
+            .clear();
+        for( int x = 0; x < 15; x++ )
+        {
+            for( int y = 0; y < 10; y++ )
+            {
+                Point currentPoint = new Point( x, y );
+                Optional< Creature > creature = gameEngine.getCreature( currentPoint );
+                final MapTile mapTile = new MapTile( "" );
+                creature.ifPresent( c -> mapTile.setName( c.toString() ) );
+                if( gameEngine.isCurrentCreature( currentPoint ) )
+                {
+                    mapTile.setBackground( Color.GREENYELLOW );
                 }
-                if (gameEngine.canMove(currentPoint)) {
-                    mapTile.setBackground(Color.GREY);
-                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                            e -> gameEngine.move(currentPoint));
+                if( gameEngine.canMove( currentPoint ) )
+                {
+                    mapTile.setBackground( Color.GREY );
+                    mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
+                        ( e ) -> { gameEngine.move( currentPoint ); } );
                 }
-                if (gameEngine.canAttack(currentPoint)) {
-                    mapTile.setBackground(Color.RED);
-                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                            e -> gameEngine.attack(currentPoint));
+                if( gameEngine.canAttack( currentPoint ) )
+                {
+                    mapTile.setBackground( Color.RED );
+                    mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
+                        ( e ) -> { gameEngine.attack( currentPoint ); } );
                 }
-
-                if (spellManager.isActive() && creature.isPresent()) {
-                    mapTile.setBackground(Color.DEEPSKYBLUE);
-                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                            e -> spellUIManager.confirmSpellCast(creature.get(), currentPoint));
-                }
-
-                gridMap.add(mapTile, x, y);
+                gridMap.add( mapTile, x, y );
             }
         }
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if ("SPELL_CAST".equals(evt.getPropertyName())) {
-            spellUIManager.showSpellCastDialog();
-        }
-        refreshGui();
-    }
-
-    private void pass() {
-        gameEngine.pass();
+    public void propertyChange( PropertyChangeEvent evt )
+    {
         refreshGui();
     }
 }

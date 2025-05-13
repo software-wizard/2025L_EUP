@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Random;
 
 import lombok.Setter;
-import pl.psi.Hero;
 import pl.psi.Spells.ActiveSpellEffect;
 import pl.psi.Spells.BuffSpell;
 import pl.psi.Spells.Spell;
@@ -67,6 +66,7 @@ public class Creature implements PropertyChangeListener {
     public boolean isAlive() {
         return getAmount() > 0;
     }
+
 
     private void applyDamage(final Creature aDefender, final int aDamage) {
         int hpToSubstract = aDamage % aDefender.getMaxHp();
@@ -171,6 +171,8 @@ public class Creature implements PropertyChangeListener {
     }
 
 
+
+
     public static class Builder {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
@@ -200,4 +202,6 @@ public class Creature implements PropertyChangeListener {
     public String toString() {
         return getName() + System.lineSeparator() + getAmount();
     }
+
+
 }
