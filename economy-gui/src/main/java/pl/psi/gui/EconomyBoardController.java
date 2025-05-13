@@ -11,6 +11,7 @@ import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.EconomyHero;
+import pl.psi.hero.Statistics;
 import pl.psi.map.BoardEconomyEngine;
 import pl.psi.map.MapObjectIf;
 import pl.psi.map.buildings.bank.Bank;
@@ -24,8 +25,8 @@ import java.util.Map;
 public class EconomyBoardController implements PropertyChangeListener {
     private final BoardEconomyEngine gameEngine;
     @FXML private GridPane gridMap;
-    @FXML private Button passButton;
-    @FXML private Label goldLabel, woodLabel, oreLabel, mercuryLabel, sulphurLabel, crystalLabel, gemsLabel;
+    @FXML private Button passButton,equipmentButton;
+    @FXML private Label goldLabel, woodLabel, oreLabel, mercuryLabel, sulphurLabel, crystalLabel, gemsLabel,attackLabel,defenceLabel,powerLabel,knowledgeLabel;
 
     private final EconomyHero battleHero1;
     private final EconomyHero battleHero2;
@@ -42,6 +43,7 @@ public class EconomyBoardController implements PropertyChangeListener {
         updateResourceDisplay();
         gameEngine.addObserver(this);
         passButton.setOnMouseClicked(e -> gameEngine.pass());
+        equipmentButton.setOnMouseClicked(e -> showEquipment());
     }
 
     private void refreshGui() {
@@ -55,7 +57,7 @@ public class EconomyBoardController implements PropertyChangeListener {
                 gridMap.add(tile, x, y);
             }
         }
-        updateResourceDisplay();
+        updateDisplay();
     }
 
     private void renderTileContent(Point point, EconomyTile tile) {
@@ -111,6 +113,11 @@ public class EconomyBoardController implements PropertyChangeListener {
 
     }
 
+    private void updateDisplay(){
+        updateResourceDisplay();
+        updateStatsDisplay();
+    }
+
     private void updateResourceDisplay() {
         Resources res = gameEngine.getCurrentHero().getResources();
         goldLabel.setText("Gold: " + res.getGold());
@@ -120,6 +127,19 @@ public class EconomyBoardController implements PropertyChangeListener {
         sulphurLabel.setText("Sulphur: " + res.getSulphur());
         crystalLabel.setText("Crystal: " + res.getCrystal());
         gemsLabel.setText("Gems: " + res.getGems());
+    }
+
+    private void updateStatsDisplay() {
+        Statistics stats = gameEngine.getCurrentHero().getTotalStatistics();
+        attackLabel.setText("Attack: " + stats.getAttack());
+        defenceLabel.setText("Defense: " + stats.getDefense());
+        powerLabel.setText("Power: " + stats.getPower());
+        knowledgeLabel.setText("Knowledge: " + stats.getKnowledge());
+    }
+
+
+    private void showEquipment() {
+
     }
 
     @Override

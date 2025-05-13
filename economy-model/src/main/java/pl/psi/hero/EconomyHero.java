@@ -136,6 +136,7 @@ public class EconomyHero implements PropertyChangeListener
     public int getKnowledge() {
         return getTotalStatistics().getKnowledge();
     }
+
     public void addSkill(final ArmorerSkill aSkill)
     {
         if( skills == null )
