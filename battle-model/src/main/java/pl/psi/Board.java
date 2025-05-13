@@ -15,12 +15,17 @@ public class Board
 {
     private static final int MAX_WITDH = 14;
     private final BiMap< Point, Creature > map = HashBiMap.create();
-    private final BiMap< Point, SpecialField > mapWithSpecialFields = HashBiMap.create();
+    private final BiMap< Point, String > mapWithSpecialFields = HashBiMap.create();
 
-    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, List< SpecialField > aSpecialFields )
+    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2)
     {
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
+    }
+
+    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, List< String > aSpecialFields )
+    {
+        this(aCreatures1, aCreatures2);
         addSpecialFields( aSpecialFields );
     }
 
@@ -32,7 +37,7 @@ public class Board
         }
     }
 
-    private void addSpecialFields( final List<SpecialField> aSpecialFields)
+    private void addSpecialFields( final List<String> aSpecialFields)
     {
         for( int i = 0; i < aSpecialFields.size(); i++ )
         {

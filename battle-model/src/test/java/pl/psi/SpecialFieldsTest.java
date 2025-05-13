@@ -34,18 +34,16 @@ public class SpecialFieldsTest {
 
         final List< Creature > c1 = List.of( creature, dragon );
         final List< Creature > c2 = List.of();
-        final Board board = new Board( c1, c2 );
-
-        board.makeFieldGivingDmg(new Point(3, 3), 20); //(point, howMuchDmg)
-        board.makeFieldGivingDmg(new Point(4, 4), 15);
+        final List< String > specialFields = List.of("fieldGivingDmg");
+        final Board board = new Board( c1, c2,  specialFields);
 
         //when
         board.move( creature, new Point( 3, 3 ) );
         board.move( dragon, new Point(4, 4));
 
         //then
-        assertThat(creature.getCurrentHp()).isEqual(80);
-        assertThat(dragon.getCurrentHp()).isEqual(100);
+        assertThat(creature.getCurrentHp()).isEqualTo(80);
+        assertThat(dragon.getCurrentHp()).isEqualTo(80);
     }
 
     @Test
