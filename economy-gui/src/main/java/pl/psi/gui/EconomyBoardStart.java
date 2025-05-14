@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import pl.psi.Point;
 import pl.psi.creatures.EconomyNecropolisFactory;
 import pl.psi.gui.startchoice.HeroSelection;
-import pl.psi.hero.Artifact;
+import pl.psi.hero.artifacts.Artifact;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.Statistics;
 import pl.psi.map.MapObjectIf;
@@ -16,9 +16,7 @@ import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.buildings.bank.BankStatistics;
 import pl.psi.map.resources.Gold;
 import pl.psi.map.resources.Resources;
-import pl.psi.map.resources.generators.GoldGenerator;
 import pl.psi.map.resources.generators.MercuryGenerator;
-import pl.psi.map.resources.generators.WoodGenerator;
 
 import java.io.IOException;
 import java.util.Map;

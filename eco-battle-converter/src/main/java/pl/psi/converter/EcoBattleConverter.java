@@ -9,7 +9,6 @@ import java.util.Map;
 import pl.psi.Hero;
 import pl.psi.creatures.*;
 import pl.psi.Point;
-import pl.psi.hero.skills.AbstractSkill;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.gui.MainBattleController;
@@ -17,9 +16,7 @@ import pl.psi.gui.MainBattleController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.psi.hero.Artifact;
 import pl.psi.hero.EconomyHero;
-import pl.psi.hero.Statistics;
 
 public class EcoBattleConverter {
 

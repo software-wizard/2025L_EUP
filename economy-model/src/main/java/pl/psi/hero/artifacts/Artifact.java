@@ -1,9 +1,10 @@
-package pl.psi.hero;
+package pl.psi.hero.artifacts;
 
 import lombok.Getter;
 import pl.psi.Point;
+import pl.psi.hero.EconomyHero;
+import pl.psi.hero.Statistics;
 import pl.psi.map.InteractableIf;
-import pl.psi.map.MapObjectIf;
 import pl.psi.map.buildings.enterAction.EnterAction;
 
 public class Artifact implements InteractableIf {

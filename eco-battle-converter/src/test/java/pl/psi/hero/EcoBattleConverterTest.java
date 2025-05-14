@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.EconomyNecropolisFactory;
+import pl.psi.hero.artifacts.Artifact;
 import pl.psi.map.resources.Resources;
 
 class EcoBattleConverterTest {
