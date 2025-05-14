@@ -15,45 +15,40 @@ import pl.psi.hero.Artifact;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.Statistics;
 
-public class EcoBattleConverter
-{
+public class EcoBattleConverter {
 
-    public static void startBattle( final EconomyHero aPlayer1, final EconomyHero aPlayer2 )
-    {
+    public static void startBattle(final EconomyHero aPlayer1, final EconomyHero aPlayer2) {
         Scene scene = null;
-        try
-        {
+        try {
             final FXMLLoader loader = new FXMLLoader();
-            loader.setLocation( EcoBattleConverter.class.getClassLoader()
-                .getResource( "fxml/main-battle.fxml" ) );
-            loader.setController( new MainBattleController( convert( aPlayer1 ), convert( aPlayer2 ) ) );
-            scene = new Scene( loader.load() );
+            loader.setLocation(EcoBattleConverter.class.getClassLoader()
+                    .getResource("fxml/main-battle.fxml"));
+            loader.setController(new MainBattleController(convert(aPlayer1), convert(aPlayer2)));
+            scene = new Scene(loader.load());
             final Stage aStage = new Stage();
-            aStage.setScene( scene );
-            aStage.setX( 5 );
-            aStage.setY( 5 );
+            aStage.setScene(scene);
+            aStage.setX(5);
+            aStage.setY(5);
             aStage.show();
-        }
-        catch( final IOException aE )
-        {
+        } catch (final IOException aE) {
             aE.printStackTrace();
         }
     }
 
-    public static Hero convert( final EconomyHero aPlayer1 )
-    {
-        final List< Creature > creatures = new ArrayList<>();
+    public static Hero convert(final EconomyHero aPlayer1) {
+        final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
         aPlayer1.getCreatures()
-            .forEach( ecoCreature -> creatures.add(
-                          convertCreatureWithEffects(ecoCreature, aPlayer1)//zmienione tutaj
-                    )
-            );
+                .forEach(ecoCreature -> creatures.add(
+                                convertCreatureWithEffects(ecoCreature, aPlayer1)//zmienione tutaj
+                        )
+                );
         return new Hero(creatures);
-    //  TODO
+        //  TODO
 
     }
-//    private StatsModifier convertHeroStatisticsToBonus(EconomyHero ecoHero) {
+
+    //    private StatsModifier convertHeroStatisticsToBonus(EconomyHero ecoHero) {
 //        Statistics stats = ecoHero.getTotalStatistics();// poprawione na getTotalStatistics
 //        return new StatsModifier(
 //                stats.getAttack(),
@@ -78,44 +73,95 @@ public class EcoBattleConverter
 //                .build();
 //    }
 // Poprawiona metoda convertCreatureWithEffects
-public static Creature convertCreatureWithEffects(EconomyCreature ecoCreature, EconomyHero ecoHero) {
-    // Używamy statystyk stworzenia (ecoCreature) zamiast bohatera (ecoHero)
-    CreatureStatistic baseStats = ecoCreature.getStats(); // Pobieramy statystyki z klasy EconomyCreature
+    public static Creature convertCreatureWithEffects(EconomyCreature ecoCreature, EconomyHero ecoHero) {
+        // Używamy statystyk stworzenia (ecoCreature) zamiast bohatera (ecoHero)
+        // 1. Pobierz podstawowe statystyki stworzenia z `ecoCreature`
+        CreatureStatistic baseStats = ecoCreature.getStats(); // Pobieramy statystyki z klasy EconomyCreature
 
-    // Tworzymy nową instancję Statistics dla bonusów z artefaktów
-    //Statistics totalBonusStats = new Statistics(0, 0, 0, 0); // Inicjalizujemy statystyki bonusów
+        // Tworzymy nową instancję Statistics dla bonusów z artefaktów
+        //Statistics totalBonusStats = new Statistics(0, 0, 0, 0); // Inicjalizujemy statystyki bonusów
 
 
-    // Tworzymy StatsModifier na podstawie bonusów z artefaktów
-    StatsModifier totalBonus = new StatsModifier(0,0); //początkowe bonusy
-    for (Artifact artifact : ecoHero.getArtifacts()) {
-        // Dodajemy efekty artefaktów
+        // Tworzymy StatsModifier na podstawie bonusów z artefaktów
+        // 2. Tworzymy zmienne do przechowywania bonusów z artefaktów
+        StatsModifier totalBonus = new StatsModifier(0, 0); //początkowe bonusy
 
-        //totalBonusStats.increase(artifact.getBonuses()); // Za pomocą metody increase dodajemy bonusy z artefaktów
-        totalBonus = new StatsModifier(
-                totalBonus.getAttackBonus() + artifact.getBonuses().getAttack(),
-                totalBonus.getArmorBonus() + artifact.getBonuses().getDefense()
-        );
-    }
+        // 3. Iterujemy przez artefakty w `ecoHero` i dodajemy ich bonusy do `totalBonus`
+        for (Artifact artifact : ecoHero.getArtifacts()) {
+            // Dodajemy efekty artefaktów
 
-   // Teraz mamy zaktualizowane statystyki (ataku, obrony itp.) w `totalBonusStats`
-    CreatureStatisticIf modifiedStats = new ModifiedCreatureStats(baseStats, totalBonus);
+            //totalBonusStats.increase(artifact.getBonuses()); // Za pomocą metody increase dodajemy bonusy z artefaktów
+            totalBonus = new StatsModifier(
+                    totalBonus.getAttackBonus() + artifact.getBonuses().getAttack(),
+                    totalBonus.getArmorBonus() + artifact.getBonuses().getDefense()
+            );
+        }
 
-    // Tworzymy obiekt DamageCalculatorIf (zakładając, że jest domyślny)
+        // Teraz mamy zaktualizowane statystyki (ataku, obrony itp.) w `totalBonusStats`
+        // 4. Zmodyfikuj statystyki stworzenia, uwzględniając bonusy z artefaktów
+        CreatureStatisticIf modifiedStats = new ModifiedCreatureStats(baseStats, totalBonus);
+
+        // Tworzymy obiekt DamageCalculatorIf (zakładając, że jest domyślny)
 //    DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
 
-    // Zwracamy stworzenie z modyfikowanymi statystykami i kalkulatorem obrażeń
-    return new Creature.Builder()
-            .statistic(modifiedStats)
-            .amount(ecoCreature.getAmount())
-            .build();
-}// nowa metoda do testów
-    public static Creature convertCreatureWithEffects(
-            EconomyHero ecoHero, boolean isUpgraded, int tier, int amount) {
+        // Zwracamy stworzenie z modyfikowanymi statystykami i kalkulatorem obrażeń
+        // 5. Zwróć nowo utworzone stworzenie (`Creature`), uwzględniając bonusy
+        return new Creature.Builder()
+                .statistic(modifiedStats)
+                .amount(ecoCreature.getAmount())
+                .build();
+    }// nowa metoda do testów
 
-        EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
-        EconomyCreature ecoCreature = factory.create(isUpgraded, tier, amount);
+//    public static Creature convertCreatureWithEffects(
+//            EconomyHero ecoHero, boolean isUpgraded, int tier, int amount) {
+//
+//        EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
+//        EconomyCreature ecoCreature = factory.create(isUpgraded, tier, amount);
+//
+//        return convertCreatureWithEffects(ecoCreature, ecoHero);
+//
+//    } // i tak rpzeczhodzi bez tego hmm?
 
-        return convertCreatureWithEffects(ecoCreature, ecoHero);
+    /*
+    public static Hero convert(final EconomyHero economyHero) {
+    final List<Creature> battleCreatures = new ArrayList<>();
 
-}}
+    // Create one StatsModifier that aggregates all artifact bonuses
+    int totalAttackBonus = 0;
+    int totalDefenseBonus = 0;
+
+    for (Artifact artifact : economyHero.getArtifacts()) {
+        totalAttackBonus += artifact.getBonuses().getAttack();
+        totalDefenseBonus += artifact.getBonuses().getDefense();
+    }
+
+    StatsModifier artifactBonus = new StatsModifier(totalAttackBonus, totalDefenseBonus);
+    BattleEffect artifactEffect = new ArtifactBonusEffect(artifactBonus);
+
+    for (EconomyCreature ecoCreature : economyHero.getCreatures()) {
+        CreatureStatistic baseStats = ecoCreature.getStats();
+        CreatureStatisticIf modifiedStats = artifactEffect.modify(baseStats);
+
+        Creature creature = new Creature.Builder()
+                .statistic(modifiedStats)
+                .amount(ecoCreature.getAmount())
+                .build();
+        battleCreatures.add(creature);
+    }
+
+    return new Hero(battleCreatures);
+}
+This applies all artifact bonuses once per hero to each creature’s stats when initializing battle creatures.
+
+🔄 2. Optional: Use Decorator Stack for Effects
+If you later want to support stacking multiple effects (e.g. hero skills, terrain bonuses), you could chain BattleEffect.modify(...) calls:
+
+java
+Kopiuj
+Edytuj
+CreatureStatisticIf stats = baseStats;
+for (BattleEffect effect : allEffects) {
+    stats = effect.modify(stats);
+}
+     */
+}
