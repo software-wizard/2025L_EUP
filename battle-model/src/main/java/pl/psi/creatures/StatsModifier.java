@@ -2,7 +2,7 @@ package pl.psi.creatures;
 
 // W module: battle-model
 public class StatsModifier {
-    private final int attackBonus;
+    private final int attackBonus; // sprawdzic inne statystyki tez
     private final int armorBonus;
 
     public StatsModifier(int attackBonus, int armorBonus) {
@@ -18,5 +18,5 @@ public class StatsModifier {
         return armorBonus;
     }
 
-    // Dodaj inne statystyki, jeśli będzie trzeba
+    // Dodaj inne statystyki, po przetestowaniu dwóch
 }
