@@ -1,40 +1,38 @@
 package pl.psi.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
+import pl.psi.creatures.Creature;
+import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.EconomyHero;
+import pl.psi.hero.Statistics;
 import pl.psi.map.BoardEconomyEngine;
-import pl.psi.map.InteractableIf;
 import pl.psi.map.MapObjectIf;
-import pl.psi.map.buildings.BuildingIf;
+import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.buildings.Castle;
 import pl.psi.map.resources.Resources;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.Optional;
+import java.util.Map;
 
 public class EconomyBoardController implements PropertyChangeListener {
     private final BoardEconomyEngine gameEngine;
     @FXML private GridPane gridMap;
-    @FXML private Button passButton;
-    @FXML private Label goldLabel, woodLabel, oreLabel, mercuryLabel, sulphurLabel, crystalLabel, gemsLabel;
+    @FXML private Button passButton,equipmentButton;
+    @FXML private Label goldLabel, woodLabel, oreLabel, mercuryLabel, sulphurLabel, crystalLabel, gemsLabel,attackLabel,defenceLabel,powerLabel,knowledgeLabel;
 
     private final EconomyHero battleHero1;
     private final EconomyHero battleHero2;
 
-    public EconomyBoardController(final EconomyHero hero1, final EconomyHero hero2) {
-        this.gameEngine = new BoardEconomyEngine(hero1, hero2);
+    public EconomyBoardController(final EconomyHero hero1, final EconomyHero hero2, Map<Point, MapObjectIf> map) {
+        this.gameEngine = new BoardEconomyEngine(hero1, hero2, map);
         this.battleHero1 = hero1;
         this.battleHero2 = hero2;
     }
@@ -45,6 +43,7 @@ public class EconomyBoardController implements PropertyChangeListener {
         updateResourceDisplay();
         gameEngine.addObserver(this);
         passButton.setOnMouseClicked(e -> gameEngine.pass());
+        equipmentButton.setOnMouseClicked(e -> showEquipment());
     }
 
     private void refreshGui() {
@@ -58,7 +57,7 @@ public class EconomyBoardController implements PropertyChangeListener {
                 gridMap.add(tile, x, y);
             }
         }
-        updateResourceDisplay();
+        updateDisplay();
     }
 
     private void renderTileContent(Point point, EconomyTile tile) {
@@ -92,6 +91,7 @@ public class EconomyBoardController implements PropertyChangeListener {
             tile.setOnMouseClicked(e -> {
                 gameEngine.move(point);
                 gameEngine.interact(point);
+                refreshGui();
             });
         }
 
@@ -105,11 +105,17 @@ public class EconomyBoardController implements PropertyChangeListener {
                     gameEngine.move(point); // Ensure hero enters
                     gameEngine.enter(point);
                 } else if (e.getButton() == MouseButton.SECONDARY) {
+                    gameEngine.move(point);
                     gameEngine.secondInteraction(point);
                 }
             });
         }
 
+    }
+
+    private void updateDisplay(){
+        updateResourceDisplay();
+        updateStatsDisplay();
     }
 
     private void updateResourceDisplay() {
@@ -121,6 +127,19 @@ public class EconomyBoardController implements PropertyChangeListener {
         sulphurLabel.setText("Sulphur: " + res.getSulphur());
         crystalLabel.setText("Crystal: " + res.getCrystal());
         gemsLabel.setText("Gems: " + res.getGems());
+    }
+
+    private void updateStatsDisplay() {
+        Statistics stats = gameEngine.getCurrentHero().getTotalStatistics();
+        attackLabel.setText("Attack: " + stats.getAttack());
+        defenceLabel.setText("Defense: " + stats.getDefense());
+        powerLabel.setText("Power: " + stats.getPower());
+        knowledgeLabel.setText("Knowledge: " + stats.getKnowledge());
+    }
+
+
+    private void showEquipment() {
+
     }
 
     @Override
@@ -139,6 +158,14 @@ public class EconomyBoardController implements PropertyChangeListener {
                 EconomyHero hero1 = (EconomyHero) data1[0];
                 Castle castle1 = (Castle) data1[1];
                 WindowManager.openUpgrades(hero1, castle1);
+                break;
+
+            case "ENTER_BANK":
+                Object[] data2 = (Object[]) evt.getNewValue();
+                EconomyHero hero2 = (EconomyHero) data2[0];
+                Bank bank = (Bank) data2[1];
+                Map<Point, EconomyCreature> enemies = bank.getEnemies();
+                EcoBattleConverter.startBankBattle(hero2, enemies);
                 break;
         }
     }

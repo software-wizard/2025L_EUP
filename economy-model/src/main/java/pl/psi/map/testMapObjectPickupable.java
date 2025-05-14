@@ -1,18 +1,13 @@
-package pl.psi.map.buildings;
+package pl.psi.map;
 
+import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.resources.Resources;
+import pl.psi.map.buildings.enterAction.EnterAction;
 
-public class Bank implements BuildingIf{
-    final Resources prize;
-
-    public Bank(Resources prize) {
-        this.prize = prize;
-    }
-
+public class testMapObjectPickupable implements MapObjectIf {
     @Override
     public String getPath() {
-        return "";
+        return "/objects/bank.png";
     }
 
     @Override
@@ -31,13 +26,23 @@ public class Bank implements BuildingIf{
     }
 
     @Override
+    public void interact(EconomyHero hero, Point point) {
+
+    }
+
+    @Override
+    public typeOfObject getTypeOfObject() {
+        return typeOfObject.PICKUPABLE;
+    }
+
+    @Override
     public EconomyHero getOwner() {
         return null;
     }
 
     @Override
     public EnterAction onEnter() {
-        return new EnterAction(EnterActionType.ENTER_BANK, this);
+        return null;
     }
 
     @Override

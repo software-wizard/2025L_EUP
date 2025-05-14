@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pl.psi.gui.startchoice.HeroSelectionController">
+
+    <center>
+        <GridPane hgap="10" vgap="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="Hero 1 Fraction:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="fraction1Combo" prefWidth="150" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="Hero 1:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="hero1Combo" prefWidth="150" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+
+            <Label text="Hero 2 Fraction:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="fraction2Combo" prefWidth="150" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Hero 2:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="hero2Combo" prefWidth="150" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Button text="Start Game"
+                    onAction="#onStartGameClicked"
+                    GridPane.rowIndex="4" GridPane.columnIndex="1"
+                    GridPane.halignment="RIGHT"
+                    defaultButton="true"/>
+        </GridPane>
+
+    </center>
+</BorderPane>

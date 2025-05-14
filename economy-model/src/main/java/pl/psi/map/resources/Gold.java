@@ -2,8 +2,8 @@ package pl.psi.map.resources;
 
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.BoardEconomy;
 import pl.psi.map.InteractableIf;
+import pl.psi.map.buildings.enterAction.EnterAction;
 
 public class Gold implements InteractableIf {
     private final Resources resources;
@@ -13,10 +13,14 @@ public class Gold implements InteractableIf {
     }
 
     @Override
-    public void interact(EconomyHero hero, BoardEconomy board, Point point) {
+    public void interact(EconomyHero hero, Point point) {
         hero.addResource(resources);
-        board.removeInteractableAt(point);
         System.out.println("Gold interacted");
+    }
+
+    @Override
+    public typeOfObject getTypeOfObject() {
+        return typeOfObject.PICKUPABLE;
     }
 
     public String getPath(){
@@ -24,22 +28,26 @@ public class Gold implements InteractableIf {
     }
 
     @Override
-    public void endOfTurn() {
-
-    }
+    public void endOfTurn() {}
 
     @Override
-    public void enter(EconomyHero hero) {
-
-    }
+    public void enter(EconomyHero hero) {}
 
     @Override
-    public void generateResource() {
-
-    }
+    public void generateResource() {}
 
     @Override
     public EconomyHero getOwner() {
+        return null;
+    }
+
+    @Override
+    public EnterAction onEnter() {
+        return null;
+    }
+
+    @Override
+    public EnterAction secondInteraction() {
         return null;
     }
 }

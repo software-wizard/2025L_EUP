@@ -3,8 +3,8 @@ package pl.psi.map.resources.generators;
 import lombok.Getter;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.BoardEconomy;
 import pl.psi.map.InteractableIf;
+import pl.psi.map.buildings.enterAction.EnterAction;
 import pl.psi.map.resources.Resources;
 
 
@@ -19,7 +19,7 @@ public class SulfurGenerator implements InteractableIf, ResourceGenIf {
     }
 
 
-    public void interact(EconomyHero hero, BoardEconomy board, Point point) {
+    public void interact(EconomyHero hero, Point point) {
 
         if(owner != hero){
             owner = hero;
@@ -30,6 +30,11 @@ public class SulfurGenerator implements InteractableIf, ResourceGenIf {
         //po wejściu na pole owner zmienia się na hero który wszedł i co kliknięcie pass dodaje golda
         // pokminić czy zrobić to w hero (lista kopalni) czy tak jak tutaj
 
+    }
+
+    @Override
+    public typeOfObject getTypeOfObject() {
+        return null;
     }
 
     @Override
@@ -51,6 +56,16 @@ public class SulfurGenerator implements InteractableIf, ResourceGenIf {
     @Override
     public void enter(EconomyHero hero) {
 
+    }
+
+    @Override
+    public EnterAction onEnter() {
+        return null;
+    }
+
+    @Override
+    public EnterAction secondInteraction() {
+        return null;
     }
 }
 

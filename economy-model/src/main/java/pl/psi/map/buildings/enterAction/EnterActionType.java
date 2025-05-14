@@ -1,4 +1,4 @@
-package pl.psi.map.buildings;
+package pl.psi.map.buildings.enterAction;
 
 public enum EnterActionType {
     OPEN_SHOP,

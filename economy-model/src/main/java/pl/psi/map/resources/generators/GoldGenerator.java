@@ -3,8 +3,8 @@ package pl.psi.map.resources.generators;
 import lombok.Getter;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.BoardEconomy;
 import pl.psi.map.InteractableIf;
+import pl.psi.map.buildings.enterAction.EnterAction;
 import pl.psi.map.resources.Resources;
 
 
@@ -19,7 +19,7 @@ public class GoldGenerator implements InteractableIf, ResourceGenIf {
     }
 
 
-    public void interact(EconomyHero hero, BoardEconomy board, Point point) {
+    public void interact(EconomyHero hero, Point point) {
 
         if(owner != hero){
             owner = hero;
@@ -31,6 +31,11 @@ public class GoldGenerator implements InteractableIf, ResourceGenIf {
         // pokminić czy zrobić to w hero (lista kopalni) czy tak jak tutaj 
 
         }
+
+    @Override
+    public typeOfObject getTypeOfObject() {
+        return null;
+    }
 
     @Override
     public String getPath() {
@@ -50,6 +55,16 @@ public class GoldGenerator implements InteractableIf, ResourceGenIf {
     @Override
     public void enter(EconomyHero hero) {
 
+    }
+
+    @Override
+    public EnterAction onEnter() {
+        return null;
+    }
+
+    @Override
+    public EnterAction secondInteraction() {
+        return null;
     }
 }
 

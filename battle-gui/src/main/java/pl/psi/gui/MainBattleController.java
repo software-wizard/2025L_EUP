@@ -2,6 +2,7 @@ package pl.psi.gui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Map;
 import java.util.Optional;
 
 import javafx.fxml.FXML;
@@ -25,6 +26,11 @@ public class MainBattleController implements PropertyChangeListener
     public MainBattleController( final Hero aHero1, final Hero aHero2 )
     {
         gameEngine = new GameEngine( aHero1, aHero2 );
+    }
+
+    public MainBattleController(final Hero aHero1, final Map<Point, Creature> bankEnemy)
+    {
+        gameEngine = new GameEngine(bankEnemy, aHero1);
     }
 
     @FXML

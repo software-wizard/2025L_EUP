@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import pl.psi.creatures.Creature;
@@ -19,10 +20,16 @@ public class GameEngine {
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
     private List<String> specialFields = new ArrayList<>();
 
-    public  GameEngine(final Hero aHero1, final Hero aHero2) {
+    public GameEngine(final Hero aHero1, final Hero aHero2) {
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         specialFields.add("fieldGivingDmg");
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), specialFields);
+    }
+
+    public GameEngine(final Map<Point,Creature> enemies,final Hero aHero1)
+    {
+        turnQueue = new TurnQueue(aHero1.getCreatures(), enemies.values());
+        board = new Board(enemies, aHero1.getCreatures());
     }
 
     public void attack(final Point point) {

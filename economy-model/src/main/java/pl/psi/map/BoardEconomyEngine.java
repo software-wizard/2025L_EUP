@@ -3,6 +3,13 @@ package pl.psi.map;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.*;
+import pl.psi.map.buildings.bank.Bank;
+import pl.psi.map.buildings.bank.BankStatistics;
+import pl.psi.map.buildings.enterAction.EnterAction;
+import pl.psi.map.buildings.BuildingIf;
+import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.enterAction.EnterAction;
+import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.resources.Resources;
 import pl.psi.map.resources.generators.*;
 
@@ -23,27 +30,21 @@ public class BoardEconomyEngine {
     private int turnCounter;
 
 
-    public BoardEconomyEngine(final EconomyHero hero1, final EconomyHero hero2) {
+    public BoardEconomyEngine(final EconomyHero hero1, final EconomyHero hero2, Map<Point, MapObjectIf> map) {
+        this.interactables = map;
         turnQueue = new TurnQueueEconomy(hero1, hero2);
-        interactables.put(new Point(2,2),new GoldGenerator());
-        interactables.put(new Point(3,2),new MercuryGenerator());
-        interactables.put(new Point(4,2), new OreGenerator());
-        interactables.put(new Point(5,2), new SulfurGenerator());
-        interactables.put(new Point(6,2), new WoodGenerator());
-        interactables.put(new Point(7,2), new CrystalGenerator());
-        interactables.put(new Point(8,2), new GemGenerator());
-        buildings.put(new Point(0,1), new Castle());
-        buildings.put(new Point(10, 10), new Bank(new Resources(0,0,0,0,0,0,0)));
         board = BoardEconomy.builder()
-                .addHero(hero1, 5)
-                .addHero(hero2,14)
-                .addInteractables(interactables)
-                .addBuildings(buildings)
+                .addHero(hero1, new Point(0,0))
+                .addHero(hero2,new Point(17,8))
+                .addInteractables(map)
                 .build();
     }
 
     public boolean canMove(final Point point) {
-        return board.canMove(turnQueue.getCurrentHero(), point);
+        if (!isHero(point)) {
+            return board.canMove(turnQueue.getCurrentHero(), point);
+        }
+        return false;
     }
 
     public boolean canAttack(final Point point) {
@@ -51,11 +52,17 @@ public class BoardEconomyEngine {
     }
 
     public boolean canEnter(final Point point) {
-        return isEnterable(point);
+        if (!isHero(point)) {
+            return isEnterable(point);
+        }
+        return false;
     }
 
     public boolean canInteract(Point point) {
-        return getInteractable(point).isPresent();
+        if (!isHero(point)) {
+            return getInteractable(point).isPresent();
+        }
+        return false;
     }
 
     public void move(final Point point) {
@@ -63,21 +70,31 @@ public class BoardEconomyEngine {
         observerSupport.firePropertyChange(HERO_MOVED, null, point);
     }
 
-    public void interact(final Point point){
+    public void interact(final Point point) {
         board.interact(turnQueue.getCurrentHero(), point);
     }
 
-    public void enter(final Point point){
+    public void enter(final Point point) {
         EnterAction action = board.enter(turnQueue.getCurrentHero(), point);
-        switch (action.getType()){
-            case OPEN_SHOP -> openShop(action.getBuilding());
+        switch (action.getType()) {
+            case OPEN_SHOP: {
+                openShop(action.getBuilding());
+                break;
+            }
+            case ENTER_BANK: {
+                enterBank(action.getBuilding());
+                break;
+            }
         }
     }
 
-    public void secondInteraction(final Point point){
+    public void secondInteraction(final Point point) {
         EnterAction action = board.secondInteraction(turnQueue.getCurrentHero(), point);
-        switch (action.getType()){
-            case OPEN_UPGRADE -> openUpgrades(action.getBuilding());
+        switch (action.getType()) {
+            case OPEN_UPGRADE:{
+                openUpgrades(action.getBuilding());
+                break;
+            }
         }
     }
 
@@ -98,10 +115,6 @@ public class BoardEconomyEngine {
         return board.getInteractableAt(point);
     }
 
-    public Optional<BuildingIf> getBuilding(final Point point) {
-        return board.getBuildingAt(point);
-    }
-
     public void pass() {
         getCurrentHero().resetMoveRange();
         endOfTurn();
@@ -110,6 +123,7 @@ public class BoardEconomyEngine {
 
     private void endOfTurn() { // called after each click of the pass button
         turnCounter++;
+        System.out.println("End of turn");
         if (turnCounter >= 2){
             turnCounter = 0;
             endOfDay();
@@ -117,15 +131,13 @@ public class BoardEconomyEngine {
     }
 
     private void endOfDay(){ // called after both players pass
+        System.out.println("End of day");
         generateResourcesEndDay();
     }
 
     private void generateResourcesEndDay(){
         for (MapObjectIf interactable : interactables.values()) {
-            System.out.println(interactable); // jak zmienie to można wywalić instanceof
-            if (interactable instanceof ResourceGenIf generator){
-                    generator.generateResource();
-                }
+            interactable.generateResource();
             }
         }
 
@@ -158,8 +170,11 @@ public class BoardEconomyEngine {
     }
 
     public void openUpgrades(BuildingIf buildingOpt) {
-                observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),buildingOpt});
-        ;
+        observerSupport.firePropertyChange("OPEN_UPGRADES", null, new Object[]{getCurrentHero(),buildingOpt});
+    }
+
+    public void enterBank(BuildingIf building){
+        observerSupport.firePropertyChange("ENTER_BANK", null, new Object[]{getCurrentHero(), building});
     }
 
 
