@@ -8,18 +8,16 @@ import pl.psi.map.InteractableIf;
 import pl.psi.map.buildings.enterAction.EnterAction;
 
 public class Artifact implements InteractableIf {
-    private String name;
     @Getter
-    private Statistics bonuses;
+    private final ArtifactType type;
 
-    public Artifact(String name, int attackBonus, int defenseBonus, int powerBonus, int knowledgeBonus) {
-        this.name = name;
-        this.bonuses = new Statistics(attackBonus, defenseBonus, powerBonus, knowledgeBonus);
+    public Artifact(ArtifactType type) {
+        this.type = type;
     }
 
     @Override
     public String getPath() {
-        return "/objects/Artifact_Sword_of_Hellfire.gif";
+        return type.getImagePath();
     }
 
     @Override
@@ -40,7 +38,6 @@ public class Artifact implements InteractableIf {
     @Override
     public void interact(EconomyHero hero, Point point) {
         hero.addArtifact(this);
-        System.out.println("Artifact " + name + " interacted");
     }
 
     @Override
