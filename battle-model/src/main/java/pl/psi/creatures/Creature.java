@@ -120,7 +120,7 @@ public class Creature implements PropertyChangeListener {
     }
 
 
-    int getArmor() {
+    public int getArmor() {
         return stats.getArmor();
     }
 

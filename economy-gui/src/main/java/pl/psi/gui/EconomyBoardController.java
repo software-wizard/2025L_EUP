@@ -91,6 +91,7 @@ public class EconomyBoardController implements PropertyChangeListener {
             tile.setOnMouseClicked(e -> {
                 gameEngine.move(point);
                 gameEngine.interact(point);
+                System.out.println("Interaction at: " + point);
                 refreshGui();
             });
         }

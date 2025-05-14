@@ -7,12 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import pl.psi.Hero;
+import pl.psi.creatures.*;
 import pl.psi.Point;
-import pl.psi.hero.skills.AbstractSkill;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.gui.MainBattleController;
-import pl.psi.creatures.NecropolisFactory;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -37,6 +36,17 @@ public class EcoBattleConverter {
         }
     }
 
+    public static Hero convert(final EconomyHero aPlayer1) {
+        final List<Creature> creatures = new ArrayList<>();
+        aPlayer1.getCreatures()
+                .forEach(ecoCreature -> creatures.add(convertCreatureWithEffects(ecoCreature, aPlayer1)//zmienione tutaj
+                        )
+                );
+        return new Hero(creatures);
+
+
+    }
+
     public static void startBankBattle(final EconomyHero aPlayer1, final Map<Point, EconomyCreature> bankEnemy) {
         Map<Point, Creature> bankEnemy1 = convertEnemies(bankEnemy);
 
@@ -55,27 +65,6 @@ public class EcoBattleConverter {
         }
     }
 
-    public static Hero convert(final EconomyHero aPlayer1) {
-        final List<Creature> creatures = new ArrayList<>();
-        final List<AbstractSkill> skills = aPlayer1.getSkills();
-        final NecropolisFactory factory = new NecropolisFactory();
-
-        aPlayer1.getCreatures().forEach(ecoCreature -> {
-            Creature creature = factory.create(
-                    ecoCreature.isUpgraded(),
-                    ecoCreature.getTier(),
-                    ecoCreature.getAmount(),
-                    ecoCreature.getReduceDamageFactor()
-            );
-//            if (skills != null) {
-//                skills.forEach(skill -> skill.apply(creature));
-//            }
-            creatures.add(creature);
-        });
-
-        return new Hero(creatures);
-    }
-
     public static Map<Point, Creature> convertEnemies(Map<Point, EconomyCreature> economyMap) {
         NecropolisFactory factory = new NecropolisFactory();
         Map<Point, Creature> result = new HashMap<>();
@@ -92,5 +81,18 @@ public class EcoBattleConverter {
         }
 
         return result;
+    }
+
+    public static Creature convertCreatureWithEffects(EconomyCreature ecoCreature, EconomyHero ecoHero) {
+
+        CreatureStatistic baseStats = ecoCreature.getStats();
+        StatsModifier totalBonus = new StatsModifier(ecoHero.getTotalStatistics().getAttack(), ecoHero.getTotalStatistics().getDefense());
+
+        CreatureStatisticIf modifiedStats = new ModifiedCreatureStats(baseStats, totalBonus);
+
+        return new Creature.Builder()
+                .statistic(modifiedStats)
+                .amount(ecoCreature.getAmount())
+                .build();
     }
 }

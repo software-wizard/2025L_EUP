@@ -7,8 +7,10 @@ import javafx.stage.Stage;
 import pl.psi.Point;
 import pl.psi.creatures.EconomyNecropolisFactory;
 import pl.psi.gui.startchoice.HeroSelection;
+import pl.psi.hero.artifacts.Artifact;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.Statistics;
+import pl.psi.hero.artifacts.ArtifactType;
 import pl.psi.map.MapObjectIf;
 import pl.psi.map.buildings.Castle;
 import pl.psi.map.buildings.bank.Bank;
@@ -50,6 +52,7 @@ public class EconomyBoardStart extends Application {
 
     private Map<Point, MapObjectIf> map() {
         return Map.ofEntries(
+                Map.entry(new Point(4,4), new Artifact(ArtifactType.SWORD_OF_HELLFIRE)),
                 Map.entry(new Point(17,1), new Castle()),
                 Map.entry(new Point(1,7), new Castle()),
                 Map.entry(new Point(3,2), new ResourceGenerator(ResourceGenType.GEM)),
