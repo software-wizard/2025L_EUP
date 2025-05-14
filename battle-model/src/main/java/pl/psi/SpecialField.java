@@ -35,10 +35,10 @@ public class SpecialField {
         }
     }
 
-    public static boolean canCreaturePassSpecialField() {
-        String name = stats.getName();
-        boolean canFly = SpecialField.canFly(name);
-        return canFly;
-
-    }
+//    public static boolean canCreaturePassSpecialField() {
+//        String name = stats.getName();
+//        boolean canFly = SpecialField.canFly(name);
+//        return canFly;
+//
+//    }
 }
