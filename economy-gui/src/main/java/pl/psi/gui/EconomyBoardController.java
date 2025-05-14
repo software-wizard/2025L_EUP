@@ -140,7 +140,7 @@ public class EconomyBoardController implements PropertyChangeListener {
 
 
     private void showEquipment() {
-
+        WindowManager.openEquipment(gameEngine.getCurrentHero());
     }
 
     @Override

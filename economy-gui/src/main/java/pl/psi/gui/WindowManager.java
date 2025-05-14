@@ -118,4 +118,19 @@ public class WindowManager {
         }
     }
 
+    public static void openEquipment(EconomyHero hero) {
+        try {
+            FXMLLoader loader = new FXMLLoader(WindowManager.class.getResource("/fxml/equipment.fxml"));
+            loader.setControllerFactory(param -> new EquipmentController(hero)); // hero injected
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Hero Equipment");
+            stage.show();
+
+        } catch (final IOException aE) {
+            aE.printStackTrace();
+        }
+    }
 }

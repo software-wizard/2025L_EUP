@@ -15,6 +15,15 @@ public class Artifact implements InteractableIf {
         this.type = type;
     }
 
+    public Statistics getStats(){
+        return type.getStatistics();
+    }
+
+    @Override
+    public String toString(){
+        return type.getName();
+    }
+
     @Override
     public String getPath() {
         return type.getImagePath();
@@ -22,7 +31,6 @@ public class Artifact implements InteractableIf {
 
     @Override
     public void endOfTurn() {
-
     }
 
     @Override

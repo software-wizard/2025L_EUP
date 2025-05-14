@@ -1,5 +1,6 @@
 package pl.psi.hero;
 
+import com.google.j2objc.annotations.ObjectiveCName;
 import lombok.Getter;
 
 public class Statistics {
@@ -25,5 +26,10 @@ public class Statistics {
         this.defense += stats.getDefense();
         this.power += stats.getPower();
         this.knowledge += stats.getKnowledge();
+    }
+
+    @Override
+    public String toString(){
+        return "Attack: " + attack + " Defense: " + defense + " Power: " + power + " Knowledge: " + knowledge;
     }
 }

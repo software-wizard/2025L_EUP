@@ -9,8 +9,9 @@ import org.mockito.Mockito;
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.resources.Gold;
-import pl.psi.map.resources.generators.GoldGenerator;
 import pl.psi.map.resources.Resources;
+import pl.psi.map.resources.generators.ResourceGenType;
+import pl.psi.map.resources.generators.ResourceGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,7 +99,7 @@ class BoardEconomyTest
     void mineGeneratesGoldProperlyForOwner()
     {
         Map<Point, MapObjectIf> map = new HashMap<>();
-        map.put(new Point(5,5), new GoldGenerator());
+        map.put(new Point(5,5), new ResourceGenerator(ResourceGenType.GOLD));
         BoardEconomyEngine engine = new BoardEconomyEngine(hero1, hero2, map);
 
         BoardEconomy board = BoardEconomy.builder()
