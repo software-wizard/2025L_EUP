@@ -66,6 +66,7 @@ public class Start extends Application
     {
         final BiMap < Point, String > specialFields = HashBiMap.create();
         specialFields.put(new Point(5, 5), "fieldGivingDmg");
+        specialFields.put(new Point(3, 8), "buffAttackDmg");
         return specialFields;
     }
 

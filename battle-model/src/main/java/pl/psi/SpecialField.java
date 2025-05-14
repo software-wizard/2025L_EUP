@@ -21,7 +21,7 @@ public class SpecialField {
     }
 
     public static void doSomething(String typeOfField, Creature aCreature) {
-        if (typeOfField == "fieldGivingDmg") {
+        if (typeOfField.equals("fieldGivingDmg")) {
             aCreature.setCurrentHp(aCreature.getCurrentHp() - 20);
         }
     }

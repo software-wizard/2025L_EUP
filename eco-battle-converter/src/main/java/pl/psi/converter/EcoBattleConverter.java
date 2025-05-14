@@ -28,10 +28,9 @@ public class EcoBattleConverter
         {
             final FXMLLoader loader = new FXMLLoader();
             BiMap < Point, String > specialFields = HashBiMap.create();
-            specialFields.put(new Point(8, 6), "fieldGivingDmg");
             loader.setLocation( EcoBattleConverter.class.getClassLoader()
                 .getResource( "fxml/main-battle.fxml" ) );
-            loader.setController( new MainBattleController( convert( aPlayer1 ), convert( aPlayer2 ), specialFields) );
+            loader.setController( new MainBattleController( convert( aPlayer1 ), convert( aPlayer2 )) );
             scene = new Scene( loader.load() );
             final Stage aStage = new Stage();
             aStage.setScene( scene );
