@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import pl.psi.Hero;
+import pl.psi.Point;
 import pl.psi.hero.skills.AbstractSkill;
 import pl.psi.creatures.Creature;
 import pl.psi.gui.MainBattleController;
@@ -24,9 +27,11 @@ public class EcoBattleConverter
         try
         {
             final FXMLLoader loader = new FXMLLoader();
+            BiMap < Point, String > specialFields = HashBiMap.create();
+            specialFields.put(new Point(8, 6), "fieldGivingDmg");
             loader.setLocation( EcoBattleConverter.class.getClassLoader()
                 .getResource( "fxml/main-battle.fxml" ) );
-            loader.setController( new MainBattleController( convert( aPlayer1 ), convert( aPlayer2 ) ) );
+            loader.setController( new MainBattleController( convert( aPlayer1 ), convert( aPlayer2 ), specialFields) );
             scene = new Scene( loader.load() );
             final Stage aStage = new Stage();
             aStage.setScene( scene );

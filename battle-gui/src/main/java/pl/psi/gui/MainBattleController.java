@@ -23,9 +23,9 @@ public class MainBattleController implements PropertyChangeListener
     @FXML
     private Button passButton;
 
-    public MainBattleController(final Hero aHero1, final Hero aHero2, final BiMap < Point, String > specialFields )
+    public MainBattleController(final Hero aHero1, final Hero aHero2, final BiMap < Point, String > aSpecialFields )
     {
-        gameEngine = new GameEngine( aHero1, aHero2 );
+        gameEngine = new GameEngine( aHero1, aHero2, aSpecialFields );
     }
 
     @FXML
@@ -63,6 +63,10 @@ public class MainBattleController implements PropertyChangeListener
                     mapTile.setBackground( Color.RED );
                     mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
                         ( e ) -> { gameEngine.attack( currentPoint ); } );
+                }
+                String specialField = gameEngine.getSpecialFields().get(currentPoint);
+                if (specialField != null && !specialField.isEmpty()) {
+                    mapTile.setBackground(Color.BROWN);
                 }
                 gridMap.add( mapTile, x, y );
             }

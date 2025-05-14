@@ -39,9 +39,9 @@ public class Board
 
     private void addSpecialFields( final BiMap <Point, String> aSpecialFields)
     {
-        for( int i = 0; i < aSpecialFields.size(); i++ )
+        for (BiMap.Entry<Point, String> entry : aSpecialFields.entrySet())
         {
-            mapWithSpecialFields.put( aSpecialFields.inverse().get( i ), aSpecialFields.get( i ) );
+            mapWithSpecialFields.put(entry.getKey(), entry.getValue());
         }
     }
 
@@ -56,7 +56,7 @@ public class Board
         {
             if (mapWithSpecialFields.containsKey(aPoint)) {
                 String typeOfField = mapWithSpecialFields.get(aPoint).toString();
-                SpecialField.doSomething(typeOfField);
+                SpecialField.doSomething(typeOfField, aCreature);
             }
             map.inverse()
                 .remove( aCreature );
@@ -78,5 +78,9 @@ public class Board
     {
         return map.inverse()
             .get( aCreature );
+    }
+
+    public BiMap<Point, String> getSpecialFields() {
+        return mapWithSpecialFields;
     }
 }

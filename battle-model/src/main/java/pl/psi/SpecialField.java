@@ -4,6 +4,7 @@ package pl.psi;
 import com.google.common.collect.Range;
 import lombok.Getter;
 import lombok.Setter;
+import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStatistic;
 import pl.psi.creatures.CreatureStatisticIf;
 
@@ -19,9 +20,9 @@ public class SpecialField {
         canFly = aCanFly;
     }
 
-    public static void doSomething(String typeOfField) {
+    public static void doSomething(String typeOfField, Creature aCreature) {
         if (typeOfField == "fieldGivingDmg") {
-            //Do something
+            aCreature.setCurrentHp(aCreature.getCurrentHp() - 20);
         }
     }
 
