@@ -25,25 +25,20 @@ public class SpecialField {
         }
     }
 
-    public static void canFly() {
-        String name = stats.getName();
-
+    public static boolean canFly(String name) {
         if (name.equals("Ghost Dragon") || name.equals("Archangel") || name.equals("Efreeti") || name.equals("Gargoyle")) {
-            SpecialField.setCanFly(true);
+            return true;
         }
         else
         {
-            SpecialField.setCanFly(false);
+            return false;
         }
     }
 
-    public static void canCreaturePassSpecialField() {
+    public static boolean canCreaturePassSpecialField() {
         String name = stats.getName();
-        boolean canFly = SpecialField.getCanFly();
-        if(canFly)
-        {
-            //pass
-        }
+        boolean canFly = SpecialField.canFly(name);
+        return canFly;
 
     }
 }
