@@ -77,6 +77,9 @@ class EcoBattleConverterTest
         Artifact artifact = new Artifact("Sword of Might", 2, 3, 0, 0);
         hero.addArtifact(artifact);
 
+        assertEquals(3, hero.getTotalStatistics().getAttack());
+        assertEquals(4,hero.getTotalStatistics().getDefense());
+
         // Pobieramy stworzenie bazowe do porównania
         EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
         var ecoCreature = factory.create(false, 1, 10); // Tier 1, bez ulepszenia, 10 jednostek
@@ -93,13 +96,13 @@ class EcoBattleConverterTest
         );
 
         // Sprawdzamy różnicę w statystykach
-        int expectedAttack = baseCreature.getAttack() + artifact.getBonuses().getAttack();
-       // int expectedDefense = baseCreature.getArmor() + artifact.getBonuses().getDefense();
+        int expectedAttack = baseCreature.getAttack() + hero.getTotalStatistics().getAttack();
+        int expectedDefense = baseCreature.getArmor() + hero.getTotalStatistics().getDefense();
 
         assertEquals(expectedAttack, creatureWithBonuses.getAttack(),
                 "Atak po konwersji powinien uwzględniać bonus z artefaktu");
-       // assertEquals(expectedDefense, creatureWithBonuses.getArmor(),
-            //    "Obrona po konwersji powinna uwzględniać bonus z artefaktu");
+        assertEquals(expectedDefense, creatureWithBonuses.getArmor(),
+                "Obrona po konwersji powinna uwzględniać bonus z artefaktu");
     }
 
 }

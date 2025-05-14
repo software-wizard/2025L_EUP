@@ -37,8 +37,6 @@ public class EcoBattleConverter {
 
     public static Hero convert(final EconomyHero aPlayer1) {
         final List<Creature> creatures = new ArrayList<>();
-        final NecropolisFactory factory = new NecropolisFactory();
-        final Statistics heroStats = aPlayer1.getTotalStatistics();
         aPlayer1.getCreatures()
                 .forEach(ecoCreature -> creatures.add(convertCreatureWithEffects(ecoCreature, aPlayer1)//zmienione tutaj
                         )
@@ -49,38 +47,12 @@ public class EcoBattleConverter {
     }
 // Poprawiona metoda convertCreatureWithEffects
     public static Creature convertCreatureWithEffects(EconomyCreature ecoCreature, EconomyHero ecoHero) {
-        // Używamy statystyk stworzenia (ecoCreature) zamiast bohatera (ecoHero)
-        // 1. Pobierz podstawowe statystyki stworzenia z `ecoCreature`
+
         CreatureStatistic baseStats = ecoCreature.getStats(); // Pobieramy statystyki z klasy EconomyCreature
+        StatsModifier totalBonus = new StatsModifier(ecoHero.getTotalStatistics().getAttack(), ecoHero.getTotalStatistics().getDefense()); //początkowe bonusy
 
-        // Tworzymy nową instancję Statistics dla bonusów z artefaktów
-        //Statistics totalBonusStats = new Statistics(0, 0, 0, 0); // Inicjalizujemy statystyki bonusów
-
-
-        // Tworzymy StatsModifier na podstawie bonusów z artefaktów
-        // 2. Tworzymy zmienne do przechowywania bonusów z artefaktów
-        StatsModifier totalBonus = new StatsModifier(0, 0); //początkowe bonusy
-
-        // 3. Iterujemy przez artefakty w `ecoHero` i dodajemy ich bonusy do `totalBonus`
-        for (Artifact artifact : ecoHero.getArtifacts()) {
-            // Dodajemy efekty artefaktów
-
-            //totalBonusStats.increase(artifact.getBonuses()); // Za pomocą metody increase dodajemy bonusy z artefaktów
-            totalBonus = new StatsModifier(
-                    totalBonus.getAttackBonus() + artifact.getBonuses().getAttack(),
-                    totalBonus.getArmorBonus() + artifact.getBonuses().getDefense()
-            );
-        }
-
-        // Teraz mamy zaktualizowane statystyki (ataku, obrony itp.) w `totalBonusStats`
-        // 4. Zmodyfikuj statystyki stworzenia, uwzględniając bonusy z artefaktów
         CreatureStatisticIf modifiedStats = new ModifiedCreatureStats(baseStats, totalBonus);
 
-        // Tworzymy obiekt DamageCalculatorIf (zakładając, że jest domyślny)
-//    DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
-
-        // Zwracamy stworzenie z modyfikowanymi statystykami i kalkulatorem obrażeń
-        // 5. Zwróć nowo utworzone stworzenie (`Creature`), uwzględniając bonusy
         return new Creature.Builder()
                 .statistic(modifiedStats)
                 .amount(ecoCreature.getAmount())
