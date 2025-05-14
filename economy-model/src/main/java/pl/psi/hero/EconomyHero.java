@@ -8,6 +8,7 @@ import java.util.List;
 
 import lombok.Getter;
 import pl.psi.creatures.EconomyCreature;
+import pl.psi.hero.artifacts.Artifact;
 import pl.psi.hero.skills.AbstractSkill;
 import pl.psi.hero.skills.ArmorerSkill;
 import pl.psi.hero.skills.OffenceSkill;
