@@ -46,9 +46,10 @@ public class EcoBattleConverter {
                         )
                 );
         return new Hero(creatures);
-        //  TODO
+
 
     }
+
     public static void startBankBattle(final EconomyHero aPlayer1, final Map<Point, EconomyCreature> bankEnemy) {
         Map<Point, Creature> bankEnemy1 = convertEnemies(bankEnemy);
 
@@ -84,11 +85,11 @@ public class EcoBattleConverter {
 
         return result;
     }
-// Poprawiona metoda convertCreatureWithEffects
+
     public static Creature convertCreatureWithEffects(EconomyCreature ecoCreature, EconomyHero ecoHero) {
 
-        CreatureStatistic baseStats = ecoCreature.getStats(); // Pobieramy statystyki z klasy EconomyCreature
-        StatsModifier totalBonus = new StatsModifier(ecoHero.getTotalStatistics().getAttack(), ecoHero.getTotalStatistics().getDefense()); //początkowe bonusy
+        CreatureStatistic baseStats = ecoCreature.getStats();
+        StatsModifier totalBonus = new StatsModifier(ecoHero.getTotalStatistics().getAttack(), ecoHero.getTotalStatistics().getDefense());
 
         CreatureStatisticIf modifiedStats = new ModifiedCreatureStats(baseStats, totalBonus);
 
