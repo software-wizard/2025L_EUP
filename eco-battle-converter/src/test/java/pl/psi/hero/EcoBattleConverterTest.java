@@ -10,6 +10,8 @@ import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.EconomyNecropolisFactory;
 import pl.psi.hero.artifacts.Artifact;
+import pl.psi.hero.artifacts.ArtifactType;
+import pl.psi.map.MapObjectIf;
 import pl.psi.map.resources.Resources;
 
 class EcoBattleConverterTest {
@@ -74,7 +76,7 @@ class EcoBattleConverterTest {
                 new Resources(100, 100, 100, 100, 100, 100, 100),
                 new Statistics(1, 1, 1, 1));
 
-        Artifact artifact = new Artifact("Sword of Might", 2, 3, 0, 0);
+        Artifact artifact = new Artifact(ArtifactType.SWORD_OF_HELLFIRE);
         hero.addArtifact(artifact);
 
         assertEquals(3, hero.getTotalStatistics().getAttack());

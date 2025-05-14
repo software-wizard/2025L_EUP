@@ -117,7 +117,7 @@ public class EconomyHero implements PropertyChangeListener
                 baseStatistics.getKnowledge()
         );
         for (Artifact artifact : artifacts) {
-            total.increase(artifact.getBonuses());
+            total.increase(artifact.getType().getStatistics());
         }
         return total;
     }
