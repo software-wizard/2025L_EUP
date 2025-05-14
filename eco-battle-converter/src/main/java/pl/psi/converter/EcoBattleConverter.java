@@ -38,9 +38,9 @@ public class EcoBattleConverter {
     public static Hero convert(final EconomyHero aPlayer1) {
         final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
+        final Statistics heroStats = aPlayer1.getTotalStatistics();
         aPlayer1.getCreatures()
-                .forEach(ecoCreature -> creatures.add(
-                                convertCreatureWithEffects(ecoCreature, aPlayer1)//zmienione tutaj
+                .forEach(ecoCreature -> creatures.add(convertCreatureWithEffects(ecoCreature, aPlayer1)//zmienione tutaj
                         )
                 );
         return new Hero(creatures);
