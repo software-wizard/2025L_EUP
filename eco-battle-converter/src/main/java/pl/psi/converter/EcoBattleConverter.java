@@ -47,6 +47,8 @@ public class EcoBattleConverter {
                 );
         return new Hero(creatures);
         //  TODO
+
+    }
     public static void startBankBattle(final EconomyHero aPlayer1, final Map<Point, EconomyCreature> bankEnemy) {
         Map<Point, Creature> bankEnemy1 = convertEnemies(bankEnemy);
 
