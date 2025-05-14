@@ -23,7 +23,7 @@ public class Board
         addCreatures( aCreatures2, MAX_WITDH );
     }
 
-    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, List< String > aSpecialFields )
+    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, BiMap< Point, String > aSpecialFields )
     {
         this(aCreatures1, aCreatures2);
         addSpecialFields( aSpecialFields );
@@ -37,11 +37,11 @@ public class Board
         }
     }
 
-    private void addSpecialFields( final List<String> aSpecialFields)
+    private void addSpecialFields( final BiMap <Point, String> aSpecialFields)
     {
         for( int i = 0; i < aSpecialFields.size(); i++ )
         {
-            mapWithSpecialFields.put( new Point( (int) Math.round(Math.random() * 14), (int) Math.round(Math.random() * 14)), aSpecialFields.get( i ) );
+            mapWithSpecialFields.put( aSpecialFields.inverse().get( i ), aSpecialFields.get( i ) );
         }
     }
 

@@ -2,6 +2,8 @@ package pl.psi;
 
 import java.util.List;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Range;
 import org.junit.jupiter.api.Disabled;
 import pl.psi.creatures.Creature;
@@ -36,7 +38,9 @@ public class SpecialFieldsTest {
 
         final List< Creature > c1 = List.of( creature, dragon );
         final List< Creature > c2 = List.of();
-        final List< String > specialFields = List.of("fieldGivingDmg");
+        final BiMap <Point, String > specialFields = HashBiMap.create();
+        specialFields.put(new Point(3, 3), "fieldGivingDmg");
+        specialFields.put(new Point(4, 4), "fieldGivingDmg");
         final Board board = new Board( c1, c2,  specialFields);
 
         //when

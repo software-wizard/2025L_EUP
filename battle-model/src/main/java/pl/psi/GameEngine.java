@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.common.collect.BiMap;
 import pl.psi.creatures.Creature;
 
 /**
@@ -17,11 +18,14 @@ public class GameEngine {
     private final TurnQueue turnQueue;
     private final Board board;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
-    private List<String> specialFields = new ArrayList<>();
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
-        specialFields.add("fieldGivingDmg");
+        board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
+    }
+
+    public  GameEngine(final Hero aHero1, final Hero aHero2, final BiMap < Point, String > specialFields) {
+        turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), specialFields);
     }
 

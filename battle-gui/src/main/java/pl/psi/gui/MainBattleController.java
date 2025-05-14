@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Optional;
 
+import com.google.common.collect.BiMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -22,7 +23,7 @@ public class MainBattleController implements PropertyChangeListener
     @FXML
     private Button passButton;
 
-    public MainBattleController( final Hero aHero1, final Hero aHero2 )
+    public MainBattleController(final Hero aHero1, final Hero aHero2, final BiMap < Point, String > specialFields )
     {
         gameEngine = new GameEngine( aHero1, aHero2 );
     }
