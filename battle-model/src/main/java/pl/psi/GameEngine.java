@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import pl.psi.Spells.Spell;
 import pl.psi.creatures.Creature;
 
 /**
@@ -14,12 +15,18 @@ import pl.psi.creatures.Creature;
 public class GameEngine {
 
     public static final String CREATURE_MOVED = "CREATURE_MOVED";
+    private static final String SPELL_CAST = "SPELL_CAST";
     private final TurnQueue turnQueue;
     public final Board board;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
     private List<SpecialField> specialFields = new ArrayList<>();
 
-    public  GameEngine(final Hero aHero1, final Hero aHero2) {
+    private final Hero hero1;
+    private final Hero hero2;
+
+    public  GameEngine( Hero aHero1,  Hero aHero2) {
+        this.hero1 = aHero1;
+        this.hero2 = aHero2;
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         specialFields.add(new SpecialField("fieldGivingDmg"));
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), specialFields);
@@ -64,5 +71,23 @@ public class GameEngine {
 
     public boolean isCurrentCreature(Point aPoint) {
         return Optional.of(turnQueue.getCurrentCreature()).equals(board.getCreature(aPoint));
+    }
+
+    public Hero getCurrentHero() {
+        Creature current = turnQueue.getCurrentCreature();
+        if (hero1.getCreatures().contains(current)) {
+            return hero1;
+        } else {
+            return hero2;
+        }
+    }
+
+    public void castSpell(Spell spell, Creature target) {
+        getCurrentHero().apply(spell, target);
+        notifySpellCast(spell);
+    }
+
+    private void notifySpellCast(Spell spell) {
+        observerSupport.firePropertyChange(SPELL_CAST, null, spell);
     }
 }

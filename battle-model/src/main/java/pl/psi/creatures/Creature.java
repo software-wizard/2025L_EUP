@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 import lombok.Setter;
+import pl.psi.Hero;
 import pl.psi.Spells.ActiveSpellEffect;
 import pl.psi.Spells.BuffSpell;
 import pl.psi.Spells.Spell;

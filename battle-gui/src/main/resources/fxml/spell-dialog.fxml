@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="pl.psi.gui.SpellGUI.SpellDialogController"
+      xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="CENTER" prefWidth="200">
+    <Label text="Wybierz zaklęcie:"/>
+    <VBox fx:id="spellList" spacing="5"/>
+
+    <Button fx:id="okButton" text="OK"/>
+</VBox>
