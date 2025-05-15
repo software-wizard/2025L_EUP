@@ -25,15 +25,9 @@ public class GameEngine {
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
     }
 
-    public  GameEngine(final Hero aHero1, final Hero aHero2, final BiMap < Point, String > specialFields) {
+    public  GameEngine(final Hero aHero1, final Hero aHero2, final BiMap < Point, String > specialFields, Map<Point, Creature> aBankEnemy ) {
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
-        board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), specialFields);
-    }
-
-    public GameEngine(final Map<Point,Creature> enemies,final Hero aHero1)
-    {
-        turnQueue = new TurnQueue(aHero1.getCreatures(), enemies.values());
-        board = new Board(enemies, aHero1.getCreatures());
+        board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), specialFields, aBankEnemy);
     }
 
     public void attack(final Point point) {
@@ -79,5 +73,9 @@ public class GameEngine {
 
     public BiMap< Point, String > getSpecialFields() {
         return board.getSpecialFields();
+    }
+
+    public void interact(Point aCurrentPoint) {
+        board.interact(turnQueue.getCurrentCreature(), aCurrentPoint);
     }
 }

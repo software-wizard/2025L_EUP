@@ -1,5 +1,6 @@
 package pl.psi;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.google.common.collect.BiMap;
@@ -41,7 +42,7 @@ public class SpecialFieldsTest {
         final BiMap <Point, String > specialFields = HashBiMap.create();
         specialFields.put(new Point(3, 3), "fieldGivingDmg");
         specialFields.put(new Point(4, 4), "fieldGivingDmg");
-        final Board board = new Board( c1, c2,  specialFields);
+        final Board board = new Board( c1, c2,  specialFields, new HashMap<>());
 
         //when
         board.move( creature, new Point( 3, 3 ) );

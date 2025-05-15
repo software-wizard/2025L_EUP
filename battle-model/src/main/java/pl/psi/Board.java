@@ -24,16 +24,12 @@ public class Board
         addCreatures( aCreatures2, MAX_WITDH );
     }
 
-    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, BiMap< Point, String > aSpecialFields )
+    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, BiMap< Point, String > aSpecialFields, final Map<Point,Creature> bankCreatures )
     {
         this(aCreatures1, aCreatures2);
         addSpecialFields( aSpecialFields );
-    }
-
-    public Board (final Map<Point,Creature> bankCreatures, final List<Creature> heroCreatures )
-    {
         addCreaturesSetPositions(bankCreatures);
-        addCreaturesInCircle(heroCreatures, new Point(5,5),4.0);
+//        addCreaturesInCircle(aCreatures1, new Point(5,5),4.0);
     }
 
     private void addCreatures( final List< Creature > aCreatures, final int aXPosition )
@@ -45,6 +41,13 @@ public class Board
     }
 
     private void addSpecialFields( final BiMap <Point, String> aSpecialFields)
+    {
+        for (BiMap.Entry<Point, String> entry : aSpecialFields.entrySet())
+        {
+            mapWithSpecialFields.put(entry.getKey(), entry.getValue());
+        }
+    }
+
     private void addCreaturesSetPositions(final Map<Point,Creature> creaturesToPositions) {
         map.putAll(creaturesToPositions);
     }
@@ -59,15 +62,6 @@ public class Board
 
             Point position = new Point(x, y);
             map.put(position, aCreatures.get(i));
-        }
-    }
-
-
-    private void addSpecialFields( final List<String> aSpecialFields)
-    {
-        for (BiMap.Entry<Point, String> entry : aSpecialFields.entrySet())
-        {
-            mapWithSpecialFields.put(entry.getKey(), entry.getValue());
         }
     }
 
@@ -108,5 +102,12 @@ public class Board
 
     public BiMap<Point, String> getSpecialFields() {
         return mapWithSpecialFields;
+    }
+
+    void interact(Creature aCurrentCreature, Point aCurrentPoint) {
+        if (mapWithSpecialFields.containsKey(aCurrentPoint)) {
+            String typeOfField = mapWithSpecialFields.get(aCurrentPoint).toString();
+            SpecialField.doSomething(typeOfField, aCurrentCreature);
+        }
     }
 }

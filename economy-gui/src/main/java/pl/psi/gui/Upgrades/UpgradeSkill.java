@@ -5,6 +5,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import pl.psi.hero.EconomyHero;
+import pl.psi.hero.skills.AbstractSkill;
 
 public class UpgradeSkill {
 
@@ -45,7 +46,7 @@ public class UpgradeSkill {
                 .orElse(null);
 
             if (selectedSkill != null) {
-                hero.upgradeSkill(selectedSkill);
+//                hero.upgradeSkill(selectedSkill);
             }
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR, "Error upgrading skill: " + e.getMessage());

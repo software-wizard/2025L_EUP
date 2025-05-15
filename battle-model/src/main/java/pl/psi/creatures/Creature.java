@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import lombok.AccessLevel;
 import lombok.Setter;
 import pl.psi.Spells.ActiveSpellEffect;
 import pl.psi.Spells.BuffSpell;
@@ -35,7 +36,7 @@ public class Creature implements PropertyChangeListener {
 
 
     @Getter
-    @Setter
+    @Setter(AccessLevel.PRIVATE)
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
@@ -69,7 +70,7 @@ public class Creature implements PropertyChangeListener {
         return getAmount() > 0;
     }
 
-    private void applyDamage(final Creature aDefender, final int aDamage) {
+    public void applyDamage(final Creature aDefender, final int aDamage) {
         int hpToSubstract = aDamage % aDefender.getMaxHp();
         int amountToSubstract = Math.round(aDamage / aDefender.getMaxHp());
 

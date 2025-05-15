@@ -24,14 +24,14 @@ public class MainBattleController implements PropertyChangeListener
     @FXML
     private Button passButton;
 
-    public MainBattleController( final Hero aHero1, final Hero aHero2 )
-    {
-        gameEngine = new GameEngine( aHero1, aHero2 );
-    }
+//    public MainBattleController( final Hero aHero1, final Hero aHero2 )
+//    {
+//        gameEngine = new GameEngine( aHero1, aHero2 );
+//    }
 
     public MainBattleController(final Hero aHero1, final Hero aHero2, final Map<Point, Creature> bankEnemy, BiMap< Point, String > aSpecialField)
     {
-        gameEngine = new GameEngine(bankEnemy, aHero1, aHero2, aSpecialFields);
+        gameEngine = new GameEngine( aHero1, aHero2, aSpecialField, bankEnemy);
     }
 
     @FXML
@@ -73,6 +73,9 @@ public class MainBattleController implements PropertyChangeListener
                 String specialField = gameEngine.getSpecialFields().get(currentPoint);
                 if (specialField != null && !specialField.isEmpty()) {
                     mapTile.setBackground(Color.BROWN);
+                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                        gameEngine.interact(currentPoint);
+                    });
                 }
                 gridMap.add( mapTile, x, y );
             }

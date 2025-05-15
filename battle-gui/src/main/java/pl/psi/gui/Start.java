@@ -1,6 +1,7 @@
 package pl.psi.gui;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import com.google.common.collect.BiMap;
@@ -37,7 +38,7 @@ public class Start extends Application
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation( Start.class.getClassLoader()
                 .getResource( "fxml/main-battle.fxml" ) );
-            loader.setController( new MainBattleController( createP1(), createP2(), createSpecialFields() ) );
+            loader.setController( new MainBattleController( createP1(), createP2(), new HashMap<>(), createSpecialFields() ) );
             scene = new Scene( loader.load() );
             primaryStage.setScene( scene );
             primaryStage.setX( 5 );

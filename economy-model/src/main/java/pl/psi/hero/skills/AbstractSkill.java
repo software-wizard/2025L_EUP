@@ -8,4 +8,7 @@ public abstract class AbstractSkill {
         level = aLevel;
     }
     public abstract void apply(EconomyCreature creature);
+    public String getName(){
+        return this.getClass().getName();
+    }
 }
