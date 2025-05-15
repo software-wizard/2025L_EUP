@@ -6,14 +6,12 @@ import java.util.List;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import pl.psi.Hero;
+import pl.psi.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.psi.Point;
-import pl.psi.SpecialField;
 import pl.psi.creatures.NecropolisFactory;
 
 public class Start extends Application
@@ -63,11 +61,11 @@ public class Start extends Application
         return ret;
     }
 
-    private BiMap < Point, String > createSpecialFields()
+    private BiMap < Point, SpecialField > createSpecialFields()
     {
-        final BiMap < Point, String > specialFields = HashBiMap.create();
-        specialFields.put(new Point(5, 5), "fieldGivingDmg");
-        specialFields.put(new Point(3, 8), "buffAttackDmg");
+        final BiMap < Point, SpecialField > specialFields = HashBiMap.create();
+        specialFields.put(new Point(5, 5), new DmgField());
+        specialFields.put(new Point(3, 8), new SpellField());
         return specialFields;
     }
 

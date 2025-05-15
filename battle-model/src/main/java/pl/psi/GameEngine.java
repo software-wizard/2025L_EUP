@@ -25,7 +25,7 @@ public class GameEngine {
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
     }
 
-    public  GameEngine(final Hero aHero1, final Hero aHero2, final BiMap < Point, String > specialFields, Map<Point, Creature> aBankEnemy ) {
+    public  GameEngine(final Hero aHero1, final Hero aHero2, final BiMap < Point, SpecialField > specialFields, Map<Point, Creature> aBankEnemy ) {
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), specialFields, aBankEnemy);
     }
@@ -71,7 +71,7 @@ public class GameEngine {
         return Optional.of(turnQueue.getCurrentCreature()).equals(board.getCreature(aPoint));
     }
 
-    public BiMap< Point, String > getSpecialFields() {
+    public BiMap< Point, SpecialField > getSpecialFields() {
         return board.getSpecialFields();
     }
 

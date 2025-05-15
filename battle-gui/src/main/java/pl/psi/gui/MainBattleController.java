@@ -1,10 +1,5 @@
 package pl.psi.gui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.Map;
-import java.util.Optional;
-
 import com.google.common.collect.BiMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,10 +9,15 @@ import javafx.scene.paint.Color;
 import pl.psi.GameEngine;
 import pl.psi.Hero;
 import pl.psi.Point;
+import pl.psi.SpecialField;
 import pl.psi.creatures.Creature;
 
-public class MainBattleController implements PropertyChangeListener
-{
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Map;
+import java.util.Optional;
+
+public class MainBattleController implements PropertyChangeListener {
     private final GameEngine gameEngine;
     @FXML
     private GridPane gridMap;
@@ -29,62 +29,66 @@ public class MainBattleController implements PropertyChangeListener
 //        gameEngine = new GameEngine( aHero1, aHero2 );
 //    }
 
-    public MainBattleController(final Hero aHero1, final Hero aHero2, final Map<Point, Creature> bankEnemy, BiMap< Point, String > aSpecialField)
-    {
-        gameEngine = new GameEngine( aHero1, aHero2, aSpecialField, bankEnemy);
+    public MainBattleController(final Hero aHero1, final Hero aHero2, final Map<Point, Creature> bankEnemy, BiMap<Point, SpecialField> aSpecialField) {
+        gameEngine = new GameEngine(aHero1, aHero2, aSpecialField, bankEnemy);
     }
 
     @FXML
-    private void initialize()
-    {
+    private void initialize() {
         refreshGui();
-        gameEngine.addObserver( this );
-        passButton.addEventHandler( MouseEvent.MOUSE_CLICKED, ( e ) -> gameEngine.pass() );
+        gameEngine.addObserver(this);
+        passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> gameEngine.pass());
     }
 
-    private void refreshGui()
-    {
+    private void refreshGui() {
         gridMap.getChildren()
-            .clear();
-        for( int x = 0; x < 15; x++ )
-        {
-            for( int y = 0; y < 10; y++ )
-            {
-                Point currentPoint = new Point( x, y );
-                Optional< Creature > creature = gameEngine.getCreature( currentPoint );
-                final MapTile mapTile = new MapTile( "" );
-                creature.ifPresent( c -> mapTile.setName( c.toString() ) );
-                if( gameEngine.isCurrentCreature( currentPoint ) )
-                {
-                    mapTile.setBackground( Color.GREENYELLOW );
+                .clear();
+        for (int x = 0; x < 15; x++) {
+            for (int y = 0; y < 10; y++) {
+                Point currentPoint = new Point(x, y);
+                Optional<Creature> creature = gameEngine.getCreature(currentPoint);
+                final MapTile mapTile = new MapTile("");
+                creature.ifPresent(c -> mapTile.setName(c.toString()));
+                if (gameEngine.isCurrentCreature(currentPoint)) {
+                    mapTile.setBackground(Color.GREENYELLOW);
                 }
-                if( gameEngine.canMove( currentPoint ) )
-                {
-                    mapTile.setBackground( Color.GREY );
-                    mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
-                        ( e ) -> { gameEngine.move( currentPoint ); } );
+                if (gameEngine.canMove(currentPoint)) {
+                    mapTile.setBackground(Color.GREY);
+                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            (e) -> {
+                                gameEngine.move(currentPoint);
+                            });
                 }
-                if( gameEngine.canAttack( currentPoint ) )
-                {
-                    mapTile.setBackground( Color.RED );
-                    mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
-                        ( e ) -> { gameEngine.attack( currentPoint ); } );
+                if (gameEngine.canAttack(currentPoint)) {
+                    mapTile.setBackground(Color.RED);
+                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            (e) -> {
+                                gameEngine.attack(currentPoint);
+                            });
                 }
-                String specialField = gameEngine.getSpecialFields().get(currentPoint);
-                if (specialField != null && !specialField.isEmpty()) {
-                    mapTile.setBackground(Color.BROWN);
+                SpecialField specialField = gameEngine.getSpecialFields().get(currentPoint);
+                if (specialField != null) {
+                    mapTile.setBackground(getColor(specialField));
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                         gameEngine.interact(currentPoint);
                     });
                 }
-                gridMap.add( mapTile, x, y );
+                gridMap.add(mapTile, x, y);
             }
         }
     }
 
+    private Color getColor(SpecialField specialField) {
+        if (specialField.getColor() == SpecialField.Color.BROWN) {
+            return Color.BROWN;
+        } else if (specialField.getColor() == SpecialField.Color.BLUE) {
+            return Color.BLUE;
+        }
+        return null;
+    }
+
     @Override
-    public void propertyChange( PropertyChangeEvent evt )
-    {
+    public void propertyChange(PropertyChangeEvent evt) {
         refreshGui();
     }
 }

@@ -74,7 +74,12 @@ class SelfHealAfterTurnCreature extends Creature {
         return decorated.getMaxHp();
     }
 
-//    @Override
+    @Override
+    protected void setCurrentHp(int currentHp) {
+        decorated.setCurrentHp(currentHp);
+    }
+
+    //    @Override
 //    public void setCurrentHp(int aCurrentHp) {
 //        decorated.setCurrentHp(aCurrentHp);
 //    }

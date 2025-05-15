@@ -36,7 +36,7 @@ public class Creature implements PropertyChangeListener {
 
 
     @Getter
-    @Setter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PROTECTED)
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;

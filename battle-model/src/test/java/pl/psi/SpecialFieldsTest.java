@@ -39,9 +39,9 @@ public class SpecialFieldsTest {
 
         final List< Creature > c1 = List.of( creature, dragon );
         final List< Creature > c2 = List.of();
-        final BiMap <Point, String > specialFields = HashBiMap.create();
-        specialFields.put(new Point(3, 3), "fieldGivingDmg");
-        specialFields.put(new Point(4, 4), "fieldGivingDmg");
+        final BiMap <Point, SpecialField > specialFields = HashBiMap.create();
+        specialFields.put(new Point(3, 3), new DmgField());
+        specialFields.put(new Point(4, 4), new DmgField());
         final Board board = new Board( c1, c2,  specialFields, new HashMap<>());
 
         //when
