@@ -24,7 +24,7 @@ public class Board
         addCreatures( aCreatures2, MAX_WITDH );
     }
 
-    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, List< String > aSpecialFields )
+    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, BiMap< Point, String > aSpecialFields )
     {
         this(aCreatures1, aCreatures2);
         addSpecialFields( aSpecialFields );
@@ -44,6 +44,7 @@ public class Board
         }
     }
 
+    private void addSpecialFields( final BiMap <Point, String> aSpecialFields)
     private void addCreaturesSetPositions(final Map<Point,Creature> creaturesToPositions) {
         map.putAll(creaturesToPositions);
     }
@@ -64,9 +65,9 @@ public class Board
 
     private void addSpecialFields( final List<String> aSpecialFields)
     {
-        for( int i = 0; i < aSpecialFields.size(); i++ )
+        for (BiMap.Entry<Point, String> entry : aSpecialFields.entrySet())
         {
-            mapWithSpecialFields.put( new Point( (int) Math.round(Math.random() * 14), (int) Math.round(Math.random() * 14)), aSpecialFields.get( i ) );
+            mapWithSpecialFields.put(entry.getKey(), entry.getValue());
         }
     }
 
@@ -81,7 +82,7 @@ public class Board
         {
             if (mapWithSpecialFields.containsKey(aPoint)) {
                 String typeOfField = mapWithSpecialFields.get(aPoint).toString();
-                SpecialField.doSomething(typeOfField);
+                SpecialField.doSomething(typeOfField, aCreature);
             }
             map.inverse()
                 .remove( aCreature );
@@ -103,5 +104,9 @@ public class Board
     {
         return map.inverse()
             .get( aCreature );
+    }
+
+    public BiMap<Point, String> getSpecialFields() {
+        return mapWithSpecialFields;
     }
 }

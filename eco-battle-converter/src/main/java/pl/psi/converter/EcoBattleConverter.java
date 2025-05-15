@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import pl.psi.Hero;
-import pl.psi.creatures.*;
 import pl.psi.Point;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.EconomyCreature;
@@ -23,9 +24,11 @@ public class EcoBattleConverter {
     public static void startBattle(final EconomyHero aPlayer1, final EconomyHero aPlayer2) {
         try {
             final FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(EcoBattleConverter.class.getClassLoader().getResource("fxml/main-battle.fxml"));
-            loader.setController(new MainBattleController(convert(aPlayer1), convert(aPlayer2)));
-            Scene scene = new Scene(loader.load());
+            BiMap <Point, String > specialFields = HashBiMap.create();
+            loader.setLocation( EcoBattleConverter.class.getClassLoader()
+                    .getResource( "fxml/main-battle.fxml" ) );
+            loader.setController( new MainBattleController( convert( aPlayer1 ), convert( aPlayer2 )) );
+            Scene scene = new Scene( loader.load() );
             final Stage aStage = new Stage();
             aStage.setScene(scene);
             aStage.setX(5);

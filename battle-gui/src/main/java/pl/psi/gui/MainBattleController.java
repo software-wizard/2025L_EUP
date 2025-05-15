@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.Optional;
 
+import com.google.common.collect.BiMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -28,9 +29,9 @@ public class MainBattleController implements PropertyChangeListener
         gameEngine = new GameEngine( aHero1, aHero2 );
     }
 
-    public MainBattleController(final Hero aHero1, final Map<Point, Creature> bankEnemy)
+    public MainBattleController(final Hero aHero1, final Hero aHero2, final Map<Point, Creature> bankEnemy, BiMap< Point, String > aSpecialField)
     {
-        gameEngine = new GameEngine(bankEnemy, aHero1);
+        gameEngine = new GameEngine(bankEnemy, aHero1, aHero2, aSpecialFields);
     }
 
     @FXML
@@ -68,6 +69,10 @@ public class MainBattleController implements PropertyChangeListener
                     mapTile.setBackground( Color.RED );
                     mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
                         ( e ) -> { gameEngine.attack( currentPoint ); } );
+                }
+                String specialField = gameEngine.getSpecialFields().get(currentPoint);
+                if (specialField != null && !specialField.isEmpty()) {
+                    mapTile.setBackground(Color.BROWN);
                 }
                 gridMap.add( mapTile, x, y );
             }
