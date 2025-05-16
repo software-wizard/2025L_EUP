@@ -1,6 +1,5 @@
 package pl.psi.map.buildings;
 
-import pl.psi.Point;
 import pl.psi.creatures.UpgradeBuildings;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.enterAction.EnterAction;
@@ -57,7 +56,7 @@ public class Castle implements BuildingIf {
     }
 
     @Override
-    public void interact(EconomyHero hero, Point point) {
+    public void interact(EconomyHero hero) {
 
     }
 

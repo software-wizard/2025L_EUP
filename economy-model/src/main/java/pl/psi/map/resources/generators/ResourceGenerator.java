@@ -1,7 +1,6 @@
 package pl.psi.map.resources.generators;
 
 import lombok.Getter;
-import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.InteractableIf;
 import pl.psi.map.buildings.enterAction.EnterAction;
@@ -16,7 +15,7 @@ public class ResourceGenerator implements InteractableIf, ResourceGenIf {
         this.type = type;
     }
 
-    public void interact(EconomyHero hero, Point point) {
+    public void interact(EconomyHero hero) {
         if (owner != hero) {
             owner = hero;
             System.out.println("New owner: " + owner);

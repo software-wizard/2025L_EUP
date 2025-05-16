@@ -23,6 +23,9 @@ public class EconomyHero implements PropertyChangeListener
     @Getter
     private final int moveRange = 10;
     private int remainingMoves;
+    private int experience;
+    @Getter
+    public int level;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     @Getter
     private List<AbstractSkill> skills;
@@ -37,10 +40,6 @@ public class EconomyHero implements PropertyChangeListener
         remainingMoves = moveRange;
         resources = aResources;
         baseStatistics = aStats;
-    }
-
-    public Resources getResources(){
-        return resources;
     }
 
     public void resetMoveRange() {

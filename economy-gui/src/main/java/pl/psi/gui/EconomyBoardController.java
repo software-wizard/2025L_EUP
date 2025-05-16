@@ -75,6 +75,8 @@ public class EconomyBoardController implements PropertyChangeListener {
             tile.setBackground(Color.GREY);
         } else if (gameEngine.canAttack(point)) {
             tile.setBackground(Color.RED);
+        } else if (gameEngine.canInteract(point)) {
+            tile.setBackground(Color.YELLOW);
         }
     }
 

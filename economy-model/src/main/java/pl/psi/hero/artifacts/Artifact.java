@@ -1,7 +1,6 @@
 package pl.psi.hero.artifacts;
 
 import lombok.Getter;
-import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.Statistics;
 import pl.psi.map.InteractableIf;
@@ -44,7 +43,7 @@ public class Artifact implements InteractableIf {
     }
 
     @Override
-    public void interact(EconomyHero hero, Point point) {
+    public void interact(EconomyHero hero) {
         hero.addArtifact(this);
     }
 

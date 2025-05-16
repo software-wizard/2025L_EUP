@@ -2,20 +2,11 @@ package pl.psi.map;
 
 import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.buildings.*;
-import pl.psi.map.buildings.bank.Bank;
-import pl.psi.map.buildings.bank.BankStatistics;
 import pl.psi.map.buildings.enterAction.EnterAction;
 import pl.psi.map.buildings.BuildingIf;
-import pl.psi.map.buildings.Castle;
-import pl.psi.map.buildings.enterAction.EnterAction;
-import pl.psi.map.buildings.bank.Bank;
-import pl.psi.map.resources.Resources;
-import pl.psi.map.resources.generators.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,8 +16,7 @@ public class BoardEconomyEngine {
     private final TurnQueueEconomy turnQueue;
     private final BoardEconomy board;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
-    Map<Point, MapObjectIf> interactables = new HashMap<>();
-    Map<Point, BuildingIf> buildings = new HashMap<>();
+    Map<Point, MapObjectIf> interactables;
     private int turnCounter;
 
 
@@ -75,7 +65,7 @@ public class BoardEconomyEngine {
     }
 
     public void enter(final Point point) {
-        EnterAction action = board.enter(turnQueue.getCurrentHero(), point);
+        EnterAction action = board.enter(point);
         switch (action.getType()) {
             case OPEN_SHOP: {
                 openShop(action.getBuilding());
@@ -89,7 +79,7 @@ public class BoardEconomyEngine {
     }
 
     public void secondInteraction(final Point point) {
-        EnterAction action = board.secondInteraction(turnQueue.getCurrentHero(), point);
+        EnterAction action = board.secondInteraction(point);
         switch (action.getType()) {
             case OPEN_UPGRADE:{
                 openUpgrades(action.getBuilding());
@@ -176,8 +166,6 @@ public class BoardEconomyEngine {
     public void enterBank(BuildingIf building){
         observerSupport.firePropertyChange("ENTER_BANK", null, new Object[]{getCurrentHero(), building});
     }
-
-
 }
 
 

@@ -34,7 +34,7 @@ public class Resources {
                 this.gems >= cost.gems;
     }
 
-    public Resources pay(){ //to pay need to invoke the method .pay on the cost object
+    public Resources pay(){ //to pay, need to invoke the method .pay on the cost object
         return new Resources(
                 -gold,
                 -wood,

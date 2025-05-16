@@ -1,6 +1,5 @@
 package pl.psi.map.resources;
 
-import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.InteractableIf;
 import pl.psi.map.buildings.enterAction.EnterAction;
@@ -13,7 +12,7 @@ public class Gold implements InteractableIf {
     }
 
     @Override
-    public void interact(EconomyHero hero, Point point) {
+    public void interact(EconomyHero hero) {
         hero.addResource(resources);
         System.out.println("Gold interacted");
     }
