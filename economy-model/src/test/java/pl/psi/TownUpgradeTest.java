@@ -5,21 +5,21 @@ import org.junit.jupiter.api.Test;
 import pl.psi.creatures.CreatureStatistic;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.Statistics;
-import pl.psi.map.buildings.Castle;
-import pl.psi.creatures.UpgradeBuildings;
+import pl.psi.map.buildings.town.Town;
+import pl.psi.map.buildings.town.UpgradeBuildings;
 import pl.psi.map.resources.Resources;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CastleUpgradeTest {
+public class TownUpgradeTest {
 
-    private Castle castle;
+    private Town town;
     private EconomyHero hero;
     private Resources resources;
 
     @BeforeEach
     void init() {
-        castle = new Castle();
+        town = new Town();
         resources = new Resources(100000,1000,1000,1000,1000,1000,1000);
         Statistics aStats = new Statistics(10, 10, 10, 10);
         hero = new EconomyHero(EconomyHero.Fraction.NECROPOLIS,resources, aStats);
@@ -31,11 +31,11 @@ public class CastleUpgradeTest {
         UpgradeBuildings baseBuilding = UpgradeBuildings.CURSED_TEMPLE;
 
         // WHEN
-        castle.build(baseBuilding, hero);
+        town.build(baseBuilding, hero);
 
         // THEN
-        assertTrue(castle.hasBuilt(baseBuilding));
-        assertFalse(castle.hasBuilt(UpgradeBuildings.CURSED_TEMPLE_UPGRADED));
+        assertTrue(town.hasBuilt(baseBuilding));
+        assertFalse(town.hasBuilt(UpgradeBuildings.CURSED_TEMPLE_UPGRADED));
     }
 
     @Test
@@ -44,11 +44,11 @@ public class CastleUpgradeTest {
         UpgradeBuildings baseBuilding = UpgradeBuildings.CURSED_TEMPLE;
 
         // WHEN
-        castle.build(baseBuilding, hero);
+        town.build(baseBuilding, hero);
 
         // THEN
-        assertTrue(castle.hasBuilt(baseBuilding));
-        assertFalse(castle.hasBuilt(UpgradeBuildings.CURSED_TEMPLE_UPGRADED));
+        assertTrue(town.hasBuilt(baseBuilding));
+        assertFalse(town.hasBuilt(UpgradeBuildings.CURSED_TEMPLE_UPGRADED));
     }
 
     @Test
@@ -58,11 +58,11 @@ public class CastleUpgradeTest {
         UpgradeBuildings upgraded = UpgradeBuildings.CURSED_TEMPLE_UPGRADED;
 
         // WHEN
-        castle.build(base, hero);
-        castle.build(upgraded, hero);
+        town.build(base, hero);
+        town.build(upgraded, hero);
 
         // THEN
-        assertTrue(castle.hasBuilt(upgraded));
+        assertTrue(town.hasBuilt(upgraded));
     }
 
     @Test

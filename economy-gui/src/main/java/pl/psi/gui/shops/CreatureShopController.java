@@ -13,16 +13,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import pl.psi.creatures.UpgradeBuildings;
+import pl.psi.map.buildings.town.UpgradeBuildings;
 import pl.psi.gui.CreatureButton;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.town.Town;
 
 public class CreatureShopController implements PropertyChangeListener
 {
     private final EconomyEngine economyEngine;
     @Setter
-    private Castle castle;
+    private Town town;
     @FXML
     HBox heroStateHBox;
     @FXML
@@ -35,9 +35,9 @@ public class CreatureShopController implements PropertyChangeListener
     Label currentGoldLabel;
 
 
-    public CreatureShopController(final EconomyHero aHero1, final Castle castle) {
+    public CreatureShopController(final EconomyHero aHero1, final Town town) {
         economyEngine = new EconomyEngine(aHero1);
-        this.castle = castle;
+        this.town = town;
     }
 
 
@@ -72,7 +72,7 @@ public class CreatureShopController implements PropertyChangeListener
             UpgradeBuildings.getBuildingForCreature(base.getStats())
                     .ifPresentOrElse(
                             building -> {
-                                if (!castle.hasBuilt(building)) {
+                                if (!town.hasBuilt(building)) {
                                     baseButton.setDisable(true);
                                 }
                             },
@@ -82,7 +82,7 @@ public class CreatureShopController implements PropertyChangeListener
             UpgradeBuildings.getBuildingForCreature(upgraded.getStats())
                     .ifPresentOrElse(
                             building -> {
-                                if (!castle.hasBuilt(building)) {
+                                if (!town.hasBuilt(building)) {
                                     upgradedButton.setDisable(true);
                                 }
                             },

@@ -4,12 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import pl.psi.gui.WindowManager;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.town.Town;
 
 public class ShopCategoryController {
 
     private EconomyHero hero;
-    private Castle castle;
+    private Town town;
 
     @FXML private Button creaturesButton;
     @FXML private Button spellsButton;
@@ -20,15 +20,15 @@ public class ShopCategoryController {
         // Domyślny konstruktor wymagany przez FXMLLoader
     }
 
-    public void init(EconomyHero hero, Castle castle) {
+    public void init(EconomyHero hero, Town town) {
         this.hero = hero;
-        this.castle = castle;
+        this.town = town;
 
         // Można też ustawić onAction tutaj, jeśli initialize() nie działa jak trzeba
-        creaturesButton.setOnAction(e -> WindowManager.openCreatureShop(hero, castle));
-        spellsButton.setOnAction(e -> WindowManager.openSpellShop(hero, castle));
-        artifactsButton.setOnAction(e -> WindowManager.openArtifactShop(hero, castle));
-        skillsButton.setOnAction(e -> WindowManager.openSkillShop(hero, castle));
+        creaturesButton.setOnAction(e -> WindowManager.openCreatureShop(hero, town));
+        spellsButton.setOnAction(e -> WindowManager.openSpellShop(hero, town));
+        artifactsButton.setOnAction(e -> WindowManager.openArtifactShop(hero, town));
+        skillsButton.setOnAction(e -> WindowManager.openSkillShop(hero, town));
     }
 
     @FXML

@@ -4,17 +4,17 @@ package pl.psi.gui.shops;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.town.Town;
 
 public class ArtifactShopController {
 
     @FXML private VBox artifactBox;
     private EconomyHero hero;
-    private Castle castle;
+    private Town town;
 
-    public ArtifactShopController(EconomyHero hero, Castle castle) {
+    public ArtifactShopController(EconomyHero hero, Town town) {
         this.hero = hero;
-        this.castle = castle;
+        this.town = town;
         loadArtifacts();
     }
 

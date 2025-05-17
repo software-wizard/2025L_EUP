@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.psi.gui.shops.CreatureShopController;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.town.Town;
 import pl.psi.map.resources.Resources;
 import pl.psi.hero.Statistics;
 
@@ -25,7 +25,7 @@ public class EconomyStart extends Application
         final FXMLLoader loader = new FXMLLoader();
         loader.setLocation( getClass().getClassLoader()
             .getResource("fxml/creature-shop.fxml") );
-        loader.setController( new CreatureShopController( new EconomyHero( EconomyHero.Fraction.NECROPOLIS, new Resources(3000,0,0,0,0,0,0), aStats), new Castle()));
+        loader.setController( new CreatureShopController( new EconomyHero( EconomyHero.Fraction.NECROPOLIS, new Resources(3000,0,0,0,0,0,0), aStats), new Town()));
         final Scene scene = new Scene( loader.load() );
         aStage.setScene( scene );
         aStage.setX( 5 );

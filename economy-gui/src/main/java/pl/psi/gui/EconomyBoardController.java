@@ -8,14 +8,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
-import pl.psi.creatures.Creature;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.Statistics;
 import pl.psi.map.BoardEconomyEngine;
 import pl.psi.map.MapObjectIf;
 import pl.psi.map.buildings.bank.Bank;
-import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.town.Town;
 import pl.psi.map.resources.Resources;
 
 import java.beans.PropertyChangeEvent;
@@ -152,15 +151,15 @@ public class EconomyBoardController implements PropertyChangeListener {
             case "OPEN_SHOP":
                 Object[] data = (Object[]) evt.getNewValue();
                 EconomyHero hero = (EconomyHero) data[0];
-                Castle optionalCastle = (Castle) data[1];
-                WindowManager.openShop(hero, optionalCastle);
+                Town optionalTown = (Town) data[1];
+                WindowManager.openShop(hero, optionalTown);
                 break;
 
             case "OPEN_UPGRADES":
                 Object[] data1 = (Object[]) evt.getNewValue();
                 EconomyHero hero1 = (EconomyHero) data1[0];
-                Castle castle1 = (Castle) data1[1];
-                WindowManager.openUpgrades(hero1, castle1);
+                Town town1 = (Town) data1[1];
+                WindowManager.openUpgrades(hero1, town1);
                 break;
 
             case "ENTER_BANK":
