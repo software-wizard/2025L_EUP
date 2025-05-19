@@ -51,10 +51,19 @@ public enum CreatureStatistic implements CreatureStatisticIf
         true,MovementType.FLYING );//
 
     private final String name;
-    private final int attack;
-    private final int armor;
-    private final int maxHp;
-    private final int moveRange;
+    @Getter
+    @Setter
+    private int attack;
+    @Getter
+    @Setter
+    private int armor;
+    @Getter
+    @Setter
+    private int maxHp;
+    @Getter
+    @Setter
+    private int moveRange;
+    @Getter
     private final Range< Integer > damage;
     private final int tier;
     private final String description;

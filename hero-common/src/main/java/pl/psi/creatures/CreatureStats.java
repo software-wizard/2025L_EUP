@@ -4,14 +4,18 @@ import com.google.common.collect.Range;
 import lombok.Builder;
 import lombok.Getter;
 
+import lombok.*;
+
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
-@Getter
+@RequiredArgsConstructor
 @Builder
+@Getter
 public class CreatureStats implements CreatureStatisticIf{
     private final String name;
     private final int attack;
+
     private final int armor;
     private final int maxHp;
     private final int moveRange;
@@ -20,4 +24,6 @@ public class CreatureStats implements CreatureStatisticIf{
     private final String description;
     private final boolean isUpgraded;
     private final MovementType movementType;
+
+
 }

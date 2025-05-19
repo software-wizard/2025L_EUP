@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="TOP_LEFT" fx:id="artifactBox">
+    <Label text="Artifact Shop" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+</VBox>
+

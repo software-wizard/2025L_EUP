@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            prefHeight="600" prefWidth="800">
+
+    <top>
+        <HBox alignment="TOP_RIGHT" prefHeight="1.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="passButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0" text="PASS"
+                        textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="16">
+            <VBox spacing="8">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <Label text="Resources" style="-fx-font-weight: bold; -fx-underline: true;"/>
+                <Label fx:id="goldLabel" text="Gold: 0"/>
+                <Label fx:id="woodLabel" text="Wood: 0"/>
+                <Label fx:id="oreLabel" text="Ore: 0"/>
+                <Label fx:id="mercuryLabel" text="Mercury: 0"/>
+                <Label fx:id="sulphurLabel" text="Sulphur: 0"/>
+                <Label fx:id="crystalLabel" text="Crystal: 0"/>
+                <Label fx:id="gemsLabel" text="Gems: 0"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <Label text="Stats" style="-fx-font-weight: bold; -fx-underline: true;"/>
+                <Label fx:id="attackLabel" text="Attack: 0"/>
+                <Label fx:id="defenceLabel" text="Defence: 0"/>
+                <Label fx:id="powerLabel" text="Power: 0"/>
+                <Label fx:id="knowledgeLabel" text="Knowledge: 0"/>
+            </VBox>
+
+            <Button fx:id="equipmentButton" text="Show Equipment" />
+        </VBox>
+    </left>
+
+
+    <center>
+        <GridPane fx:id="gridMap" BorderPane.alignment="CENTER"/>
+    </center>
+
+</BorderPane>
