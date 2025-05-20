@@ -11,8 +11,8 @@ import java.util.List;
 @Value
 public class Point
 {
-    private final int x;
-    private final int y;
+    int x;
+    int y;
 
     public Point( final int aX, final int aY )
     {

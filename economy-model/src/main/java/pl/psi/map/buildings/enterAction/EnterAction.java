@@ -1,6 +1,7 @@
-package pl.psi.map.buildings;
+package pl.psi.map.buildings.enterAction;
 
 import lombok.Getter;
+import pl.psi.map.buildings.BuildingIf;
 
 public class EnterAction {
     @Getter

@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
-import pl.psi.Hero;
 import pl.psi.creatures.EconomyCreature;
+import pl.psi.hero.artifacts.Artifact;
+import pl.psi.hero.skills.AbstractSkill;
+import pl.psi.hero.skills.ArmorerSkill;
+import pl.psi.hero.skills.OffenceSkill;
 import pl.psi.map.resources.Resources;
 
 public class EconomyHero implements PropertyChangeListener
@@ -21,6 +24,8 @@ public class EconomyHero implements PropertyChangeListener
     private final int moveRange = 10;
     private int remainingMoves;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    @Getter
+    private List<AbstractSkill> skills;
 
     private final Statistics baseStatistics;
     private final List<Artifact> artifacts = new ArrayList<>();
@@ -89,6 +94,7 @@ public class EconomyHero implements PropertyChangeListener
     public void propertyChange(PropertyChangeEvent evt) {
     }
 
+
     public enum Fraction
     {
         NECROPOLIS
@@ -111,7 +117,7 @@ public class EconomyHero implements PropertyChangeListener
                 baseStatistics.getKnowledge()
         );
         for (Artifact artifact : artifacts) {
-            total.increase(artifact.getBonuses());
+            total.increase(artifact.getType().getStatistics());
         }
         return total;
     }
@@ -130,5 +136,22 @@ public class EconomyHero implements PropertyChangeListener
 
     public int getKnowledge() {
         return getTotalStatistics().getKnowledge();
+    }
+
+    public void addSkill(final ArmorerSkill aSkill)
+    {
+        if( skills == null )
+        {
+            skills = new ArrayList<>();
+        }
+        skills.add( aSkill );
+    }
+    public void addSkill(final OffenceSkill aSkill)
+    {
+        if( skills == null )
+        {
+            skills = new ArrayList<>();
+        }
+        skills.add( aSkill );
     }
 }

@@ -13,8 +13,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import lombok.AccessLevel;
 import lombok.Setter;
-import pl.psi.Hero;
 import pl.psi.Spells.ActiveSpellEffect;
 import pl.psi.Spells.BuffSpell;
 import pl.psi.Spells.Spell;
@@ -36,21 +36,23 @@ public class Creature implements PropertyChangeListener {
 
 
     @Getter
-    @Setter
+    @Setter(AccessLevel.PROTECTED)
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
     private final List<ActiveSpellEffect> activeSpellEffects = new ArrayList<>();
+    private float reduceDemegeFactor;
 
     Creature() {
     }
 
     private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
-                     final int aAmount) {
+                     final int aAmount ) {
         stats = aStats;
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
+        reduceDemegeFactor = 1;
         this.originalStats = this.getStats();
     }
 
@@ -68,8 +70,7 @@ public class Creature implements PropertyChangeListener {
         return getAmount() > 0;
     }
 
-
-    private void applyDamage(final Creature aDefender, final int aDamage) {
+    public void applyDamage(final Creature aDefender, final int aDamage) {
         int hpToSubstract = aDamage % aDefender.getMaxHp();
         int amountToSubstract = Math.round(aDamage / aDefender.getMaxHp());
 
@@ -81,7 +82,7 @@ public class Creature implements PropertyChangeListener {
         else{
             aDefender.setCurrentHp(hp);
         }
-        aDefender.setAmount(aDefender.getAmount() - amountToSubstract);
+        aDefender.setAmount(aDefender.getAmount() - amountToSubstract * (int) Math.ceil(1-reduceDemegeFactor));
     }
 
     public int getMaxHp() {
@@ -120,7 +121,7 @@ public class Creature implements PropertyChangeListener {
     }
 
 
-    int getArmor() {
+    public int getArmor() {
         return stats.getArmor();
     }
 
@@ -172,8 +173,6 @@ public class Creature implements PropertyChangeListener {
     }
 
 
-
-
     public static class Builder {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
@@ -186,6 +185,9 @@ public class Creature implements PropertyChangeListener {
 
         public Builder amount(final int aAmount) {
             amount = aAmount;
+            return this;
+        }
+        public  Builder reduceDemegeFactor(float aReduceDemegeFactor) {
             return this;
         }
 
@@ -203,6 +205,4 @@ public class Creature implements PropertyChangeListener {
     public String toString() {
         return getName() + System.lineSeparator() + getAmount();
     }
-
-
 }

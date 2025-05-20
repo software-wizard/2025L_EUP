@@ -19,20 +19,11 @@
         <HBox BorderPane.alignment="CENTER">
             <children>
                 <Label fx:id="playerLabel" text="Player"/>
-                <Label fx:id="roundNumberStaticLabel" text="Round: "/>
-                <Label fx:id="roundNumberLabel" text="X"/>
                 <Label fx:id="currentStaticLabel" text="GOLD: "/>
                 <Label fx:id="currentGoldLabel" text="XXXX"/>
             </children>
         </HBox>
     </top>
-    <bottom>
-        <HBox BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="readyButton" mnemonicParsing="false" text="READY"/>
-            </children>
-        </HBox>
-    </bottom>
 
     <stylesheets>
         <URL value="@main.css"/>

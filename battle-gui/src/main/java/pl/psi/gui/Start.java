@@ -1,19 +1,17 @@
 package pl.psi.gui;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
-import com.google.common.collect.Range;
-import pl.psi.Hero;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import pl.psi.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.psi.Spells.BuffSpell;
-import pl.psi.Spells.DamageSpell;
-import pl.psi.Spells.Spell;
-import pl.psi.creatures.CreatureStats;
 import pl.psi.creatures.NecropolisFactory;
 
 public class Start extends Application
@@ -38,7 +36,7 @@ public class Start extends Application
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation( Start.class.getClassLoader()
                 .getResource( "fxml/main-battle.fxml" ) );
-            loader.setController( new MainBattleController( createP1(), createP2() ) );
+            loader.setController( new MainBattleController( createP1(), createP2(), new HashMap<>(), createSpecialFields() ) );
             scene = new Scene( loader.load() );
             primaryStage.setScene( scene );
             primaryStage.setX( 5 );
@@ -53,47 +51,22 @@ public class Start extends Application
 
     private Hero createP2()
     {
-        CreatureStats statBuff = CreatureStats.builder()
-                .attack(5)
-                .armor(0)
-                .maxHp(0)
-                .moveRange(0)
-                .name("Buff")
-                .description("Powerful boost")
-                .tier(1)
-                .damage(Range.closed(0, 0))
-                .isUpgraded(false)
-                .build();
-        List<Spell> spells = List.of(
-            new DamageSpell("Damage", 1, 1),
-            new BuffSpell("Buff", 1, 3, statBuff)
-        );
-
-        final Hero ret = new Hero( List.of( new NecropolisFactory().create( true, 1, 5 ) ),spells );
+        final Hero ret = new Hero( List.of( new NecropolisFactory().create( true, 1, 5,0 ) ) );
         return ret;
     }
 
     private Hero createP1()
     {
-        CreatureStats statBuff = CreatureStats.builder()
-                .attack(5)
-                .armor(0)
-                .maxHp(0)
-                .moveRange(0)
-                .name("Buff")
-                .description("Powerful boost")
-                .tier(1)
-                .damage(Range.closed(0, 0))
-                .isUpgraded(false)
-                .build();
-        List<Spell> spells = List.of(
-                new DamageSpell("Damage", 1, 1),
-                new BuffSpell("Buff", 1, 3, statBuff)
-        );
-
-
-        final Hero ret = new Hero( List.of( new NecropolisFactory().create( false, 1, 5 ) ), spells );
+        final Hero ret = new Hero( List.of( new NecropolisFactory().create( false, 1, 5 ,0) ) );
         return ret;
+    }
+
+    private BiMap < Point, SpecialField > createSpecialFields()
+    {
+        final BiMap < Point, SpecialField > specialFields = HashBiMap.create();
+        specialFields.put(new Point(5, 5), new DmgField());
+        specialFields.put(new Point(3, 8), new SpellField());
+        return specialFields;
     }
 
 }
