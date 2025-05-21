@@ -7,10 +7,21 @@ import javafx.scene.control.Alert.AlertType;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.skills.AbstractSkill;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+
+enum SkillNames {
+    Offence,
+    Armorer,
+}
+
 public class UpgradeSkill {
 
     @FXML
     private ListView<String> upgradeList;
+
+    private List<String> availableSkills = new ArrayList<>();
 
     private EconomyHero hero;
 
@@ -23,14 +34,25 @@ public class UpgradeSkill {
         if (hero == null) {
             return;
         }
-
         upgradeList.getItems().clear();
 
-        for ( AbstractSkill skill : hero.getSkills()) {
+        for (AbstractSkill skill : hero.getSkills()) {
+            if (skill.getLevel().equals("Expert")) {continue;}
+
             String entry = String.format("%s", skill.getName());
-            upgradeList.getItems().add(entry);
+            availableSkills.add(entry);
         }
+        for (SkillNames skill : SkillNames.values()) {
+            if (availableSkills.stream().noneMatch(s -> s.equals(skill.name()))) {
+                String entry = String.format("%s", skill.name());
+                availableSkills.add(entry);
+            }
+        }
+        Collections.shuffle(availableSkills);
+        upgradeList.getItems().add(availableSkills.get(0));
+        upgradeList.getItems().add(availableSkills.get(1));
     }
+
     @FXML
     private void handleBuy() {
         String selectedItem = upgradeList.getSelectionModel().getSelectedItem();
@@ -41,12 +63,12 @@ public class UpgradeSkill {
         try {
             String skillName = selectedItem.split(" ")[0];
             AbstractSkill selectedSkill = hero.getSkills().stream()
-                .filter(skill -> skill.getName().equals(skillName))
-                .findFirst()
-                .orElse(null);
+                    .filter(skill -> skill.getName().equals(skillName))
+                    .findFirst()
+                    .orElse(null);
 
             if (selectedSkill != null) {
-//                hero.upgradeSkill(selectedSkill);
+                selectedSkill.upgrade();
             }
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR, "Error upgrading skill: " + e.getMessage());
