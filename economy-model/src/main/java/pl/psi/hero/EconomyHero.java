@@ -99,6 +99,21 @@ public class EconomyHero implements PropertyChangeListener
         NECROPOLIS
     }
 
+    public void addExperience(final int experienceToAdd) {
+        int oldLevel = this.level;
+        this.experience += experienceToAdd;
+
+        while (this.experience >= getExperienceForNextLevel(this.level)) {
+            this.experience -= getExperienceForNextLevel(this.level);
+            this.level++;
+            pcs.firePropertyChange("levelUp", oldLevel, this.level);
+            oldLevel = this.level;
+        }
+    }
+
+    private int getExperienceForNextLevel(int currentLevel) {
+        return 100 + (currentLevel * 50);
+    }
 
     public void addArtifact(Artifact artifact) {
         artifacts.add(artifact);

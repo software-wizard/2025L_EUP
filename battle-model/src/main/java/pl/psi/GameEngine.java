@@ -19,23 +19,59 @@ public class GameEngine {
     private final TurnQueue turnQueue;
     private final Board board;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
+    private final Hero hero1;
+    private final Hero hero2;
 
     public GameEngine(final Hero aHero1, final Hero aHero2) {
+        this.hero1 = aHero1;
+        this.hero2 = aHero2;
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
     }
 
     public  GameEngine(final Hero aHero1, final Hero aHero2, final BiMap < Point, SpecialField > specialFields, Map<Point, Creature> aBankEnemy ) {
+        this.hero1 = aHero1;
+        this.hero2 = aHero2;
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), specialFields, aBankEnemy);
     }
 
     public void attack(final Point point) {
         board.getCreature(point)
-                .ifPresent(defender -> turnQueue.getCurrentCreature()
-                        .attack(defender));
+                .ifPresent(defender -> {
+                    Creature attacker = turnQueue.getCurrentCreature();
+                    attacker.attack(defender);
+
+                    if (!defender.isAlive()) {
+                        board.removeCreature(defender);
+                        removeDeadCreature(defender);
+                    }
+
+                    if (!attacker.isAlive()) {
+                        board.removeCreature(attacker);
+                        removeDeadCreature(attacker);
+                    }
+                });
+
         pass();
     }
+
+    private void removeDeadCreature(Creature creature) {
+        Hero owner = getOwnerOf(creature);
+        owner.removeCreature(creature);
+    }
+
+    private Hero getOwnerOf(Creature creature) {
+        if (hero1.getCreatures().contains(creature)) {
+            return hero1;
+        } else if (hero2.getCreatures().contains(creature)) {
+            return hero2;
+        } else {
+            throw new IllegalStateException("Creature not owned by any hero");
+        }
+    }
+
+
 
     public boolean canMove(final Point aPoint) {
         return board.canMove(turnQueue.getCurrentCreature(), aPoint);
