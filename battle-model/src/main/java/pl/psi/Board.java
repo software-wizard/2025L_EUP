@@ -96,4 +96,8 @@ public class Board {
             tile.doSomething(aCurrentCreature);
         }
     }
+
+    public void removeCreature(Creature creature) {
+        map.inverse().remove(creature);
+    }
 }

@@ -7,6 +7,8 @@ import java.util.Set;
 
 public enum TownBuilding implements BuildingType {
 
+    //TODO ADD WHAT EACH TOWN UPGRADE DOES
+
     //FORTIFICATIONS
     FORT(Set.of(),new Resources(5000,20,20,0,0,0,0),Category.COMMON),
     CITADEL(Set.of(FORT), new Resources(2500,0,5,0,0,0,0), Category.COMMON),
@@ -58,8 +60,38 @@ public enum TownBuilding implements BuildingType {
 
     @Override
     public void registerInTown(Town town) {
-
+        town.addTownBuilding(this);
     }
+
+    @Override
+    public void applyEffect(Town town, EconomyHero hero) {
+        switch (this){
+            case FORT:
+            case CITADEL:
+            case CASTLE:
+            case MARKETPLACE:
+                //Okienko do wymiany zasobów
+            case RESOURCE_SILO:
+                hero.addResource(new Resources(0,1,1,0,0,0,0));
+            case MAGE_GUILD_LVL_1:
+                //pozwolić kupować spelle
+            case MAGE_GUILD_LVL_2:
+            case MAGE_GUILD_LVL_3:
+            case MAGE_GUILD_LVL_4:
+            case MAGE_GUILD_LVL_5:
+            case TAVERN:
+            case TOWN_HALL:
+                hero.addResource(new Resources(1000,0,0,0,0,0,0));
+            case CITY_HALL:
+                hero.addResource(new Resources(2000,0,0,0,0,0,0));
+            case CAPITOL:
+                hero.addResource(new Resources(4000,0,0,0,0,0,0));
+            case BLACKSMITH:
+                //Pozwala kupić first aid tent
+            case NECROMANCY_AMPLIFIER:
+        }
+    }
+
 
     public Resources getCost() {
         return cost;
