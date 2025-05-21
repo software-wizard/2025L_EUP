@@ -5,6 +5,7 @@ import pl.psi.hero.EconomyHero;
 import pl.psi.hero.Statistics;
 import pl.psi.map.InteractableIf;
 import pl.psi.map.buildings.enterAction.EnterAction;
+import pl.psi.map.resources.Resources;
 
 public class Artifact implements InteractableIf {
     @Getter
@@ -26,6 +27,10 @@ public class Artifact implements InteractableIf {
     @Override
     public String getPath() {
         return type.getImagePath();
+    }
+
+    public int getCost() {
+        return type.getCost();
     }
 
     @Override

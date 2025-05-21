@@ -53,4 +53,7 @@ public class Resources {
         );
     }
 
+    public boolean enoughToPayGold(int cost) {
+        return gold >= cost;
+    }
 }

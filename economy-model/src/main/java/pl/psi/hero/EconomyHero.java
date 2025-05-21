@@ -77,11 +77,22 @@ public class EconomyHero implements PropertyChangeListener
         return resources.enoughToPay(cost);
     }
 
+    public boolean canAffordGold(int cost) {
+        return resources.enoughToPayGold(cost);
+    }
+
     public void pay(Resources cost) {
         if (!canAfford(cost)) {
             throw new IllegalStateException("Not enough resources");
         }
         this.resources = this.resources.change(cost.pay()); // pay() returns the negative values
+    }
+
+    public void payGold(int cost) {
+        if (!canAffordGold(cost)) {
+            throw new IllegalStateException("Not enough resources");
+        }
+        this.resources = this.resources.change(new Resources(-cost,0,0,0,0,0,0));
     }
 
     public List< EconomyCreature > getCreatures()
