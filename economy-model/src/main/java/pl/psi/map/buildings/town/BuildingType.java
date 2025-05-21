@@ -6,6 +6,8 @@ import pl.psi.map.resources.Resources;
 import java.util.Set;
 
 public interface BuildingType {
+    void applyEffect(Town town, EconomyHero hero);
+
     Resources getCost();
     boolean isBuiltIn(Town town);
     void buildIn(Town town, EconomyHero hero);

@@ -13,7 +13,6 @@ public class Town implements BuildingIf {
     private final Set<TownBuilding> builtTownBuildings = new HashSet<>();
     private final Set<UpgradeBuildings> builtUpgradeBuildings = new HashSet<>();
 
-
     public void build(BuildingType building, EconomyHero hero) {
         building.buildIn(this, hero);
     }
@@ -54,8 +53,6 @@ public class Town implements BuildingIf {
     public void addUpgradeBuilding(UpgradeBuildings building) {
         builtUpgradeBuildings.add(building);
     }
-
-
 
     @Override
     public String getPath() {

@@ -53,6 +53,9 @@ public enum UpgradeBuildings implements BuildingType {
         town.addUpgradeBuilding(this);
     }
 
+    @Override
+    public void applyEffect(Town town, EconomyHero hero) {
+    }
     public Resources getCost() {
         return cost;
     }
