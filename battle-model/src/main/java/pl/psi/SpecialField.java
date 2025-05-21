@@ -13,12 +13,13 @@ public abstract class SpecialField {
         BLUE, BROWN
     }
 
-    public static final String FIELD_GIVING_DMG = "fieldGivingDmg";
     @Getter
+    private FieldType typeOfField;
     private Color color;
 
-    protected SpecialField(Color aColor) {
+    protected SpecialField(Color aColor, FieldType aFieldType) {
         color = aColor;
+        this.typeOfField = aFieldType;
     }
 
     public abstract void doSomething(Creature aCreature);

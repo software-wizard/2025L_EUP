@@ -65,7 +65,7 @@ public class Start extends Application
     {
         final BiMap < Point, SpecialField > specialFields = HashBiMap.create();
         specialFields.put(new Point(5, 5), new DmgField());
-        specialFields.put(new Point(3, 8), new SpellField());
+        specialFields.put(new Point(3, 8), new SpellField(FieldType.FIELD_GIVING_DMG));
         return specialFields;
     }
 

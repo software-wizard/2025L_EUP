@@ -4,6 +4,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import pl.psi.creatures.Creature;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -40,6 +41,14 @@ public class Board {
         }
     }
 
+    //Utworzyłem te metodę, aby móc dodawać nowe pola specjalne do istniejącej planszy np. za pomocą zaklęć
+    public void addSpecialFieldOpen(final BiMap<Point, SpecialField> aSpecialFields){
+        for (Point point : aSpecialFields.keySet()) {
+            mapWithSpecialFields.put(point, aSpecialFields.get(point));
+        }
+    }
+
+
     private void addCreaturesSetPositions(final Map<Point, Creature> creaturesToPositions) {
         map.putAll(creaturesToPositions);
     }
@@ -62,6 +71,29 @@ public class Board {
     }
 
     void move(final Creature aCreature, final Point aPoint) {
+
+        if (canMove(aCreature, aPoint)) {
+            List<Point> path = examinePath(getPosition(aCreature), aPoint);
+
+            for (int i = 0; i < path.size()-1; i++) {
+                if (mapWithSpecialFields.containsKey(path.get(i))) {
+                    SpecialField currentField = mapWithSpecialFields.get(path.get(i));
+
+                    //Ten warunek sprawdza, czy pole specjalne na ściezce ruchu powinno aktywowac sie po przejsciu jednostki
+                    if (currentField.getTypeOfField().equals(FieldType.TRIGGERED_BY_STEPPING)) {
+                        currentField.doSomething(aCreature);
+                    }
+                }
+            }
+
+            //jesli jednostka nie umarła podczas ruchu to sprawdzane jest ostatnie pole
+            if (!aCreature.isAlive()) {
+                return;
+            }
+        }
+
+
+
         if (canMove(aCreature, aPoint)) {
             if (mapWithSpecialFields.containsKey(aPoint)) {
                 SpecialField tile = mapWithSpecialFields.get(aPoint);
@@ -95,5 +127,29 @@ public class Board {
             SpecialField tile = mapWithSpecialFields.get(aCurrentPoint);
             tile.doSomething(aCurrentCreature);
         }
+    }
+
+    //Metoda ma na celu określenie trasy po której nastąpił ruch,
+    public List<Point> examinePath(Point start, Point end) {
+
+        List<Point> path = new ArrayList<>();
+
+        //zmienne określające kierunek w zależności od pozycji
+        int dx = Integer.signum(end.getX() - start.getX());
+        int dy = Integer.signum(end.getY() - start.getY());
+
+
+        //współrzędne startowe
+        int x = start.getX();
+        int y = start.getY();
+
+
+        while (x != end.getX() || y != end.getY()) {
+            if (x != end.getX()) x += dx;
+            if (y != end.getY()) y += dy;
+            path.add(new Point(x, y));
+        }
+
+        return path;
     }
 }

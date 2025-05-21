@@ -3,28 +3,21 @@ package pl.psi.Spells;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import lombok.Getter;
-import pl.psi.Point;
-import pl.psi.SpecialField;
+import pl.psi.*;
 import pl.psi.creatures.Creature;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class FireWallSpell extends Spell {
-
-    private Point castPosition;
     private int size;
-    private double power;
-    private static final String TYPEOFFIELD = "TRIGGERED BY STEPPING";
+    private int power;
 
-
-    public FireWallSpell(String name, int spellLevel, Point castPosition, double power) {
+    public FireWallSpell(String name, int spellLevel, Point castPosition, int power, Board aBoard) {
         super(name, spellLevel);
 
         this.duration = 2;
         this.power = power;
-        this.castPosition = castPosition;
 
         if (spellLevel == 1) {
             this.size = 2;
@@ -32,22 +25,21 @@ public class FireWallSpell extends Spell {
             this.size = 3;
         }
 
-        createFireWall(castPosition, fireWallDamageCalculator());
+        createFireWall(castPosition, fireWallDamageCalculator(), aBoard);
     }
 
-    private void createFireWall(Point castPosition, double damage){
+    private void createFireWall(Point castPosition, int aDamage, Board aBoard){
         BiMap<Point, SpecialField> createdFields = HashBiMap.create();
 
         for (int i=0; i<size;i++){
             Point currentPoint = new Point(castPosition.getX(), castPosition.getY()+i);
-            createdFields.put(currentPoint, new FireWall(TYPEOFFIELD,2));
+            createdFields.put(currentPoint, new FireWall(aDamage));
         }
-        //nie wiem jak dostać się do planszy w gameengine
-
+        aBoard.addSpecialFieldOpen(createdFields);
     }
-    //chwilowo nie uzywane, zastanawiam sie nad implementacja
-    public double fireWallDamageCalculator() {
-        double levelBasedDamageBonus;
+
+    public int fireWallDamageCalculator() {
+        int levelBasedDamageBonus;
         switch (spellLevel) {
             case 2:
                 levelBasedDamageBonus = 20;
@@ -59,28 +51,10 @@ public class FireWallSpell extends Spell {
                 levelBasedDamageBonus = 10;
                 break;
         }
-        return power * 10 + levelBasedDamageBonus;
+        return (int) power * 10 + levelBasedDamageBonus;
     }
 
     @Override
     public void cast(Creature targetCreature) {
-        targetCreature.applyMagicDamage(this);
     }
-
-    public class FireWall extends SpecialField {
-
-
-        int duration;
-
-        public FireWall(String typeOfField, int duration){
-            super(typeOfField);
-            this.duration = duration;
-        }
-
-
-        public void doSomething(Creature aCreature) {
-            cast(aCreature);
-        }
-    }
-
 }

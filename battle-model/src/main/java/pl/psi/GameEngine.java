@@ -78,4 +78,5 @@ public class GameEngine {
     public void interact(Point aCurrentPoint) {
         board.interact(turnQueue.getCurrentCreature(), aCurrentPoint);
     }
+
 }
