@@ -36,7 +36,6 @@ public class SpellDialogController {
         okButton.setOnAction(e -> {
             if (selectedSpell != null && onSpellChosen != null) {
                 onSpellChosen.accept(selectedSpell);
-                // zamknij okno
                 Stage stage = (Stage) okButton.getScene().getWindow();
                 stage.close();
             }
