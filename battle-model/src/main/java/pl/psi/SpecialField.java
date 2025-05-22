@@ -13,17 +13,22 @@ public abstract class SpecialField {
         CYAN, BROWN
     }
 
+    public enum FieldName{
+        DmgField, SpellField
+    }
+
     public static final String FIELD_GIVING_DMG = "fieldGivingDmg";
     @Getter
     private Color color;
+    @Getter
+    private FieldName fieldName;
 
-    protected SpecialField(Color aColor) {
+    protected SpecialField(Color aColor, FieldName aFieldName) {
         color = aColor;
+        fieldName = aFieldName;
     }
 
     public abstract void doSomething(Creature aCreature);
-
-    public abstract String getNameOfField();
 
     public static boolean canFly(String name) {
         if (name.equals("Ghost Dragon") || name.equals("Archangel") || name.equals("Efreeti") || name.equals("Gargoyle")) {

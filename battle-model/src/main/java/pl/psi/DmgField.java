@@ -5,16 +5,11 @@ import pl.psi.creatures.Creature;
 public class DmgField extends SpecialField {
 
     public DmgField() {
-        super(Color.BROWN);
+        super(Color.BROWN, FieldName.DmgField);
     }
 
     @Override
     public void doSomething(Creature aCreature) {
         aCreature.applyDamage(aCreature, 20);
-    }
-
-    @Override
-    public String getNameOfField() {
-        return "DmgField";
     }
 }

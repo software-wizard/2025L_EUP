@@ -69,7 +69,7 @@ public class MainBattleController implements PropertyChangeListener {
                 SpecialField specialField = gameEngine.getSpecialFields().get(currentPoint);
                 if (specialField != null) {
                     mapTile.setBackground(getColor(specialField));
-                    mapTile.setName(specialField.getNameOfField());
+                    mapTile.setName(getFieldName(specialField));
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                         gameEngine.interact(currentPoint);
                     });
@@ -84,6 +84,15 @@ public class MainBattleController implements PropertyChangeListener {
             return Color.BROWN;
         } else if (specialField.getColor() == SpecialField.Color.CYAN) {
             return Color.CYAN;
+        }
+        return null;
+    }
+
+    private String getFieldName(SpecialField specialField) {
+        if (specialField.getFieldName() == SpecialField.FieldName.SpellField) {
+            return specialField.getFieldName().toString();
+        } else if (specialField.getFieldName() == SpecialField.FieldName.DmgField) {
+            return specialField.getFieldName().toString();
         }
         return null;
     }
