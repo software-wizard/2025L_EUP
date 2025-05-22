@@ -3,27 +3,12 @@ package pl.psi.hero.skills;
 import pl.psi.creatures.EconomyCreature;
 
 public class ArmorerSkill extends AbstractSkill {
-    private final float reducedDamageFactor;
+    private float reducedDamageFactor;
 
-    public ArmorerSkill( final String aLevel )
+    public ArmorerSkill()
     {
-        super( aLevel );
-        if ( aLevel.equals( "Basic" ) )
-        {
-            reducedDamageFactor = 0.1f;
-        }
-        else if ( aLevel.equals( "Advanced" ) )
-        {
-            reducedDamageFactor = 0.2f;
-        }
-        else if ( aLevel.equals( "Expert" ) )
-        {
-            reducedDamageFactor = 0.3f;
-        }
-        else
-        {
-            throw new IllegalArgumentException( "Invalid level: " + aLevel );
-        }
+        this.level = "Basic";
+        this.reducedDamageFactor = 0.1f;
     }
 
     @Override
@@ -31,4 +16,24 @@ public class ArmorerSkill extends AbstractSkill {
     {
         creature.setReduceDamageFactor(creature.getReduceDamageFactor()+reducedDamageFactor);
     }
+    @Override
+    public void upgrade()
+    {
+        if ( this.level.equals( "Basic" ) )
+        {
+            this.level = "Advanced";
+            this.reducedDamageFactor= 0.2f;
+        }
+        else if ( this.level.equals( "Advanced" ) )
+        {
+            this.level = "Expert";
+            this.reducedDamageFactor= 0.3f;
+        }
+        else
+        {
+            throw new IllegalStateException( "Cannot upgrade from Expert level." );
+        }
+    }
+    @Override
+    public String getName() {return "Armorer";}
 }
