@@ -10,7 +10,7 @@ import pl.psi.creatures.CreatureStatisticIf;
 @Setter
 public abstract class SpecialField {
     public enum Color{
-        BLUE, BROWN
+        CYAN, BROWN
     }
 
     public static final String FIELD_GIVING_DMG = "fieldGivingDmg";
@@ -22,6 +22,8 @@ public abstract class SpecialField {
     }
 
     public abstract void doSomething(Creature aCreature);
+
+    public abstract String getNameOfField();
 
     public static boolean canFly(String name) {
         if (name.equals("Ghost Dragon") || name.equals("Archangel") || name.equals("Efreeti") || name.equals("Gargoyle")) {

@@ -12,4 +12,9 @@ public class DmgField extends SpecialField {
     public void doSomething(Creature aCreature) {
         aCreature.applyDamage(aCreature, 20);
     }
+
+    @Override
+    public String getNameOfField() {
+        return "DmgField";
+    }
 }

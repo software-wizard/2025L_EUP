@@ -4,7 +4,7 @@ import pl.psi.creatures.Creature;
 
 public class SpellField extends SpecialField {
     public SpellField() {
-        super(Color.BLUE);
+        super(Color.CYAN);
     }
 
     @Override
@@ -12,5 +12,8 @@ public class SpellField extends SpecialField {
         System.err.print("CZAR@@@@@@@@@");
     }
 
-
+    @Override
+    public String getNameOfField() {
+        return "SpellField";
+    }
 }
