@@ -5,9 +5,9 @@ import pl.psi.creatures.EconomyCreature;
 public class OffenceSkill extends AbstractSkill {
     private float attackBonus;
 
-    public OffenceSkill( final String aLevel )
+    public OffenceSkill( )
     {
-        this.level = aLevel;
+        super();
         attackBonus = 0.1f;
     }
     @Override
@@ -18,14 +18,14 @@ public class OffenceSkill extends AbstractSkill {
     @Override
     public void upgrade()
     {
-        if ( this.level.equals( "Basic" ) )
+        if ( this.level.equals( SkillLevel.Basic ) )
         {
-            this.level = "Advanced";
+            this.level = SkillLevel.Advanced;
             attackBonus= 0.2f;
         }
-        else if ( this.level.equals( "Advanced" ) )
+        else if ( this.level.equals( SkillLevel.Advanced ) )
         {
-            this.level = "Expert";
+            this.level = SkillLevel.Expert;
             attackBonus= 0.3f;
         }
         else
@@ -34,5 +34,5 @@ public class OffenceSkill extends AbstractSkill {
         }
     }
     @Override
-    public String getName() {return "Offence";}
+    public SkillName getName() {return SkillName.Offence;}
 }

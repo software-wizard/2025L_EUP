@@ -7,7 +7,7 @@ public class ArmorerSkill extends AbstractSkill {
 
     public ArmorerSkill()
     {
-        this.level = "Basic";
+        super();
         this.reducedDamageFactor = 0.1f;
     }
 
@@ -19,14 +19,14 @@ public class ArmorerSkill extends AbstractSkill {
     @Override
     public void upgrade()
     {
-        if ( this.level.equals( "Basic" ) )
+        if ( this.level.equals( SkillLevel.Basic ) )
         {
-            this.level = "Advanced";
+            this.level = SkillLevel.Advanced;
             this.reducedDamageFactor= 0.2f;
         }
-        else if ( this.level.equals( "Advanced" ) )
+        else if ( this.level.equals( SkillLevel.Advanced) )
         {
-            this.level = "Expert";
+            this.level = SkillLevel.Expert;
             this.reducedDamageFactor= 0.3f;
         }
         else
@@ -35,5 +35,5 @@ public class ArmorerSkill extends AbstractSkill {
         }
     }
     @Override
-    public String getName() {return "Armorer";}
+    public SkillName getName() {return SkillName.Armorer;}
 }
