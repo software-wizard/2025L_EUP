@@ -1,7 +1,5 @@
 package pl.psi.hero.skills;
 
-import pl.psi.creatures.EconomyCreature;
-
 public class OffenceSkill extends AbstractSkill {
     private float attackBonus;
 
@@ -10,22 +8,18 @@ public class OffenceSkill extends AbstractSkill {
         super();
         attackBonus = 0.1f;
     }
-    @Override
-    public void apply( final EconomyCreature creature )
-    {
-        creature.getStats().setAttack(creature.getStats().getAttack()*(int) Math.ceil(1+attackBonus));
-    }
+
     @Override
     public void upgrade()
     {
-        if ( this.level.equals( SkillLevel.Basic ) )
+        if ( this.level.equals( SkillLevel.BASIC) )
         {
-            this.level = SkillLevel.Advanced;
+            this.level = SkillLevel.ADVANCED;
             attackBonus= 0.2f;
         }
-        else if ( this.level.equals( SkillLevel.Advanced ) )
+        else if ( this.level.equals( SkillLevel.ADVANCED) )
         {
-            this.level = SkillLevel.Expert;
+            this.level = SkillLevel.EXPERT;
             attackBonus= 0.3f;
         }
         else
@@ -34,5 +28,8 @@ public class OffenceSkill extends AbstractSkill {
         }
     }
     @Override
-    public SkillName getName() {return SkillName.Offence;}
+    public SkillName getName() {return SkillName.OFFENCE;}
+    @Override
+    public float getFactor() {return attackBonus; }
+
 }

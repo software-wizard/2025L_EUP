@@ -34,7 +34,7 @@ public class UpgradeSkill {
         upgradeList.getItems().clear();
 
         for (AbstractSkill skill : hero.getSkills()) {
-            if (skill.getLevel().equals(SkillLevel.Expert)) {continue;}
+            if (skill.getLevel().equals(SkillLevel.EXPERT)) {continue;}
 
             String entry = String.format("%s", skill.getName());
             availableSkills.add(entry);

@@ -9,12 +9,16 @@ import pl.psi.*;
 import pl.psi.creatures.*;
 import pl.psi.gui.MainBattleController;
 import pl.psi.hero.EconomyHero;
+import pl.psi.hero.skills.AbstractSkill;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static pl.psi.hero.skills.SkillName.ARMORER;
+import static pl.psi.hero.skills.SkillName.OFFENCE;
 
 public class EcoBattleConverter {
 
@@ -76,8 +80,7 @@ public class EcoBattleConverter {
             Creature creature = factory.create(
                     ecoCreature.isUpgraded(),
                     ecoCreature.getTier(),
-                    ecoCreature.getAmount(),
-                    ecoCreature.getReduceDamageFactor()
+                    ecoCreature.getAmount()
             );
             result.put(entry.getKey(), creature);
         }
@@ -91,6 +94,24 @@ public class EcoBattleConverter {
         StatsModifier totalBonus = new StatsModifier(ecoHero.getTotalStatistics().getAttack(), ecoHero.getTotalStatistics().getDefense());
 
         CreatureStatisticIf modifiedStats = new ModifiedCreatureStats(baseStats, totalBonus);
+
+        if (!ecoHero.getSkills().isEmpty()) {
+            float reduceDamageFactor=0;
+            float bonusDamageFActor=0;
+            ArrayList<AbstractSkill> skills = new ArrayList<>(ecoHero.getSkills());
+            for (AbstractSkill skill : skills) {
+                if (skill.getName() == ARMORER) {
+                    reduceDamageFactor= skill.getFactor();
+                } else if (skill.getName() == OFFENCE) {
+                    bonusDamageFActor = skill.getFactor();
+                }
+            }
+            return new Creature.Builder()
+                    .statistic(modifiedStats)
+                    .calculator(new ReducedDamageCalculator(reduceDamageFactor, bonusDamageFActor))
+                    .amount(ecoCreature.getAmount())
+                    .build();
+        }
 
         return new Creature.Builder()
                 .statistic(modifiedStats)

@@ -7,13 +7,11 @@ public class EconomyCreature {
     private final CreatureStatistic stats;
     private final int amount;
     private final int goldCost;
-    private float reduceDamageFactor;
 
     EconomyCreature( final CreatureStatistic aStats, final int aAmount, final int aGoldCost ){
         stats = aStats;
         amount = aAmount;
         goldCost = aGoldCost;
-        reduceDamageFactor = 1;
     }
 
     public int getAmount() {
@@ -38,14 +36,5 @@ public class EconomyCreature {
 
     public CreatureStatistic getStats() {
         return stats;
-    }
-
-
-    public float getReduceDamageFactor() {
-        return reduceDamageFactor;
-    }
-
-    public void setReduceDamageFactor(float aReduceDemegeFactor) {
-        reduceDamageFactor = aReduceDemegeFactor;
     }
 }

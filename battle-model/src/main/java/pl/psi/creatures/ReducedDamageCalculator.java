@@ -4,18 +4,15 @@ import pl.psi.Spells.Spell;
 
 import java.util.Random;
 
-abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
-{
+public class ReducedDamageCalculator extends AbstractCalculateDamageStrategy{
 
-    public static final int MAX_ATTACK_DIFF = 60;
-    public static final int MAX_DEFENCE_DIFF = 12;
-    public static final double DEFENCE_BONUS = 0.025;
-    public static final double ATTACK_BONUS = 0.05;
-    protected final Random rand;
+    private final float reduceDamageFactor;
+    private final float bonusAttackFactor;
 
-    protected AbstractCalculateDamageStrategy( final Random aRand )
-    {
-        rand = aRand;
+    public ReducedDamageCalculator(float aReduceDamageFactor,float aBonusAttackFactor) {
+        super(new Random());
+        this.reduceDamageFactor = aReduceDamageFactor;
+        this.bonusAttackFactor = aBonusAttackFactor;
     }
 
     @Override
@@ -24,10 +21,10 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
         final int armor = getArmor( aDefender );
 
         final int randValue = rand.nextInt( aAttacker.getDamage()
-            .upperEndpoint()
-            - aAttacker.getDamage()
+                .upperEndpoint()
+                - aAttacker.getDamage()
                 .lowerEndpoint()
-            + 1 ) + aAttacker.getDamage()
+                + 1 ) + aAttacker.getDamage()
                 .lowerEndpoint();
 
         double oneCreatureDamageToDeal;
@@ -54,7 +51,7 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
         {
             oneCreatureDamageToDeal = 0;
         }
-        return (int)(aAttacker.getAmount() * oneCreatureDamageToDeal);
+        return (int)(aAttacker.getAmount() * oneCreatureDamageToDeal * (1-reduceDamageFactor) * (1 + bonusAttackFactor));
     }
 
     @Override
@@ -88,14 +85,7 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
             reducedDamage = 0;
         }
 
-        return (int) reducedDamage;
+        return (int) (reducedDamage* (1-reduceDamageFactor) * (1 + bonusAttackFactor));
     }
-
-    protected int getArmor( final Creature aDefender )
-    {
-        return aDefender.getArmor();
-    }
-
 
 }
-
