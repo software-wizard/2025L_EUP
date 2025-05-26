@@ -14,7 +14,7 @@ public abstract class SpecialField {
     }
 
     public enum FieldName{
-        DmgField, SpellField
+        DMG_FIELD, SPELL_FIELD
     }
 
     public static final String FIELD_GIVING_DMG = "fieldGivingDmg";

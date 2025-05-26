@@ -4,7 +4,7 @@ import pl.psi.creatures.Creature;
 
 public class SpellField extends SpecialField {
     public SpellField() {
-        super(Color.CYAN, FieldName.SpellField);
+        super(Color.CYAN, FieldName.SPELL_FIELD);
     }
 
     @Override

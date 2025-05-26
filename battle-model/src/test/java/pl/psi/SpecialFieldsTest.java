@@ -25,6 +25,7 @@ public class SpecialFieldsTest {
                         .maxHp(100)
                         .damage(NOT_IMPORTANT_DMG)
                         .attack(0)
+                        .moveRange(5)
                         .armor(10)
                         .build())
                 .build();
@@ -33,6 +34,7 @@ public class SpecialFieldsTest {
                         .maxHp(100)
                         .damage(NOT_IMPORTANT_DMG)
                         .attack(0)
+                        .moveRange(5)
                         .armor(10)
                         .build())
                 .build();
