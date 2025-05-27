@@ -55,6 +55,44 @@ public class SpecialFieldsTest {
         assertThat(dragon.getCurrentHp()).isEqualTo(80);
     }
 
+    @Test
+    void fieldCanOnlyBeFlown() {
+        final Creature creature = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(NOT_IMPORTANT_DMG)
+                        .attack(0)
+                        .name("Knight")
+                        .moveRange(5)
+                        .armor(10)
+                        .build())
+                .build();
+
+        final Creature dragon = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .name("Ghost Dragon")
+                        .damage(NOT_IMPORTANT_DMG)
+                        .attack(0)
+                        .moveRange(5)
+                        .armor(10)
+                        .build())
+                .build();
+
+        final List< Creature > c1 = List.of( creature, dragon );
+        final List< Creature > c2 = List.of();
+        final BiMap <Point, SpecialField > specialFields = HashBiMap.create();
+        specialFields.put(new Point(3, 3), new FieldCanOnlyBeFlown());
+        final Board board = new Board( c1, c2,  specialFields, new HashMap<>());
+        final Point initialCreaturePoint = creature.getCurrentCreaturePoint();
+
+        //when
+        board.move( creature, new Point( 3, 3 ) );
+        board.move( dragon, new Point(3, 3));
+
+        //then
+        assertThat(creature.getCurrentCreaturePoint()).isEqualTo(initialCreaturePoint);
+        assertThat(dragon.getCurrentCreaturePoint()).isEqualTo(new Point(3,3));
+    }
+
 //    @Test
 //    void damageBuff(){
 //        final Creature creature1 = new Creature.Builder().statistic(CreatureStats.builder()

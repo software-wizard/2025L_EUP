@@ -15,6 +15,7 @@ import java.util.Random;
 
 import lombok.AccessLevel;
 import lombok.Setter;
+import pl.psi.Point;
 import pl.psi.Spells.ActiveSpellEffect;
 import pl.psi.Spells.BuffSpell;
 import pl.psi.Spells.Spell;
@@ -39,6 +40,7 @@ public class Creature implements PropertyChangeListener {
     @Setter(AccessLevel.PROTECTED)
     private int currentHp;
     private int counterAttackCounter = 1;
+    private Point currentCreaturePoint;
     private DamageCalculatorIf calculator;
     private final List<ActiveSpellEffect> activeSpellEffects = new ArrayList<>();
     private float reduceDemegeFactor;
@@ -170,6 +172,10 @@ public class Creature implements PropertyChangeListener {
             final int magicDamage = getCalculator().calculateMagicDamage(this, aDamageSpell);
             applyDamage(this, magicDamage);
         }
+    }
+
+    public void setCurrentPoint(Point aPoint) {
+        currentCreaturePoint = aPoint;
     }
 
 

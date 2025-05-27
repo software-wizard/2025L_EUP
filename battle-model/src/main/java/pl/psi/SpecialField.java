@@ -10,14 +10,13 @@ import pl.psi.creatures.CreatureStatisticIf;
 @Setter
 public abstract class SpecialField {
     public enum Color{
-        CYAN, BROWN, ORANGE
+        CYAN, BROWN, ORANGE, YELLOW
     }
 
     public enum FieldName{
-        DMG_FIELD, SPELL_FIELD
+        DMG_FIELD, SPELL_FIELD, BUFF_FIELD, FIELD_CAN_ONLY_BE_FLOWN
     }
 
-    public static final String FIELD_GIVING_DMG = "fieldGivingDmg";
     @Getter
     private Color color;
     @Getter

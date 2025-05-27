@@ -3,7 +3,9 @@ package pl.psi;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import pl.psi.creatures.Creature;
+import pl.psi.Exceptions.cannotPassFieldException;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,6 +33,7 @@ public class Board {
     private void addCreatures(final List<Creature> aCreatures, final int aXPosition) {
         for (int i = 0; i < aCreatures.size(); i++) {
             map.put(new Point(aXPosition, i * 2 + 1), aCreatures.get(i));
+            aCreatures.get(i).setCurrentPoint(new Point(aXPosition, i * 2 + 1));
         }
     }
 
@@ -63,13 +66,24 @@ public class Board {
 
     void move(final Creature aCreature, final Point aPoint) {
         if (canMove(aCreature, aPoint)) {
-            if (mapWithSpecialFields.containsKey(aPoint)) {
-                SpecialField tile = mapWithSpecialFields.get(aPoint);
-                tile.doSomething(aCreature);
+            try {
+                if (mapWithSpecialFields.containsKey(aPoint)) {
+                    SpecialField tile = mapWithSpecialFields.get(aPoint);
+                    tile.doSomething(aCreature);
+                }
+                map.inverse()
+                        .remove(aCreature);
+                map.put(aPoint, aCreature);
+                aCreature.setCurrentPoint(aPoint);
+            } catch (cannotPassFieldException e) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Nie możesz przejść przez to pole",
+                        "Błąd ruchu",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
             }
-            map.inverse()
-                    .remove(aCreature);
-            map.put(aPoint, aCreature);
+
         }
     }
 
