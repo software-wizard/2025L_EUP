@@ -1,6 +1,8 @@
 package pl.psi;
 
+import pl.psi.Spells.BuffSpell;
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.CreatureStats;
 
 public class BuffField extends SpecialField {
 
@@ -10,6 +12,19 @@ public class BuffField extends SpecialField {
 
     @Override
     public void doSomething(Creature aCreature) {
-        System.err.println("Err");
+        BuffSpell buff = new BuffSpell(
+                "buffField",
+                1,
+                3,
+                CreatureStats.builder()
+                        .attack(5)
+                        .armor(2)
+                        .maxHp(10)
+                        .moveRange(1)
+                        .name(aCreature.getName())
+                        .description("temporary buff")
+                        .build()
+        );
+        aCreature.applyTemporaryBuff(buff);
     }
 }
