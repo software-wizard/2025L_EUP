@@ -5,9 +5,9 @@ import pl.psi.Spells.BuffSpell;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
 
-public class DebuffingField extends SpecialField {
+public class DebuffingField /*extends SpecialField */{
 
-
+/*
     protected DebuffingField() {super(Color.YELLOW, FieldName.DebuffingField);
     }
 
@@ -17,5 +17,5 @@ public class DebuffingField extends SpecialField {
                 .maxHp(100)
                 .build())
                 .build());
-    }
+    }*/
 }
