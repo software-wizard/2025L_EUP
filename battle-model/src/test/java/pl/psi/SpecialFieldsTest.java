@@ -93,39 +93,94 @@ public class SpecialFieldsTest {
         assertThat(dragon.getCurrentCreaturePoint()).isEqualTo(new Point(3,3));
     }
 
-//    @Test
-//    void damageBuff(){
-//        final Creature creature1 = new Creature.Builder().statistic(CreatureStats.builder()
-//                        .maxHp(100)
-//                        .damage(Range.closed(10, 10))
-//                        .attack(50)
-//                        .armor(0)
-//                        .build())
-//                .build();
-//
-//        final Creature dragon = new Creature.Builder().statistic(CreatureStats.builder()
-//                        .maxHp(100)
-//                        .damage(Range.closed(10, 10))
-//                        .attack(50)
-//                        .armor(0)
-//                        .build())
-//                .build();
-//
-//        final List< Creature > c1 = List.of( creature1, dragon);
-//        final List< Creature > c2 = List.of();
-//        final Board board = new Board(c1, c2);
-//
-//        board.attackBuffedField(new Point(3, 3), 10);
-//        board.attackBuffedFIeld(new Point(4, 4), 20);
-//
-//        //When
-//        board.move(creature1, new Point(3, 3));
-//        board.move(dragon, new Point(4, 4));
-//
-//
-//        //Then
-//        assertThat(creature1.setDamage().isEqual(60));
-//        assertThat(dragon.setDamage.isEqual(70));
-//    }
+    @Test
+    void buffFieldTest(){
+        final Creature creature1 = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .moveRange(5)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+
+        final Creature dragon = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .moveRange(5)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+
+        final List< Creature > c1 = List.of( creature1, dragon);
+        final List< Creature > c2 = List.of();
+        final BiMap <Point, SpecialField > specialFields = HashBiMap.create();
+        specialFields.put(new Point(3, 3), new BuffField());
+        final Board board = new Board( c1, c2,  specialFields, new HashMap<>());
+
+        CreatureStats oldCreature1Stats = (CreatureStats) creature1.getStats();
+        CreatureStats oldDragonStats = (CreatureStats) creature1.getStats();
+
+        //When
+        board.move(creature1, new Point(3, 3));
+        board.move(dragon, new Point(4, 4));
+
+
+        //Then
+        assertThat(creature1.getAttack()).isEqualTo(oldCreature1Stats.getAttack() + 5);
+        assertThat(creature1.getArmor()).isEqualTo(oldCreature1Stats.getArmor() + 10);
+        assertThat(creature1.getMaxHp()).isEqualTo(oldCreature1Stats.getMaxHp() + 20);
+        assertThat(creature1.getMoveRange()).isEqualTo(oldCreature1Stats.getMoveRange() + 1);
+        assertThat(dragon.getAttack()).isEqualTo(oldDragonStats.getAttack());
+        assertThat(dragon.getArmor()).isEqualTo(oldDragonStats.getArmor());
+        assertThat(dragon.getMaxHp()).isEqualTo(oldDragonStats.getMaxHp());
+        assertThat(dragon.getMoveRange()).isEqualTo(oldDragonStats.getMoveRange());
+    }
+
+    @Test
+    void debuffFieldTest(){
+        final Creature creature1 = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .moveRange(5)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+
+        final Creature dragon = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .moveRange(5)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+
+        final List< Creature > c1 = List.of( creature1, dragon);
+        final List< Creature > c2 = List.of();
+        final BiMap <Point, SpecialField > specialFields = HashBiMap.create();
+        specialFields.put(new Point(3, 3), new DebuffField());
+        final Board board = new Board( c1, c2,  specialFields, new HashMap<>());
+
+        CreatureStats oldCreature1Stats = (CreatureStats) creature1.getStats();
+        CreatureStats oldDragonStats = (CreatureStats) creature1.getStats();
+
+        //When
+        board.move(creature1, new Point(3, 3));
+        board.move(dragon, new Point(4, 4));
+
+
+        //Then
+        assertThat(creature1.getAttack()).isEqualTo(oldCreature1Stats.getAttack() - 5);
+        assertThat(creature1.getArmor()).isEqualTo(oldCreature1Stats.getArmor() - 10);
+        assertThat(creature1.getMaxHp()).isEqualTo(oldCreature1Stats.getMaxHp() - 20);
+        assertThat(creature1.getMoveRange()).isEqualTo(oldCreature1Stats.getMoveRange() - 1);
+        assertThat(dragon.getAttack()).isEqualTo(oldDragonStats.getAttack());
+        assertThat(dragon.getArmor()).isEqualTo(oldDragonStats.getArmor());
+        assertThat(dragon.getMaxHp()).isEqualTo(oldDragonStats.getMaxHp());
+        assertThat(dragon.getMoveRange()).isEqualTo(oldDragonStats.getMoveRange());
+    }
 }
 

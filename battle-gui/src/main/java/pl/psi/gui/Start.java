@@ -68,6 +68,7 @@ public class Start extends Application
         specialFields.put(new Point(4, 7), new BuffField());
         specialFields.put(new Point(3, 8), new SpellField());
         specialFields.put(new Point(2,4), new FieldCanOnlyBeFlown());
+        specialFields.put(new Point(4, 9), new DebuffField());
         return specialFields;
     }
 

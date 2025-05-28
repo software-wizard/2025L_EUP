@@ -86,6 +86,10 @@ public class MainBattleController implements PropertyChangeListener {
             return Color.CYAN;
         } else if (specialField.getColor() == SpecialField.Color.YELLOW) {
             return Color.YELLOW;
+        } else if (specialField.getColor() == SpecialField.Color.ORANGE) {
+            return Color.ORANGE;
+        } else if (specialField.getColor() == SpecialField.Color.GRAY) {
+            return Color.GRAY;
         }
         return null;
     }
