@@ -3,10 +3,7 @@ package pl.psi.hero;
 import com.google.common.collect.Range;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import pl.psi.creatures.Creature;
-import pl.psi.creatures.CreatureStatistic;
-import pl.psi.creatures.DefaultDamageCalculator;
-import pl.psi.creatures.ReducedDamageCalculator;
+import pl.psi.creatures.*;
 import pl.psi.hero.skills.ArmorerSkill;
 import pl.psi.hero.skills.OffenceSkill;
 import pl.psi.map.resources.Resources;
@@ -28,13 +25,13 @@ class EconomyHeroTest {
 
         // Setup attacker and defender creatures
         Creature attacker = new Creature.Builder()
-                .statistic(new CreatureStatistic("Attacker",10, 5, 5, 5, Range.closed(4,5), 5, "Attacker",false))
+                .statistic(new CreatureStats("Attacker",10, 5, 5, 5, Range.closed(4,5), 5, "Attacker",false))
                 .calculator(new DefaultDamageCalculator())
                 .amount(10)
                 .build();
 
         Creature defender = new Creature.Builder()
-                .statistic(new CreatureStatistic("Defender", 10,5, 5, 5, Range.closed(4,5), 5, "Defender",false ))
+                .statistic(new CreatureStats("Defender", 10,5, 5, 5, Range.closed(4,5), 5, "Defender",false ))
                 .calculator(new ReducedDamageCalculator(0.1f, 0.1f)) // Factors from skills
                 .amount(10)
                 .build();
