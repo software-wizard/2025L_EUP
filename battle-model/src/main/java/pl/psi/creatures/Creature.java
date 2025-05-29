@@ -30,7 +30,7 @@ import lombok.Getter;
 @Getter
 public class Creature implements PropertyChangeListener {
     private CreatureStatisticIf stats;
-    private CreatureStatisticIf originalStats;
+    private CopyableStatisticIf originalStats;
     @Setter
     private int amount;
 
@@ -51,7 +51,7 @@ public class Creature implements PropertyChangeListener {
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
-        this.originalStats = this.getStats();
+        this.originalStats = (CopyableStatisticIf) this.getStats();
     }
 
     public void attack(final Creature aDefender) {
@@ -110,7 +110,7 @@ public class Creature implements PropertyChangeListener {
 
     public void applyTemporaryBuff(BuffSpell buffSpell) {
         this.getActiveSpellEffects().add(new ActiveSpellEffect(buffSpell, buffSpell.getDuration()));
-        CreatureStatisticIf modifiedStats = originalStats;
+        CreatureStatisticIf modifiedStats = originalStats.copy();
         for (ActiveSpellEffect effect : activeSpellEffects) {
             modifiedStats  =  effect.getSpell().modifyStats(modifiedStats );
 
@@ -143,7 +143,7 @@ public class Creature implements PropertyChangeListener {
             }
         }
 
-        CreatureStatisticIf modifiedStats = originalStats;
+        CreatureStatisticIf modifiedStats = originalStats.copy();
         for (ActiveSpellEffect effect : activeSpellEffects) {
             modifiedStats  =  effect.getSpell().modifyStats(modifiedStats );
 
