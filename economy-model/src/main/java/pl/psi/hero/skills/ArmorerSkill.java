@@ -1,32 +1,25 @@
 package pl.psi.hero.skills;
 
-import pl.psi.creatures.EconomyCreature;
-
 public class ArmorerSkill extends AbstractSkill {
     private float reducedDamageFactor;
 
     public ArmorerSkill()
     {
-        this.level = "Basic";
+        super();
         this.reducedDamageFactor = 0.1f;
     }
 
     @Override
-    public void apply( final EconomyCreature creature )
-    {
-        creature.setReduceDamageFactor(creature.getReduceDamageFactor()+reducedDamageFactor);
-    }
-    @Override
     public void upgrade()
     {
-        if ( this.level.equals( "Basic" ) )
+        if ( this.level.equals( SkillLevel.BASIC) )
         {
-            this.level = "Advanced";
+            this.level = SkillLevel.ADVANCED;
             this.reducedDamageFactor= 0.2f;
         }
-        else if ( this.level.equals( "Advanced" ) )
+        else if ( this.level.equals( SkillLevel.ADVANCED) )
         {
-            this.level = "Expert";
+            this.level = SkillLevel.EXPERT;
             this.reducedDamageFactor= 0.3f;
         }
         else
@@ -35,5 +28,8 @@ public class ArmorerSkill extends AbstractSkill {
         }
     }
     @Override
-    public String getName() {return "Armorer";}
+    public SkillName getName() {return SkillName.ARMORER;}
+
+    @Override
+    public float getFactor() { return reducedDamageFactor;}
 }

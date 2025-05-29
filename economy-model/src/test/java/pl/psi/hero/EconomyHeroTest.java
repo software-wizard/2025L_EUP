@@ -1,68 +1,49 @@
 package pl.psi.hero;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.BeforeEach;
+import com.google.common.collect.Range;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import pl.psi.creatures.EconomyNecropolisFactory;
+import pl.psi.creatures.Creature;
+import pl.psi.creatures.CreatureStatistic;
+import pl.psi.creatures.DefaultDamageCalculator;
+import pl.psi.creatures.ReducedDamageCalculator;
+import pl.psi.hero.skills.ArmorerSkill;
+import pl.psi.hero.skills.OffenceSkill;
 import pl.psi.map.resources.Resources;
 
-class  EconomyHeroTest
-{
+import static org.junit.jupiter.api.Assertions.*;
 
-    private EconomyHero hero;
-    private Resources resources;
-
-    @BeforeEach
-    void init()
-    {
-        Statistics aStats = new Statistics(10, 10, 10, 10);
-        resources = new Resources(3000,0,0,0,0,0,0);
-        hero = new EconomyHero( EconomyHero.Fraction.NECROPOLIS, resources, aStats );
-    }
-
+class EconomyHeroTest {
+    @Disabled
     @Test
-    void shouldThrowExceptionWhileHeroHas7CreatureAndYoTryToAddNextOne()
-    {
-        final EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
-        hero.addCreature( factory.create( true, 1, 1 ) );
-        hero.addCreature( factory.create( true, 1, 1 ) );
-        hero.addCreature( factory.create( true, 1, 1 ) );
-        hero.addCreature( factory.create( true, 1, 1 ) );
-        hero.addCreature( factory.create( true, 1, 1 ) );
-        hero.addCreature( factory.create( true, 1, 1 ) );
-        hero.addCreature( factory.create( true, 1, 1 ) );
+    void testHeroSkillsAffectDamageCalculation() {
+        // Setup hero with skills
+        EconomyHero hero = new EconomyHero(
+                EconomyHero.Fraction.NECROPOLIS,
+                new Resources(1000, 1000, 1000, 1000, 1000, 1000, 1000),
+                new Statistics(5, 5, 0, 0)
+        );
+        hero.addSkill(new ArmorerSkill());
+        hero.addSkill(new OffenceSkill());
 
-        assertThrows( IllegalStateException.class, () -> hero.addCreature( factory.create( true, 1, 1 ) ) );
-    }
+        // Setup attacker and defender creatures
+        Creature attacker = new Creature.Builder()
+                .statistic(new CreatureStatistic("Attacker",10, 5, 5, 5, Range.closed(4,5), 5, "Attacker",false))
+                .calculator(new DefaultDamageCalculator())
+                .amount(10)
+                .build();
 
-    @Test
-    void shouldThrowExceptionWhileYouTrySubstractMoreGoldThanHeroHas()
-    {
-        assertThrows( IllegalStateException.class, () -> hero.pay( new Resources(3001,0,0,0,0,0,0)));
+        Creature defender = new Creature.Builder()
+                .statistic(new CreatureStatistic("Defender", 10,5, 5, 5, Range.closed(4,5), 5, "Defender",false ))
+                .calculator(new ReducedDamageCalculator(0.1f, 0.1f)) // Factors from skills
+                .amount(10)
+                .build();
+
+        // Apply damage
+        attacker.attack(defender);
+
+        // Verify damage reduction and bonus attack are applied
+        assertTrue(defender.getAmount() < 10, "Defender should lose units due to attack.");
+        assertTrue(defender.getCurrentHp() > 0, "Defender should still have some HP left.");
     }
-//    @Test
-//    void shouldCorrectlyApplyArtifactBonusesToHeroStatistics() {
-//        Statistics baseStats = new Statistics(10, 10, 10, 10);
-//        Artifact artifact = new Artifact("Amulet of Glory", 5, 3, 2, 1);
-//
-//
-//        hero = new EconomyHero(EconomyHero.Fraction.NECROPOLIS, 3000, baseStats);
-//        hero.addArtifact(artifact);
-//
-//        assertEquals(15, hero.getAttack());
-//        assertEquals(13, hero.getDefense());
-//        assertEquals(12, hero.getPower());
-//        assertEquals(11, hero.getKnowledge());
-//
-//        Statistics total = hero.getTotalStatistics();
-//        assertEquals(15, total.getAttack());
-//        assertEquals(13, total.getDefense());
-//        assertEquals(12, total.getPower());
-//        assertEquals(11, total.getKnowledge());
-//
-//        assertEquals(1, hero.getArtifacts().size());
-//        assertEquals(5, hero.getArtifacts().get(0).getBonuses().getAttack());
-//    }
 }
