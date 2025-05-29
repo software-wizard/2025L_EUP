@@ -23,6 +23,9 @@ public class EconomyHero implements PropertyChangeListener
     @Getter
     private final int moveRange = 10;
     private int remainingMoves;
+    private int experience;
+    @Getter
+    public int level;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     @Getter
     private List<AbstractSkill> skills;
@@ -37,10 +40,6 @@ public class EconomyHero implements PropertyChangeListener
         remainingMoves = moveRange;
         resources = aResources;
         baseStatistics = aStats;
-    }
-
-    public Resources getResources(){
-        return resources;
     }
 
     public void resetMoveRange() {
@@ -78,11 +77,22 @@ public class EconomyHero implements PropertyChangeListener
         return resources.enoughToPay(cost);
     }
 
+    public boolean canAffordGold(int cost) {
+        return resources.enoughToPayGold(cost);
+    }
+
     public void pay(Resources cost) {
         if (!canAfford(cost)) {
             throw new IllegalStateException("Not enough resources");
         }
         this.resources = this.resources.change(cost.pay()); // pay() returns the negative values
+    }
+
+    public void payGold(int cost) {
+        if (!canAffordGold(cost)) {
+            throw new IllegalStateException("Not enough resources");
+        }
+        this.resources = this.resources.change(new Resources(-cost,0,0,0,0,0,0));
     }
 
     public List< EconomyCreature > getCreatures()
@@ -100,6 +110,21 @@ public class EconomyHero implements PropertyChangeListener
         NECROPOLIS
     }
 
+    public void addExperience(final int experienceToAdd) {
+        int oldLevel = this.level;
+        this.experience += experienceToAdd;
+
+        while (this.experience >= getExperienceForNextLevel(this.level)) {
+            this.experience -= getExperienceForNextLevel(this.level);
+            this.level++;
+            pcs.firePropertyChange("levelUp", oldLevel, this.level);
+            oldLevel = this.level;
+        }
+    }
+
+    private int getExperienceForNextLevel(int currentLevel) {
+        return 100 + (currentLevel * 50);
+    }
 
     public void addArtifact(Artifact artifact) {
         artifacts.add(artifact);

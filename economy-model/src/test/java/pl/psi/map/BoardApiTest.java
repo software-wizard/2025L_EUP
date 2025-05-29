@@ -37,7 +37,7 @@ class BoardApiTest {
         engine.interact(interactionPoint);
 
         // then
-        verify(mapObject, times(1)).interact(eq(hero1), eq(interactionPoint));
+        verify(mapObject, times(1)).interact(eq(hero1));
     }
 
     @Test
@@ -61,7 +61,7 @@ class BoardApiTest {
         board.interact(hero1, interactionPoint);
 
         // then
-        verify(mapObject, times(1)).interact(eq(hero1), eq(interactionPoint));
+        verify(mapObject, times(1)).interact(eq(hero1));
     }
 
     @Test
@@ -79,7 +79,7 @@ class BoardApiTest {
         engine.interact(interactionPoint);
 
         // then
-        verify(mapObject, times(1)).interact(eq(hero1), eq(interactionPoint));
+        verify(mapObject, times(1)).interact(eq(hero1));
         assertThat(engine.getMapObject(interactionPoint).isEmpty()).isTrue();
     }
 
@@ -98,7 +98,7 @@ class BoardApiTest {
         engine.interact(interactionPoint);
 
         // then
-        verify(mapObject, times(1)).interact(eq(hero1), eq(interactionPoint));
+        verify(mapObject, times(1)).interact(eq(hero1));
         assertThat(engine.getMapObject(interactionPoint).isEmpty()).isFalse();
     }
 }

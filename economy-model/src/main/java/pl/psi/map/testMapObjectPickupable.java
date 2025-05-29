@@ -1,6 +1,5 @@
 package pl.psi.map;
 
-import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.enterAction.EnterAction;
 
@@ -26,7 +25,7 @@ public class testMapObjectPickupable implements MapObjectIf {
     }
 
     @Override
-    public void interact(EconomyHero hero, Point point) {
+    public void interact(EconomyHero hero) {
 
     }
 

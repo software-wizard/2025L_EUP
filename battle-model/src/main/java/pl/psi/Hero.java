@@ -23,4 +23,7 @@ public class Hero {
     public void apply(Spell s, Creature c) {
         s.cast(c);    }
 
+    public void removeCreature(Creature creature) {
+        creatures.remove(creature);
+    }
 }

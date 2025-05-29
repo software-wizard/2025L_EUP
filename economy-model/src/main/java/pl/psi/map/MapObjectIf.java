@@ -1,6 +1,5 @@
 package pl.psi.map;
 
-import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.enterAction.EnterAction;
 
@@ -9,7 +8,7 @@ public interface MapObjectIf {
     void endOfTurn(); // w tych bez wydarzeń na koniec zostaje pusty
     void enter(EconomyHero hero);
     void generateResource();
-    void interact(EconomyHero hero, Point point);
+    void interact(EconomyHero hero);
     typeOfObject getTypeOfObject();
     EconomyHero getOwner();
     EnterAction onEnter();

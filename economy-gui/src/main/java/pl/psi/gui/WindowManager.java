@@ -7,20 +7,19 @@ import javafx.stage.Stage;
 import pl.psi.gui.Upgrades.UpgradeController;
 import pl.psi.gui.shops.*;
 import pl.psi.hero.EconomyHero;
-import pl.psi.map.MapObjectIf;
-import pl.psi.map.buildings.Castle;
+import pl.psi.map.buildings.town.Town;
 
 import java.io.IOException;
 
 public class WindowManager {
 
-    public static void openShop(EconomyHero hero, Castle castle) {
+    public static void openShop(EconomyHero hero, Town town) {
         try {
             FXMLLoader loader = new FXMLLoader(WindowManager.class.getResource("/fxml/shop-category.fxml"));
             Parent root = loader.load();
 
             ShopCategoryController controller = loader.getController();
-            controller.init(hero, castle);  // Przekazujemy dane po załadowaniu FXML
+            controller.init(hero, town);  // Przekazujemy dane po załadowaniu FXML
 
             Stage stage = new Stage();
             stage.setTitle("Choose Shop");
@@ -32,13 +31,13 @@ public class WindowManager {
     }
 
 
-    public static void openUpgrades(EconomyHero hero, Castle castle) {
+    public static void openUpgrades(EconomyHero hero, Town town) {
         try {
             FXMLLoader loader = new FXMLLoader(WindowManager.class.getResource("/fxml/upgrades.fxml"));
             loader.setControllerFactory(param -> new UpgradeController());
             Parent root = loader.load();
             UpgradeController controller = loader.getController();
-            controller.setData(hero, castle); // Pass your objects safely
+            controller.setData(hero, town); // Pass your objects safely
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -48,12 +47,12 @@ public class WindowManager {
         }
     }
 
-    public static void openCreatureShop(EconomyHero hero, Castle castle) {
+    public static void openCreatureShop(EconomyHero hero, Town town) {
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(WindowManager.class.getClassLoader()
                     .getResource("fxml/creature-shop.fxml"));
-            loader.setController(new CreatureShopController(hero, castle));
+            loader.setController(new CreatureShopController(hero, town));
 
             final Scene scene = new Scene(loader.load());
             Stage aStage = new Stage();
@@ -66,12 +65,12 @@ public class WindowManager {
         }
     }
 
-    public static void openSpellShop(EconomyHero hero, Castle castle) {
+    public static void openSpellShop(EconomyHero hero, Town town) {
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(WindowManager.class.getClassLoader()
                     .getResource("fxml/spell-shop.fxml"));
-            loader.setController(new SpellShopController(hero, castle));
+            loader.setController(new SpellShopController(hero, town));
 
             final Scene scene = new Scene(loader.load());
             Stage aStage = new Stage();
@@ -83,12 +82,12 @@ public class WindowManager {
             aE.printStackTrace();
         }
     }
-    public static void openArtifactShop(EconomyHero hero, Castle castle) {
+    public static void openArtifactShop(EconomyHero hero, Town town) {
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(WindowManager.class.getClassLoader()
                     .getResource("fxml/artifact-shop.fxml"));
-            loader.setController(new ArtifactShopController(hero, castle));
+            loader.setController(new ArtifactShopController(hero, town));
 
             final Scene scene = new Scene(loader.load());
             Stage aStage = new Stage();
@@ -100,12 +99,12 @@ public class WindowManager {
             aE.printStackTrace();
         }
     }
-    public static void openSkillShop(EconomyHero hero, Castle castle) {
+    public static void openSkillShop(EconomyHero hero, Town town) {
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(WindowManager.class.getClassLoader()
                     .getResource("fxml/skill-shop.fxml"));
-            loader.setController(new SkillShopController(hero, castle));
+            loader.setController(new SkillShopController(hero, town));
 
             final Scene scene = new Scene(loader.load());
             Stage aStage = new Stage();

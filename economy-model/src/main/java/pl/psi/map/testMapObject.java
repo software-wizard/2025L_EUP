@@ -1,10 +1,7 @@
 package pl.psi.map;
 
-import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.enterAction.EnterAction;
-
-import java.util.Map;
 
 public class testMapObject implements MapObjectIf {
     @Override
@@ -28,7 +25,7 @@ public class testMapObject implements MapObjectIf {
     }
 
     @Override
-    public void interact(EconomyHero hero, Point point) {
+    public void interact(EconomyHero hero) {
 
     }
 

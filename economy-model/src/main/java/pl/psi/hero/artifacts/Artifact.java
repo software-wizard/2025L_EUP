@@ -1,11 +1,11 @@
 package pl.psi.hero.artifacts;
 
 import lombok.Getter;
-import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.Statistics;
 import pl.psi.map.InteractableIf;
 import pl.psi.map.buildings.enterAction.EnterAction;
+import pl.psi.map.resources.Resources;
 
 public class Artifact implements InteractableIf {
     @Getter
@@ -29,6 +29,10 @@ public class Artifact implements InteractableIf {
         return type.getImagePath();
     }
 
+    public int getCost() {
+        return type.getCost();
+    }
+
     @Override
     public void endOfTurn() {
     }
@@ -44,7 +48,7 @@ public class Artifact implements InteractableIf {
     }
 
     @Override
-    public void interact(EconomyHero hero, Point point) {
+    public void interact(EconomyHero hero) {
         hero.addArtifact(this);
     }
 

@@ -76,18 +76,18 @@ public class BoardEconomy {
 
     public void interact(final EconomyHero hero, final Point targetPoint){
         MapObjectIf obj = interactionMap.get(targetPoint);
-            obj.interact(hero, targetPoint);
+            obj.interact(hero);
         if(obj.getTypeOfObject() == PICKUPABLE) {
             interactionMap.remove(targetPoint);
         }
     }
 
-    public EnterAction enter(final EconomyHero hero, final Point targetPoint){
+    public EnterAction enter(final Point targetPoint){
         MapObjectIf obj = interactionMap.get(targetPoint);
             return obj.onEnter();
     }
 
-    public EnterAction secondInteraction(final EconomyHero hero, final Point targetPoint){
+    public EnterAction secondInteraction(final Point targetPoint){
         MapObjectIf obj = interactionMap.get(targetPoint);
             return obj.secondInteraction();
     }
@@ -95,10 +95,6 @@ public class BoardEconomy {
 
     public Point getPosition(EconomyHero hero) {
         return map.inverse().get(hero);
-    }
-
-    public void removeInteractableAt(Point point) {
-        interactionMap.remove(point);
     }
 
     public static BoardEconomyBuilder builder() {

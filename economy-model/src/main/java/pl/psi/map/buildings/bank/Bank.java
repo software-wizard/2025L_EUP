@@ -40,7 +40,7 @@ public class Bank implements BuildingIf {
     }
 
     @Override
-    public void interact(EconomyHero hero, Point point) {
+    public void interact(EconomyHero hero) {
 
     }
 

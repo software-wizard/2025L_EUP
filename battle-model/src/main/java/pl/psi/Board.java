@@ -129,6 +129,10 @@ public class Board {
         }
     }
 
+    public void removeCreature(Creature creature) {
+        map.inverse().remove(creature);
+    }
+
     //Metoda ma na celu określenie trasy po której nastąpił ruch,
     public List<Point> examinePath(Point start, Point end) {
 
