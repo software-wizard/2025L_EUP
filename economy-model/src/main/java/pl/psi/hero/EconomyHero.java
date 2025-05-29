@@ -40,6 +40,7 @@ public class EconomyHero implements PropertyChangeListener
         remainingMoves = moveRange;
         resources = aResources;
         baseStatistics = aStats;
+        skills = new ArrayList<>();
     }
 
     public void resetMoveRange() {

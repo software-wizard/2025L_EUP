@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.psi.*;
 import pl.psi.creatures.*;
+import pl.psi.economy.Point;
 import pl.psi.gui.MainBattleController;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.skills.AbstractSkill;
@@ -25,9 +26,9 @@ public class EcoBattleConverter {
     public static void startBattle(final EconomyHero aPlayer1, final EconomyHero aPlayer2) {
         try {
             final FXMLLoader loader = new FXMLLoader();
-            BiMap<Point, SpecialField> specialFields = HashBiMap.create();
-            specialFields.put(new Point(5, 5), new DmgField());
-            specialFields.put(new Point(3, 8), new SpellField(FieldType.FIELD_GIVING_DMG));
+            BiMap<pl.psi.Point, SpecialField> specialFields = HashBiMap.create();
+            specialFields.put(new pl.psi.Point(5, 5), new DmgField());
+            specialFields.put(new pl.psi.Point(3, 8), new SpellField(FieldType.FIELD_GIVING_DMG));
             loader.setLocation(EcoBattleConverter.class.getClassLoader()
                     .getResource("fxml/main-battle.fxml"));
             loader.setController(new MainBattleController(convert(aPlayer1), convert(aPlayer2), new HashMap<>(), specialFields));
@@ -54,7 +55,7 @@ public class EcoBattleConverter {
     }
 
     public static void startBankBattle(final EconomyHero aPlayer1, final Map<Point, EconomyCreature> bankEnemy) {
-        Map<Point, Creature> bankEnemy1 = convertEnemies(bankEnemy);
+        Map<pl.psi.Point, Creature> bankEnemy1 = convertEnemies(bankEnemy);
 
         try {
             final FXMLLoader loader = new FXMLLoader();
@@ -71,9 +72,9 @@ public class EcoBattleConverter {
         }
     }
 
-    public static Map<Point, Creature> convertEnemies(Map<Point, EconomyCreature> economyMap) {
+    public static Map<pl.psi.Point, Creature> convertEnemies(Map<Point, EconomyCreature> economyMap) {
         NecropolisFactory factory = new NecropolisFactory();
-        Map<Point, Creature> result = new HashMap<>();
+        Map<pl.psi.Point, Creature> result = new HashMap<>();
 
         for (Map.Entry<Point, EconomyCreature> entry : economyMap.entrySet()) {
             EconomyCreature ecoCreature = entry.getValue();
@@ -82,7 +83,7 @@ public class EcoBattleConverter {
                     ecoCreature.getTier(),
                     ecoCreature.getAmount()
             );
-            result.put(entry.getKey(), creature);
+            result.put(new pl.psi.Point(entry.getKey().getX(), entry.getKey().getY()), creature);
         }
 
         return result;

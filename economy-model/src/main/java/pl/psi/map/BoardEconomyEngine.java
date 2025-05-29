@@ -1,9 +1,9 @@
 package pl.psi.map;
 
-import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.enterAction.EnterAction;
 import pl.psi.map.buildings.BuildingIf;
+import pl.psi.economy.Point;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

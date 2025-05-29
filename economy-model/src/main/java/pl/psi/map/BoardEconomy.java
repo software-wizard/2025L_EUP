@@ -1,13 +1,12 @@
 package pl.psi.map;
 
-import com.google.common.collect.BiMap;
-
 import java.util.Optional;
 
-import pl.psi.Point;
+import com.google.common.collect.BiMap;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
 import pl.psi.map.buildings.enterAction.EnterAction;
+import pl.psi.economy.Point;
 
 import static pl.psi.map.MapObjectIf.typeOfObject.PICKUPABLE;
 

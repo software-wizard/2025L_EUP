@@ -3,11 +3,11 @@ package pl.psi.map;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import java.util.Map;
-
-import pl.psi.Point;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.BuildingIf;
+import pl.psi.economy.Point;
+
+import java.util.Map;
 
 public class BoardEconomyBuilder {
     private static final int MAX_WIDTH = 14;

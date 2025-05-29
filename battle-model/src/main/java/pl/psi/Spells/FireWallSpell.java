@@ -2,7 +2,6 @@ package pl.psi.Spells;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import lombok.Getter;
 import pl.psi.*;
 import pl.psi.creatures.Creature;
 

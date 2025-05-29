@@ -1,4 +1,4 @@
-package pl.psi;
+package pl.psi.economy;
 
 import lombok.Value;
 
@@ -29,11 +29,4 @@ public class Point
         return Math.sqrt( px * px + py * py );
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
 }

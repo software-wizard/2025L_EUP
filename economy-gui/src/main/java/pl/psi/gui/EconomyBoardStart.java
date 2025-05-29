@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.psi.Point;
 import pl.psi.gui.startchoice.HeroSelection;
 import pl.psi.hero.artifacts.Artifact;
 import pl.psi.hero.EconomyHero;
@@ -48,22 +47,22 @@ public class EconomyBoardStart extends Application {
         });
     }
 
-    private Map<Point, MapObjectIf> map() {
+    private Map<pl.psi.economy.Point, MapObjectIf> map() {
         return Map.ofEntries(
-                Map.entry(new Point(4,4), new Artifact(ArtifactType.SWORD_OF_HELLFIRE)),
-                Map.entry(new Point(17,1), new Town()),
-                Map.entry(new Point(1,7), new Town()),
-                Map.entry(new Point(3,2), new ResourceGenerator(ResourceGenType.GEM)),
-                Map.entry(new Point(5,6), new ResourceGenerator(ResourceGenType.GOLD)),
-                Map.entry(new Point(8,1), new ResourceGenerator(ResourceGenType.MERCURY)),
-                Map.entry(new Point(10,4), new ResourceGenerator(ResourceGenType.WOOD)),
-                Map.entry(new Point(13,7), new ResourceGenerator(ResourceGenType.SULFUR)),
-                Map.entry(new Point(15,2), new ResourceGenerator(ResourceGenType.CRYSTAL)),
-                Map.entry(new Point(6,8), new ResourceGenerator(ResourceGenType.ORE)),
-                Map.entry(new Point(9,3), new Gold(new Resources(1000,0,0,0,0,0,0))),
-                Map.entry(new Point(10,6), new Gold(new Resources(1000,0,0,0,0,0,0))),
-                Map.entry(new Point(2,2), new Bank(BankStatistics.CASTLE_1)),
-                Map.entry(new Point(8,8), new Bank(BankStatistics.CASTLE_2))
+                Map.entry(new pl.psi.economy.Point(4,4), new Artifact(ArtifactType.SWORD_OF_HELLFIRE)),
+                Map.entry(new pl.psi.economy.Point(17,1), new Town()),
+                Map.entry(new pl.psi.economy.Point(1,7), new Town()),
+                Map.entry(new pl.psi.economy.Point(3,2), new ResourceGenerator(ResourceGenType.GEM)),
+                Map.entry(new pl.psi.economy.Point(5,6), new ResourceGenerator(ResourceGenType.GOLD)),
+                Map.entry(new pl.psi.economy.Point(8,1), new ResourceGenerator(ResourceGenType.MERCURY)),
+                Map.entry(new pl.psi.economy.Point(10,4), new ResourceGenerator(ResourceGenType.WOOD)),
+                Map.entry(new pl.psi.economy.Point(13,7), new ResourceGenerator(ResourceGenType.SULFUR)),
+                Map.entry(new pl.psi.economy.Point(15,2), new ResourceGenerator(ResourceGenType.CRYSTAL)),
+                Map.entry(new pl.psi.economy.Point(6,8), new ResourceGenerator(ResourceGenType.ORE)),
+                Map.entry(new pl.psi.economy.Point(9,3), new Gold(new Resources(1000,0,0,0,0,0,0))),
+                Map.entry(new pl.psi.economy.Point(10,6), new Gold(new Resources(1000,0,0,0,0,0,0))),
+                Map.entry(new pl.psi.economy.Point(2,2), new Bank(BankStatistics.CASTLE_1)),
+                Map.entry(new pl.psi.economy.Point(8,8), new Bank(BankStatistics.CASTLE_2))
         );
     }
 

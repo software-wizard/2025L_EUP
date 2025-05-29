@@ -2,7 +2,7 @@ package pl.psi.map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.psi.Point;
+import pl.psi.economy.Point;
 import pl.psi.hero.EconomyHero;
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package pl.psi.map.buildings.bank;
 
-import pl.psi.Point;
+import pl.psi.economy.Point;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.creatures.EconomyNecropolisFactory;
 import pl.psi.map.resources.Resources;

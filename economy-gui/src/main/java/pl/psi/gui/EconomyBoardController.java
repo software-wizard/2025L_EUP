@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.EconomyHero;
@@ -16,6 +15,7 @@ import pl.psi.map.MapObjectIf;
 import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.buildings.town.Town;
 import pl.psi.map.resources.Resources;
+import pl.psi.economy.Point;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

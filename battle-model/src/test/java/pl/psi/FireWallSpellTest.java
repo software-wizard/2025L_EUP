@@ -6,15 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import org.junit.jupiter.api.Test;
 
 import pl.psi.Spells.FireWallSpell;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
-
-
 
 
 class FireWallSpellTest {
