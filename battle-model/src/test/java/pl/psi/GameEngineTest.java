@@ -19,6 +19,6 @@ public class GameEngineTest
                 new GameEngine( new Hero( List.of( creatureFactory.create( 1, false, 5 ) )),
                         new Hero( List.of( creatureFactory.create( 1, false, 5 ) )) );
 
-        gameEngine.attack( new Point( 1, 1 ) );
+        gameEngine.attack( new BattlePoint( 1, 1 ) );
     }
 }

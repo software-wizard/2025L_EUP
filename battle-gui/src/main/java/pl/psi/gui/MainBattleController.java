@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import pl.psi.GameEngine;
 import pl.psi.Hero;
-import pl.psi.Point;
+import pl.psi.BattlePoint;
 import pl.psi.SpecialField;
 import pl.psi.creatures.Creature;
 
@@ -29,7 +29,7 @@ public class MainBattleController implements PropertyChangeListener {
 //        gameEngine = new GameEngine( aHero1, aHero2 );
 //    }
 
-    public MainBattleController(final Hero aHero1, final Hero aHero2, final Map<Point, Creature> bankEnemy, BiMap<Point, SpecialField> aSpecialField) {
+    public MainBattleController(final Hero aHero1, final Hero aHero2, final Map<BattlePoint, Creature> bankEnemy, BiMap<BattlePoint, SpecialField> aSpecialField) {
         gameEngine = new GameEngine(aHero1, aHero2, aSpecialField, bankEnemy);
     }
 
@@ -45,32 +45,32 @@ public class MainBattleController implements PropertyChangeListener {
                 .clear();
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 10; y++) {
-                Point currentPoint = new Point(x, y);
-                Optional<Creature> creature = gameEngine.getCreature(currentPoint);
+                BattlePoint currentBattlePoint = new BattlePoint(x, y);
+                Optional<Creature> creature = gameEngine.getCreature(currentBattlePoint);
                 final MapTile mapTile = new MapTile("");
                 creature.ifPresent(c -> mapTile.setName(c.toString()));
-                if (gameEngine.isCurrentCreature(currentPoint)) {
+                if (gameEngine.isCurrentCreature(currentBattlePoint)) {
                     mapTile.setBackground(Color.GREENYELLOW);
                 }
-                if (gameEngine.canMove(currentPoint)) {
+                if (gameEngine.canMove(currentBattlePoint)) {
                     mapTile.setBackground(Color.GREY);
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             (e) -> {
-                                gameEngine.move(currentPoint);
+                                gameEngine.move(currentBattlePoint);
                             });
                 }
-                if (gameEngine.canAttack(currentPoint)) {
+                if (gameEngine.canAttack(currentBattlePoint)) {
                     mapTile.setBackground(Color.RED);
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             (e) -> {
-                                gameEngine.attack(currentPoint);
+                                gameEngine.attack(currentBattlePoint);
                             });
                 }
-                SpecialField specialField = gameEngine.getSpecialFields().get(currentPoint);
+                SpecialField specialField = gameEngine.getSpecialFields().get(currentBattlePoint);
                 if (specialField != null) {
                     mapTile.setBackground(getColor(specialField));
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                        gameEngine.interact(currentPoint);
+                        gameEngine.interact(currentBattlePoint);
                     });
                 }
                 gridMap.add(mapTile, x, y);

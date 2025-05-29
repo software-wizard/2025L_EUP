@@ -2,27 +2,24 @@ package pl.psi;
 
 import lombok.Value;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
 @Value
-public class Point
+public class BattlePoint
 {
     int x;
     int y;
 
-    public Point( final int aX, final int aY )
+    public BattlePoint(final int aX, final int aY )
     {
         x = aX;
         y = aY;
     }
 
-    public double distance( Point aPoint )
+    public double distance( BattlePoint aBattlePoint)
     {
-        return distance( aPoint.getX(), aPoint.getY() );
+        return distance( aBattlePoint.getX(), aBattlePoint.getY() );
     }
 
     public double distance( double px, double py )

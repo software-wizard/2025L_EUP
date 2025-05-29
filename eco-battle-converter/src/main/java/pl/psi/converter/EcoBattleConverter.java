@@ -26,9 +26,9 @@ public class EcoBattleConverter {
     public static void startBattle(final EconomyHero aPlayer1, final EconomyHero aPlayer2) {
         try {
             final FXMLLoader loader = new FXMLLoader();
-            BiMap<pl.psi.Point, SpecialField> specialFields = HashBiMap.create();
-            specialFields.put(new pl.psi.Point(5, 5), new DmgField());
-            specialFields.put(new pl.psi.Point(3, 8), new SpellField(FieldType.FIELD_GIVING_DMG));
+            BiMap<BattlePoint, SpecialField> specialFields = HashBiMap.create();
+            specialFields.put(new BattlePoint(5, 5), new DmgField());
+            specialFields.put(new BattlePoint(3, 8), new SpellField(FieldType.FIELD_GIVING_DMG));
             loader.setLocation(EcoBattleConverter.class.getClassLoader()
                     .getResource("fxml/main-battle.fxml"));
             loader.setController(new MainBattleController(convert(aPlayer1), convert(aPlayer2), new HashMap<>(), specialFields));
@@ -55,7 +55,7 @@ public class EcoBattleConverter {
     }
 
     public static void startBankBattle(final EconomyHero aPlayer1, final Map<Point, EconomyCreature> bankEnemy) {
-        Map<pl.psi.Point, Creature> bankEnemy1 = convertEnemies(bankEnemy);
+        Map<BattlePoint, Creature> bankEnemy1 = convertEnemies(bankEnemy);
 
         try {
             final FXMLLoader loader = new FXMLLoader();
@@ -72,9 +72,9 @@ public class EcoBattleConverter {
         }
     }
 
-    public static Map<pl.psi.Point, Creature> convertEnemies(Map<Point, EconomyCreature> economyMap) {
+    public static Map<BattlePoint, Creature> convertEnemies(Map<Point, EconomyCreature> economyMap) {
         NecropolisFactory factory = new NecropolisFactory();
-        Map<pl.psi.Point, Creature> result = new HashMap<>();
+        Map<BattlePoint, Creature> result = new HashMap<>();
 
         for (Map.Entry<Point, EconomyCreature> entry : economyMap.entrySet()) {
             EconomyCreature ecoCreature = entry.getValue();
@@ -83,7 +83,7 @@ public class EcoBattleConverter {
                     ecoCreature.getTier(),
                     ecoCreature.getAmount()
             );
-            result.put(new pl.psi.Point(entry.getKey().getX(), entry.getKey().getY()), creature);
+            result.put(new BattlePoint(entry.getKey().getX(), entry.getKey().getY()), creature);
         }
 
         return result;

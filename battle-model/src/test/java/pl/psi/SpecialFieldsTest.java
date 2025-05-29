@@ -39,14 +39,14 @@ public class SpecialFieldsTest {
 
         final List< Creature > c1 = List.of( creature, dragon );
         final List< Creature > c2 = List.of();
-        final BiMap <Point, SpecialField > specialFields = HashBiMap.create();
-        specialFields.put(new Point(3, 3), new DmgField());
-        specialFields.put(new Point(4, 4), new DmgField());
+        final BiMap <BattlePoint, SpecialField > specialFields = HashBiMap.create();
+        specialFields.put(new BattlePoint(3, 3), new DmgField());
+        specialFields.put(new BattlePoint(4, 4), new DmgField());
         final Board board = new Board( c1, c2,  specialFields, new HashMap<>());
 
         //when
-        board.move( creature, new Point( 3, 3 ) );
-        board.move( dragon, new Point(4, 4));
+        board.move( creature, new BattlePoint( 3, 3 ) );
+        board.move( dragon, new BattlePoint(4, 4));
 
         //then
         assertThat(creature.getCurrentHp()).isEqualTo(80);

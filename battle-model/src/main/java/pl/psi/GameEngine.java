@@ -27,15 +27,15 @@ public class GameEngine {
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
     }
 
-    public  GameEngine(final Hero aHero1, final Hero aHero2, final BiMap < Point, SpecialField > specialFields, Map<Point, Creature> aBankEnemy ) {
+    public  GameEngine(final Hero aHero1, final Hero aHero2, final BiMap <BattlePoint, SpecialField > specialFields, Map<BattlePoint, Creature> aBankEnemy ) {
         this.hero1 = aHero1;
         this.hero2 = aHero2;
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), specialFields, aBankEnemy);
     }
 
-    public void attack(final Point point) {
-        board.getCreature(point)
+    public void attack(final BattlePoint aBattlePoint) {
+        board.getCreature(aBattlePoint)
                 .ifPresent(defender -> {
                     Creature attacker = turnQueue.getCurrentCreature();
                     attacker.attack(defender);
@@ -71,17 +71,17 @@ public class GameEngine {
 
 
 
-    public boolean canMove(final Point aPoint) {
-        return board.canMove(turnQueue.getCurrentCreature(), aPoint);
+    public boolean canMove(final BattlePoint aBattlePoint) {
+        return board.canMove(turnQueue.getCurrentCreature(), aBattlePoint);
     }
 
-    public void move(final Point aPoint) {
-        board.move(turnQueue.getCurrentCreature(), aPoint);
-        observerSupport.firePropertyChange(CREATURE_MOVED, null, aPoint);
+    public void move(final BattlePoint aBattlePoint) {
+        board.move(turnQueue.getCurrentCreature(), aBattlePoint);
+        observerSupport.firePropertyChange(CREATURE_MOVED, null, aBattlePoint);
     }
 
-    public Optional<Creature> getCreature(final Point aPoint) {
-        return board.getCreature(aPoint);
+    public Optional<Creature> getCreature(final BattlePoint aBattlePoint) {
+        return board.getCreature(aBattlePoint);
     }
 
     public void pass() {
@@ -93,24 +93,24 @@ public class GameEngine {
         turnQueue.addObserver(aObserver);
     }
 
-    public boolean canAttack(final Point point) {
+    public boolean canAttack(final BattlePoint aBattlePoint) {
         double distance = board.getPosition(turnQueue.getCurrentCreature())
-                .distance(point);
-        return board.getCreature(point)
+                .distance(aBattlePoint);
+        return board.getCreature(aBattlePoint)
                 .isPresent()
                 && distance < 2 && distance > 0;
     }
 
-    public boolean isCurrentCreature(Point aPoint) {
-        return Optional.of(turnQueue.getCurrentCreature()).equals(board.getCreature(aPoint));
+    public boolean isCurrentCreature(BattlePoint aBattlePoint) {
+        return Optional.of(turnQueue.getCurrentCreature()).equals(board.getCreature(aBattlePoint));
     }
 
-    public BiMap< Point, SpecialField > getSpecialFields() {
+    public BiMap<BattlePoint, SpecialField > getSpecialFields() {
         return board.getSpecialFields();
     }
 
-    public void interact(Point aCurrentPoint) {
-        board.interact(turnQueue.getCurrentCreature(), aCurrentPoint);
+    public void interact(BattlePoint aCurrentBattlePoint) {
+        board.interact(turnQueue.getCurrentCreature(), aCurrentBattlePoint);
     }
 
 }

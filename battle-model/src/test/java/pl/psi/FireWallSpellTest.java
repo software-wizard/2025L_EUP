@@ -30,30 +30,30 @@ class FireWallSpellTest {
         //rozmieszcza jednostki na pozycji 0,1 i 14,14
         final Board testBoard = new Board( c1, c2 );
 
-        FireWallSpell wall = new FireWallSpell("", 1, new Point(1,2), 2, testBoard);
+        FireWallSpell wall = new FireWallSpell("", 1, new BattlePoint(1,2), 2, testBoard);
 
-        testBoard.move(creature, new Point(3,3));
+        testBoard.move(creature, new BattlePoint(3,3));
 
         assertThat(creature.getCurrentHp()).isEqualTo(70);
     }
 
     @Test
     void DoesExaminePathWork(){
-        List<Point> correctPath = List.of(
-                new Point(1, 2),
-                new Point(2, 3),
-                new Point(3,3)
+        List<BattlePoint> correctPath = List.of(
+                new BattlePoint(1, 2),
+                new BattlePoint(2, 3),
+                new BattlePoint(3,3)
         );
 
-        List<Point> examinedPath = examinePath(new Point(0,1), new Point(3,3));
+        List<BattlePoint> examinedPath = examinePath(new BattlePoint(0,1), new BattlePoint(3,3));
 
 
         assertEquals(correctPath, examinedPath);
     }
 
-    private List<Point> examinePath(Point start, Point end) {
+    private List<BattlePoint> examinePath(BattlePoint start, BattlePoint end) {
 
-        List<Point> path = new ArrayList<>();
+        List<BattlePoint> path = new ArrayList<>();
 
         //zmienne określające kierunek w zależności od pozycji
         int dx = Integer.signum(end.getX() - start.getX());
@@ -68,7 +68,7 @@ class FireWallSpellTest {
         while (x != end.getX() || y != end.getY()) {
             if (x != end.getX()) x += dx;
             if (y != end.getY()) y += dy;
-            path.add(new Point(x, y));
+            path.add(new BattlePoint(x, y));
         }
 
         return path;

@@ -61,11 +61,11 @@ public class Start extends Application
         return ret;
     }
 
-    private BiMap < Point, SpecialField > createSpecialFields()
+    private BiMap <BattlePoint, SpecialField > createSpecialFields()
     {
-        final BiMap < Point, SpecialField > specialFields = HashBiMap.create();
-        specialFields.put(new Point(5, 5), new DmgField());
-        specialFields.put(new Point(3, 8), new SpellField(FieldType.FIELD_GIVING_DMG));
+        final BiMap <BattlePoint, SpecialField > specialFields = HashBiMap.create();
+        specialFields.put(new BattlePoint(5, 5), new DmgField());
+        specialFields.put(new BattlePoint(3, 8), new SpellField(FieldType.FIELD_GIVING_DMG));
         return specialFields;
     }
 

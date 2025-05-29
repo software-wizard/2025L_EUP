@@ -12,7 +12,7 @@ public class FireWallSpell extends Spell {
     private int size;
     private int power;
 
-    public FireWallSpell(String name, int spellLevel, Point castPosition, int power, Board aBoard) {
+    public FireWallSpell(String name, int spellLevel, BattlePoint castPosition, int power, Board aBoard) {
         super(name, spellLevel);
 
         this.duration = 2;
@@ -27,12 +27,12 @@ public class FireWallSpell extends Spell {
         createFireWall(castPosition, fireWallDamageCalculator(), aBoard);
     }
 
-    private void createFireWall(Point castPosition, int aDamage, Board aBoard){
-        BiMap<Point, SpecialField> createdFields = HashBiMap.create();
+    private void createFireWall(BattlePoint castPosition, int aDamage, Board aBoard){
+        BiMap<BattlePoint, SpecialField> createdFields = HashBiMap.create();
 
         for (int i=0; i<size;i++){
-            Point currentPoint = new Point(castPosition.getX(), castPosition.getY()+i);
-            createdFields.put(currentPoint, new FireWall(aDamage));
+            BattlePoint currentBattlePoint = new BattlePoint(castPosition.getX(), castPosition.getY()+i);
+            createdFields.put(currentBattlePoint, new FireWall(aDamage));
         }
         aBoard.addSpecialFieldOpen(createdFields);
     }
