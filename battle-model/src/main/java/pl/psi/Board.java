@@ -91,6 +91,10 @@ public class Board {
         if (map.containsKey(aPoint)) {
             return false;
         }
+
+//        if(mapWithSpecialFields.containsKey(aPoint)){
+//            mapWithSpecialFields.get(aPoint).canInteract(aCreature);
+//        }
         final Point oldPosition = getPosition(aCreature);
         return aPoint.distance(oldPosition.getX(), oldPosition.getY()) < aCreature.getMoveRange();
     }

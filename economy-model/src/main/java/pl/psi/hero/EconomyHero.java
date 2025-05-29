@@ -94,6 +94,10 @@ public class EconomyHero implements PropertyChangeListener
     public void propertyChange(PropertyChangeEvent evt) {
     }
 
+    public void upgradeSkill(AbstractSkill aSelectedSkill) {
+        skills.add(aSelectedSkill);
+    }
+
 
     public enum Fraction
     {

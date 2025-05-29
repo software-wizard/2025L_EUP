@@ -46,7 +46,7 @@ public class UpgradeSkill {
                 .orElse(null);
 
             if (selectedSkill != null) {
-//                hero.upgradeSkill(selectedSkill);
+                hero.upgradeSkill(selectedSkill);
             }
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR, "Error upgrading skill: " + e.getMessage());
