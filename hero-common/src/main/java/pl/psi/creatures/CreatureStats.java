@@ -10,7 +10,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @Builder
 @Getter
-public class CreatureStats implements CreatureStatisticIf{
+public class CreatureStats implements CopyableStatisticIf{
     private final String name;
     private final int attack;
 
@@ -23,5 +23,18 @@ public class CreatureStats implements CreatureStatisticIf{
     private final boolean isUpgraded;
 
 
-
+    @Override
+    public CopyableStatisticIf copy() {
+        return CreatureStats.builder()
+                .name(name)
+                .attack(attack)
+                .armor(armor)
+                .maxHp(maxHp)
+                .moveRange(moveRange)
+                .damage(Range.closed(damage.lowerEndpoint(), damage.upperEndpoint()))
+                .tier(tier)
+                .description(description)
+                .isUpgraded(isUpgraded)
+                .build();
+    }
 }
