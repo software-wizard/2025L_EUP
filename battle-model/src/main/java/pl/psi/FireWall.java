@@ -2,12 +2,15 @@ package pl.psi;
 
 import pl.psi.creatures.Creature;
 
-public class FireWall extends SpellField {
+import static pl.psi.SpecialField.FieldName.FIRE_FIELD;
 
-    int duration=2;
+public class FireWall extends SpecialField {
+
+    int duration = 2;
     int damage;
-    public FireWall(int damage){
-        super(FieldType.TRIGGERED_BY_STEPPING);
+
+    public FireWall(int damage) {
+        super(Color.ORANGE, FIRE_FIELD);
         this.duration = 2;
         this.damage = damage;
     }

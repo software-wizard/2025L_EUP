@@ -14,12 +14,10 @@ public abstract class SpecialField {
     }
 
     public enum FieldName{
-        DMG_FIELD, SPELL_FIELD, BUFF_FIELD, FIELD_CAN_ONLY_BE_FLOWN, DEBUFF_FIELD
+        DMG_FIELD, SPELL_FIELD, BUFF_FIELD, FIELD_CAN_ONLY_BE_FLOWN, DEBUFF_FIELD, FIRE_FIELD
     }
 
-    @Getter
     private Color color;
-    @Getter
     private FieldName fieldName;
 
     protected SpecialField(Color aColor, FieldName aFieldName) {

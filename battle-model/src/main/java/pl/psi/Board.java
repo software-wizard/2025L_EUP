@@ -81,7 +81,7 @@ public class Board {
                     SpecialField currentField = mapWithSpecialFields.get(path.get(i));
 
                     //Ten warunek sprawdza, czy pole specjalne na ściezce ruchu powinno aktywowac sie po przejsciu jednostki
-                    if (currentField.getTypeOfField().equals(FieldType.TRIGGERED_BY_STEPPING)) {
+                    if (currentField.getFieldName().equals(FieldType.TRIGGERED_BY_STEPPING)) {
                         currentField.doSomething(aCreature);
                     }
                 }
