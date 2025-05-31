@@ -102,9 +102,12 @@ public class Start extends Application
 
     private BiMap <BattlePoint, SpecialField > createSpecialFields()
     {
-        final BiMap <BattlePoint, SpecialField > specialFields = HashBiMap.create();
+        final BiMap < BattlePoint, SpecialField > specialFields = HashBiMap.create();
         specialFields.put(new BattlePoint(5, 5), new DmgField());
-        specialFields.put(new BattlePoint(3, 8), new SpellField(FieldType.FIELD_GIVING_DMG));
+        specialFields.put(new BattlePoint(3, 8), new SpellField());
+        specialFields.put(new BattlePoint(3, 8), new SpellField());
+        specialFields.put(new BattlePoint(2,4), new FieldCanOnlyBeFlown());
+        specialFields.put(new BattlePoint(4, 9), new DebuffField());
         return specialFields;
     }
 

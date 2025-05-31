@@ -3,6 +3,7 @@ package pl.psi;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import pl.psi.creatures.Creature;
+import pl.psi.Exceptions.cannotPassFieldException;
 
 import java.util.ArrayList;
 import java.util.List;

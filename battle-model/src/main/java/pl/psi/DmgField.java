@@ -5,7 +5,7 @@ import pl.psi.creatures.Creature;
 public class DmgField extends SpecialField {
 
     public DmgField() {
-        super(Color.BROWN, FieldType.FIELD_GIVING_DMG);
+        super(Color.BROWN, FieldName.DMG_FIELD);
     }
 
     @Override

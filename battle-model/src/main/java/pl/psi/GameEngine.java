@@ -130,4 +130,7 @@ public class GameEngine {
     private void notifySpellCast(Spell spell) {
         observerSupport.firePropertyChange(SPELL_CAST, null, spell);
     }
+
+    public static class BuffField {
+    }
 }

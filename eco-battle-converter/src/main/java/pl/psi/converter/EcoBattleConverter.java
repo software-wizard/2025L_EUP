@@ -29,6 +29,7 @@ public class EcoBattleConverter {
             BiMap<BattlePoint, SpecialField> specialFields = HashBiMap.create();
             specialFields.put(new BattlePoint(5, 5), new DmgField());
             specialFields.put(new BattlePoint(3, 8), new SpellField(FieldType.FIELD_GIVING_DMG));
+            specialFields.put(new BattlePoint(2,4), new FieldCanOnlyBeFlown());
             loader.setLocation(EcoBattleConverter.class.getClassLoader()
                     .getResource("fxml/main-battle.fxml"));
             loader.setController(new MainBattleController(convert(aPlayer1), convert(aPlayer2), new HashMap<>(), specialFields));

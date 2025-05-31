@@ -35,12 +35,14 @@ public class Creature implements PropertyChangeListener {
     @Setter
     private int amount;
 
+
     @Getter
     @Setter(AccessLevel.PROTECTED)
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
     private final List<ActiveSpellEffect> activeSpellEffects = new ArrayList<>();
+    private float reduceDemegeFactor;
 
     Creature() {
     }
@@ -51,6 +53,7 @@ public class Creature implements PropertyChangeListener {
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
+        reduceDemegeFactor = 1;
         this.originalStats = this.getStats();
     }
 
@@ -80,7 +83,7 @@ public class Creature implements PropertyChangeListener {
         else{
             aDefender.setCurrentHp(hp);
         }
-        aDefender.setAmount(aDefender.getAmount() - amountToSubstract);
+        aDefender.setAmount(aDefender.getAmount() - amountToSubstract * (int) Math.ceil(1-reduceDemegeFactor));
     }
 
     public int getMaxHp() {
@@ -109,7 +112,7 @@ public class Creature implements PropertyChangeListener {
 
     public void applyTemporaryBuff(BuffSpell buffSpell) {
         this.getActiveSpellEffects().add(new ActiveSpellEffect(buffSpell, buffSpell.getDuration()));
-        CreatureStatisticIf modifiedStats = originalStats.copy();
+        CreatureStatisticIf modifiedStats = originalStats;
         for (ActiveSpellEffect effect : activeSpellEffects) {
             modifiedStats  =  effect.getSpell().modifyStats(modifiedStats );
 
@@ -142,7 +145,7 @@ public class Creature implements PropertyChangeListener {
             }
         }
 
-        CreatureStatisticIf modifiedStats = originalStats.copy();
+        CreatureStatisticIf modifiedStats = originalStats;
         for (ActiveSpellEffect effect : activeSpellEffects) {
             modifiedStats  =  effect.getSpell().modifyStats(modifiedStats );
 
@@ -183,6 +186,9 @@ public class Creature implements PropertyChangeListener {
 
         public Builder amount(final int aAmount) {
             amount = aAmount;
+            return this;
+        }
+        public  Builder reduceDemegeFactor(float aReduceDemegeFactor) {
             return this;
         }
 
