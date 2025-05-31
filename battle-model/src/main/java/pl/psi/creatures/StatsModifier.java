@@ -16,6 +16,4 @@ public class StatsModifier {
     public int getArmorBonus() {
         return armorBonus;
     }
-
-
 }

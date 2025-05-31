@@ -56,4 +56,9 @@ public class ModifiedCreatureStats implements CreatureStatisticIf {
     public boolean isUpgraded() {
         return baseStats.isUpgraded();
     }
+
+    @Override
+    public CreatureStatisticIf copy() {
+        return new ModifiedCreatureStats(baseStats.copy(), bonusStats);
+    }
 }

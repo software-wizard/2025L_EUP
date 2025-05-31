@@ -7,11 +7,17 @@ import java.util.List;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import pl.psi.*;
+import com.google.common.collect.Range;
+import pl.psi.Hero;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pl.psi.Spells.BuffSpell;
+import pl.psi.Spells.DamageSpell;
+import pl.psi.Spells.Spell;
+import pl.psi.creatures.CreatureStats;
 import pl.psi.creatures.NecropolisFactory;
 
 public class Start extends Application
@@ -51,13 +57,46 @@ public class Start extends Application
 
     private Hero createP2()
     {
-        final Hero ret = new Hero( List.of( new NecropolisFactory().create( true, 1, 5 ) ) );
+        CreatureStats statBuff = CreatureStats.builder()
+                .attack(5)
+                .armor(0)
+                .maxHp(0)
+                .moveRange(0)
+                .name("Buff")
+                .description("Powerful boost")
+                .tier(1)
+                .damage(Range.closed(0, 0))
+                .isUpgraded(false)
+                .build();
+        List<Spell> spells = List.of(
+            new DamageSpell("Damage", 1, 1),
+            new BuffSpell("Buff", 1, 3, statBuff)
+        );
+
+        final Hero ret = new Hero( List.of( new NecropolisFactory().create( true, 1, 5 ) ),spells );
         return ret;
     }
 
     private Hero createP1()
     {
-        final Hero ret = new Hero( List.of( new NecropolisFactory().create( false, 1, 5) ) );
+        CreatureStats statBuff = CreatureStats.builder()
+                .attack(5)
+                .armor(0)
+                .maxHp(0)
+                .moveRange(0)
+                .name("Buff")
+                .description("Powerful boost")
+                .tier(1)
+                .damage(Range.closed(0, 0))
+                .isUpgraded(false)
+                .build();
+        List<Spell> spells = List.of(
+                new DamageSpell("Damage", 1, 1),
+                new BuffSpell("Buff", 1, 3, statBuff)
+        );
+
+
+        final Hero ret = new Hero( List.of( new NecropolisFactory().create( false, 1, 5 ) ), spells );
         return ret;
     }
 

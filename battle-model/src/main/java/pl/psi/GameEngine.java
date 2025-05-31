@@ -1,12 +1,13 @@
 package pl.psi;
 
+import com.google.common.collect.BiMap;
+import pl.psi.Spells.Spell;
+import pl.psi.creatures.Creature;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Map;
 import java.util.Optional;
-
-import com.google.common.collect.BiMap;
-import pl.psi.creatures.Creature;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -14,8 +15,9 @@ import pl.psi.creatures.Creature;
 public class GameEngine {
 
     public static final String CREATURE_MOVED = "CREATURE_MOVED";
+    private static final String SPELL_CAST = "SPELL_CAST";
     private final TurnQueue turnQueue;
-    private final Board board;
+    private Board board;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
     private final Hero hero1;
     private final Hero hero2;
@@ -27,10 +29,8 @@ public class GameEngine {
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
     }
 
-    public  GameEngine(final Hero aHero1, final Hero aHero2, final BiMap <BattlePoint, SpecialField > specialFields, Map<BattlePoint, Creature> aBankEnemy ) {
-        this.hero1 = aHero1;
-        this.hero2 = aHero2;
-        turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
+    public GameEngine(final Hero aHero1, final Hero aHero2, final BiMap<BattlePoint, SpecialField> specialFields, Map<BattlePoint, Creature> aBankEnemy) {
+        this(aHero1, aHero2);
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), specialFields, aBankEnemy);
     }
 
@@ -70,7 +70,6 @@ public class GameEngine {
     }
 
 
-
     public boolean canMove(final BattlePoint aBattlePoint) {
         return board.canMove(turnQueue.getCurrentCreature(), aBattlePoint);
     }
@@ -105,7 +104,7 @@ public class GameEngine {
         return Optional.of(turnQueue.getCurrentCreature()).equals(board.getCreature(aBattlePoint));
     }
 
-    public BiMap<BattlePoint, SpecialField > getSpecialFields() {
+    public BiMap<BattlePoint, SpecialField> getSpecialFields() {
         return board.getSpecialFields();
     }
 
@@ -113,4 +112,22 @@ public class GameEngine {
         board.interact(turnQueue.getCurrentCreature(), aCurrentBattlePoint);
     }
 
+
+    public Hero getCurrentHero() {
+        Creature current = turnQueue.getCurrentCreature();
+        if (hero1.getCreatures().contains(current)) {
+            return hero1;
+        } else {
+            return hero2;
+        }
+    }
+
+    public void castSpell(Spell spell, Creature target) {
+        getCurrentHero().apply(spell, target);
+        notifySpellCast(spell);
+    }
+
+    private void notifySpellCast(Spell spell) {
+        observerSupport.firePropertyChange(SPELL_CAST, null, spell);
+    }
 }

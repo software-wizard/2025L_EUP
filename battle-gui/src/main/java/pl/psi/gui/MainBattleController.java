@@ -11,6 +11,9 @@ import pl.psi.Hero;
 import pl.psi.BattlePoint;
 import pl.psi.SpecialField;
 import pl.psi.creatures.Creature;
+import pl.psi.gui.SpellGUI.SpellCastingManager;
+import pl.psi.gui.SpellGUI.SpellUIManager;
+
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -19,15 +22,15 @@ import java.util.Optional;
 
 public class MainBattleController implements PropertyChangeListener {
     private final GameEngine gameEngine;
+    private final SpellCastingManager spellManager = new SpellCastingManager();
+    private SpellUIManager spellUIManager;
+
     @FXML
     private GridPane gridMap;
     @FXML
     private Button passButton;
-
-//    public MainBattleController( final Hero aHero1, final Hero aHero2 )
-//    {
-//        gameEngine = new GameEngine( aHero1, aHero2 );
-//    }
+    @FXML
+    private Button spellButton;
 
     public MainBattleController(final Hero aHero1, final Hero aHero2, final Map<BattlePoint, Creature> bankEnemy, BiMap<BattlePoint, SpecialField> aSpecialField) {
         gameEngine = new GameEngine(aHero1, aHero2, aSpecialField, bankEnemy);
@@ -35,9 +38,16 @@ public class MainBattleController implements PropertyChangeListener {
 
     @FXML
     private void initialize() {
+        spellUIManager = new SpellUIManager(gameEngine, spellManager, this::refreshGui);
+
         refreshGui();
         gameEngine.addObserver(this);
-        passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> gameEngine.pass());
+
+        passButton.setOnMouseClicked(e -> pass());
+
+        if (spellButton != null) {
+            spellButton.setOnMouseClicked(e -> spellUIManager.openSpellDialog());
+        }
     }
 
     private void refreshGui() {
@@ -73,6 +83,13 @@ public class MainBattleController implements PropertyChangeListener {
                         gameEngine.interact(currentBattlePoint);
                     });
                 }
+
+                if (spellManager.isActive() && creature.isPresent()) {
+                    mapTile.setBackground(Color.DEEPSKYBLUE);
+                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            e -> spellUIManager.confirmSpellCast(creature.get(), currentBattlePoint));
+                }
+
                 gridMap.add(mapTile, x, y);
             }
         }
@@ -89,6 +106,14 @@ public class MainBattleController implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if ("SPELL_CAST".equals(evt.getPropertyName())) {
+            spellUIManager.showSpellCastDialog();
+        }
+        refreshGui();
+    }
+
+    private void pass() {
+        gameEngine.pass();
         refreshGui();
     }
 }

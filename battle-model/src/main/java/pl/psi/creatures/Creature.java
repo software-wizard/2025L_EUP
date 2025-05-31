@@ -15,6 +15,7 @@ import java.util.Random;
 
 import lombok.AccessLevel;
 import lombok.Setter;
+import pl.psi.Hero;
 import pl.psi.Spells.ActiveSpellEffect;
 import pl.psi.Spells.BuffSpell;
 import pl.psi.Spells.Spell;
@@ -30,7 +31,7 @@ import lombok.Getter;
 @Getter
 public class Creature implements PropertyChangeListener {
     private CreatureStatisticIf stats;
-    private CopyableStatisticIf originalStats;
+    private CreatureStatisticIf originalStats;
     @Setter
     private int amount;
 
@@ -50,7 +51,7 @@ public class Creature implements PropertyChangeListener {
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
-        this.originalStats = (CopyableStatisticIf) this.getStats();
+        this.originalStats = this.getStats();
     }
 
     public void attack(final Creature aDefender) {

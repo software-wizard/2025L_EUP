@@ -31,7 +31,7 @@ public class SpellTest {
                         .build())
                 .build();
 
-        final Hero h1 = new Hero(List.of(c1));
+        final Hero h1 = new Hero(List.of(c1), List.of());
         final Spell deafultDamageSpell = new DamageSpell("deafult", 1, 1);
 
 
@@ -50,7 +50,7 @@ public class SpellTest {
                         .armor(5)
                         .build())
                 .build();
-        final Hero h1 = new Hero(List.of(c1));
+        final Hero h1 = new Hero(List.of(c1), List.of());
         CreatureStats statBuff = CreatureStats.builder()
                 .attack(5)
                 .armor(0)
@@ -80,7 +80,7 @@ public class SpellTest {
                         .armor(5)
                         .build())
                 .build();
-        final Hero h1 = new Hero(List.of(c1));
+        final Hero h1 = new Hero(List.of(c1), List.of());
         CreatureStats statDebuff = CreatureStats.builder()
                 .attack(-5)
                 .armor(0)
@@ -117,7 +117,7 @@ public class SpellTest {
                         .armor(5)
                         .build())
                 .build();
-        final Hero h1 = new Hero(List.of(attacker));
+        final Hero h1 = new Hero(List.of(attacker), List.of());
         CreatureStats statBuff = CreatureStats.builder()
                 .attack(5)
                 .armor(0)
@@ -155,7 +155,7 @@ public class SpellTest {
                         .armor(5)
                         .build())
                 .build();
-        final Hero h1 = new Hero(List.of(c1));
+        final Hero h1 = new Hero(List.of(c1), List.of());
 
         CreatureStats statBuff = CreatureStats.builder()
                 .attack(5)

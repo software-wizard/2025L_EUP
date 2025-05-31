@@ -10,7 +10,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @Builder
 @Getter
-public class CreatureStats implements CopyableStatisticIf{
+public class CreatureStats implements CreatureStatisticIf{
     private final String name;
     private final int attack;
 
@@ -24,7 +24,7 @@ public class CreatureStats implements CopyableStatisticIf{
 
 
     @Override
-    public CopyableStatisticIf copy() {
+    public CreatureStatisticIf copy() {
         return CreatureStats.builder()
                 .name(name)
                 .attack(attack)

@@ -49,7 +49,7 @@ public class EcoBattleConverter {
                 .forEach(ecoCreature -> creatures.add(convertCreatureWithEffects(ecoCreature, aPlayer1)//zmienione tutaj
                         )
                 );
-        return new Hero(creatures);
+        return new Hero(creatures, new ArrayList<>());
 
 
     }

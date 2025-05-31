@@ -1,10 +1,12 @@
 package pl.psi;
 
+import lombok.Getter;
 import lombok.Value;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
+@Getter
 @Value
 public class BattlePoint
 {
@@ -29,11 +31,4 @@ public class BattlePoint
         return Math.sqrt( px * px + py * py );
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
 }

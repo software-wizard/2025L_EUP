@@ -1,5 +1,6 @@
 package pl.psi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -16,8 +17,8 @@ public class GameEngineTest
     {
         final CastleCreatureFactory creatureFactory = new CastleCreatureFactory();
         final GameEngine gameEngine =
-                new GameEngine( new Hero( List.of( creatureFactory.create( 1, false, 5 ) )),
-                        new Hero( List.of( creatureFactory.create( 1, false, 5 ) )) );
+                new GameEngine( new Hero( List.of( creatureFactory.create( 1, false, 5 ) ), new ArrayList<>()),
+                        new Hero( List.of( creatureFactory.create( 1, false, 5 ) ), new ArrayList<>()) );
 
         gameEngine.attack( new BattlePoint( 1, 1 ) );
     }

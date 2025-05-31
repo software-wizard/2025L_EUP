@@ -13,4 +13,5 @@ public interface CreatureStatisticIf {
     String getDescription();
     boolean isUpgraded();
 
+    CreatureStatisticIf copy();
 }

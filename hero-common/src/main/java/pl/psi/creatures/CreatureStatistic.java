@@ -93,4 +93,10 @@ public enum CreatureStatistic implements CreatureStatisticIf
     {
         return name;
     }
+
+
+    @Override
+    public CreatureStatisticIf copy() {
+        return this;
+    }
 }
