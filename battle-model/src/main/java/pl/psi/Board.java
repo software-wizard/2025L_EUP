@@ -3,7 +3,7 @@ package pl.psi;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import pl.psi.creatures.Creature;
-import pl.psi.Exceptions.cannotPassFieldException;
+import pl.psi.Exceptions.*;
 
 import javax.swing.*;
 import java.util.List;
@@ -75,7 +75,7 @@ public class Board {
                         .remove(aCreature);
                 map.put(aPoint, aCreature);
                 aCreature.setCurrentPoint(aPoint);
-            } catch (cannotPassFieldException e) {
+            } catch (CannotPassFieldException e) {
                 JOptionPane.showMessageDialog(
                         null,
                         "Nie możesz przejść przez to pole",
