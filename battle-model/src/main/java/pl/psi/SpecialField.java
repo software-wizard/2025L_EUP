@@ -10,11 +10,11 @@ import pl.psi.creatures.CreatureStatisticIf;
 @Setter
 public abstract class SpecialField {
 
-    public enum Color{
+    public enum Color {
         CYAN, BROWN, ORANGE, YELLOW, GRAY
     }
 
-    public enum FieldName{
+    public enum FieldName {
         DMG_FIELD, SPELL_FIELD, BUFF_FIELD, FIELD_CAN_ONLY_BE_FLOWN, DEBUFF_FIELD
     }
 
@@ -38,13 +38,20 @@ public abstract class SpecialField {
         }
     }
 
-    boolean canInteract(final Creature aCreature) {
-        return SpecialField.canFly(aCreature.getName());
+    boolean canInteract(Creature aCreature) {
+        if((aCreature.canFly(aCreature.getName())) && (SpecialField.getFieldName() == SpecialField.FieldName.FIELD_CAN_ONLY_BE_FLOWN)){
+            return true;
+        }
+        return false;
     }
+
+
+
 //    public static boolean canCreaturePassSpecialField() {
 //        String name = stats.getName();
 //        boolean canFly = SpecialField.canFly(name);
 //        return canFly;
 //
 //    }
+
 }
