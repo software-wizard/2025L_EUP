@@ -9,6 +9,7 @@ import pl.psi.creatures.CreatureStatisticIf;
 @Getter
 @Setter
 public abstract class SpecialField {
+
     public enum Color{
         CYAN, BROWN, ORANGE, YELLOW, GRAY
     }
@@ -37,6 +38,9 @@ public abstract class SpecialField {
         }
     }
 
+    boolean canInteract(final Creature aCreature) {
+        return SpecialField.canFly(aCreature.getName());
+    }
 //    public static boolean canCreaturePassSpecialField() {
 //        String name = stats.getName();
 //        boolean canFly = SpecialField.canFly(name);

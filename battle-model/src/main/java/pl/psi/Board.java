@@ -64,25 +64,40 @@ public class Board {
         return Optional.ofNullable(map.get(aPoint));
     }
 
+//    void move(final Creature aCreature, final Point aPoint) {
+//        if (canMove(aCreature, aPoint)) {                              WERSJA TRY CATCH
+//            try {
+//                if (mapWithSpecialFields.containsKey(aPoint)) {
+//                    SpecialField tile = mapWithSpecialFields.get(aPoint);
+//                    tile.doSomething(aCreature);
+//                }
+//                map.inverse()
+//                        .remove(aCreature);
+//                map.put(aPoint, aCreature);
+//                aCreature.setCurrentPoint(aPoint);
+//            } catch (CannotPassFieldException e) {
+//                JOptionPane.showMessageDialog(
+//                        null,
+//                        "Nie możesz przejść przez to pole",
+//                        "Błąd ruchu",
+//                        JOptionPane.INFORMATION_MESSAGE
+//                );
+//            }
+//
+//        }
+//    }
+
+    //nowa wersja
     void move(final Creature aCreature, final Point aPoint) {
         if (canMove(aCreature, aPoint)) {
-            try {
-                if (mapWithSpecialFields.containsKey(aPoint)) {
-                    SpecialField tile = mapWithSpecialFields.get(aPoint);
-                    tile.doSomething(aCreature);
-                }
-                map.inverse()
-                        .remove(aCreature);
-                map.put(aPoint, aCreature);
-                aCreature.setCurrentPoint(aPoint);
-            } catch (CannotPassFieldException e) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Nie możesz przejść przez to pole",
-                        "Błąd ruchu",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
+            if (mapWithSpecialFields.containsKey(aPoint)) {
+                SpecialField tile = mapWithSpecialFields.get(aPoint);
+                tile.doSomething(aCreature);
             }
+            map.inverse()
+                    .remove(aCreature);
+            map.put(aPoint, aCreature);
+            aCreature.setCurrentPoint(aPoint);
 
         }
     }
@@ -91,10 +106,9 @@ public class Board {
         if (map.containsKey(aPoint)) {
             return false;
         }
-
-//        if(mapWithSpecialFields.containsKey(aPoint)){
-//            mapWithSpecialFields.get(aPoint).canInteract(aCreature);
-//        }
+        if(mapWithSpecialFields.containsKey(aPoint)){
+           mapWithSpecialFields.get(aPoint).canInteract(aCreature);
+        }
         final Point oldPosition = getPosition(aCreature);
         return aPoint.distance(oldPosition.getX(), oldPosition.getY()) < aCreature.getMoveRange();
     }
