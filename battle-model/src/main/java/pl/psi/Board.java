@@ -30,7 +30,7 @@ public class Board
         addSpecialFields( aSpecialFields );
     }
 
-    private void addCreatures( final List< Creature > aCreatures, final int aXPosition )
+    public void addCreatures( final List< Creature > aCreatures, final int aXPosition )
     {
         for( int i = 0; i < aCreatures.size(); i++ )
         {
@@ -53,7 +53,7 @@ public class Board
         }
     }
 
-    Optional< Creature > getCreature( final Point aPoint )
+    public Optional< Creature > getCreature(final Point aPoint)
     {
         return Optional.ofNullable( map.get( aPoint ) );
     }

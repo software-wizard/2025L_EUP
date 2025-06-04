@@ -25,7 +25,6 @@ public class Hero {
 
     public void apply(Spell s, Creature c) {
         s.cast(c);
-        removeSpell(s);
     }
 
     public void addSpell(Spell spell) {

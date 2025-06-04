@@ -10,7 +10,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @Builder
 @Getter
-public class CreatureStats implements CopyableStatisticIf{
+public class CreatureStats implements CreatureStatisticIf{
     private final String name;
     private final int attack;
 
@@ -22,19 +22,18 @@ public class CreatureStats implements CopyableStatisticIf{
     private final String description;
     private final boolean isUpgraded;
 
-
-    @Override
-    public CopyableStatisticIf copy() {
-        return CreatureStats.builder()
-                .name(name)
-                .attack(attack)
-                .armor(armor)
-                .maxHp(maxHp)
-                .moveRange(moveRange)
-                .damage(Range.closed(damage.lowerEndpoint(), damage.upperEndpoint()))
-                .tier(tier)
-                .description(description)
-                .isUpgraded(isUpgraded)
-                .build();
+    public CreatureStats(CreatureStats other) {
+        this.name = other.name;
+        this.attack = other.attack;
+        this.armor = other.armor;
+        this.maxHp = other.maxHp;
+        this.moveRange = other.moveRange;
+        // Tworzymy nowy obiekt Range, żeby było deep copy
+        this.damage = Range.closed(other.damage.lowerEndpoint(), other.damage.upperEndpoint());
+        this.tier = other.tier;
+        this.description = other.description;
+        this.isUpgraded = other.isUpgraded;
     }
+
+
 }

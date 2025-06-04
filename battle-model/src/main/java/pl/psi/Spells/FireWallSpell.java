@@ -2,13 +2,9 @@ package pl.psi.Spells;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import lombok.Getter;
 import pl.psi.Point;
 import pl.psi.SpecialField;
 import pl.psi.creatures.Creature;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class FireWallSpell extends Spell {
@@ -65,6 +61,7 @@ public class FireWallSpell extends Spell {
     @Override
     public void cast(Creature targetCreature) {
         targetCreature.applyMagicDamage(this);
+
     }
 
     public class FireWall extends SpecialField {
@@ -78,8 +75,8 @@ public class FireWallSpell extends Spell {
         }
 
 
-        public void doSomething(Creature aCreature) {
-            cast(aCreature);
+        public void doSomething(Creature targetCreature) {
+            cast(targetCreature);
         }
     }
 
