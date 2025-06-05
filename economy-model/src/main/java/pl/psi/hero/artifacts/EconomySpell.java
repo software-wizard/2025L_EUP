@@ -7,10 +7,13 @@ import pl.psi.map.InteractableIf;
 import pl.psi.map.buildings.enterAction.EnterAction;
 
 @AllArgsConstructor
-public class PickableSpell implements InteractableIf {
+public class EconomySpell implements InteractableIf {
+
 
     @Getter
     private final String name;
+    @Getter
+    private final int cost = 1000;
 
     @Override
     public String getPath() {

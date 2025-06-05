@@ -4,7 +4,6 @@ import pl.psi.creatures.CreatureStatistic;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.resources.Resources;
 
-import javax.sql.rowset.spi.TransactionalWriter;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
