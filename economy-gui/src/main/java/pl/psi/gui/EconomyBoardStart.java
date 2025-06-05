@@ -8,6 +8,7 @@ import pl.psi.gui.startchoice.HeroSelection;
 import pl.psi.hero.artifacts.Artifact;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.artifacts.ArtifactType;
+import pl.psi.hero.artifacts.PickableSpell;
 import pl.psi.map.MapObjectIf;
 import pl.psi.map.buildings.town.Town;
 import pl.psi.map.buildings.bank.Bank;
@@ -21,7 +22,9 @@ import java.util.Map;
 
 public class EconomyBoardStart extends Application {
 
-    public static void main( final String[] args )
+    public static final String SPELL_NAME = "Default";
+
+    public static void main(final String[] args )
     {
         launch();
     }
@@ -62,8 +65,8 @@ public class EconomyBoardStart extends Application {
                 Map.entry(new pl.psi.economy.Point(9,3), new Gold(new Resources(1000,0,0,0,0,0,0))),
                 Map.entry(new pl.psi.economy.Point(10,6), new Gold(new Resources(1000,0,0,0,0,0,0))),
                 Map.entry(new pl.psi.economy.Point(2,2), new Bank(BankStatistics.CASTLE_1)),
-                Map.entry(new pl.psi.economy.Point(8,8), new Bank(BankStatistics.CASTLE_2))
+                Map.entry(new pl.psi.economy.Point(8,8), new Bank(BankStatistics.CASTLE_2)),
+                Map.entry(new pl.psi.economy.Point(8,5), new PickableSpell(SPELL_NAME))
         );
     }
-
 }

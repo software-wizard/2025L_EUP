@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.psi.*;
+import pl.psi.Spells.DamageSpell;
+import pl.psi.Spells.Spell;
 import pl.psi.creatures.*;
 import pl.psi.economy.Point;
 import pl.psi.gui.MainBattleController;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static pl.psi.hero.skills.SkillName.ARMORER;
 import static pl.psi.hero.skills.SkillName.OFFENCE;
@@ -50,9 +53,7 @@ public class EcoBattleConverter {
                 .forEach(ecoCreature -> creatures.add(convertCreatureWithEffects(ecoCreature, aPlayer1)//zmienione tutaj
                         )
                 );
-        return new Hero(creatures, new ArrayList<>());
-
-
+        return new Hero(creatures, aPlayer1.getSpells().stream().map(s -> new DamageSpell(s.getName(), 1,1)).collect(Collectors.toList()));
     }
 
     public static void startBankBattle(final EconomyHero aPlayer1, final Map<Point, EconomyCreature> bankEnemy) {

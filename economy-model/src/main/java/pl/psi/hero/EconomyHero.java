@@ -9,6 +9,7 @@ import java.util.List;
 import lombok.Getter;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.artifacts.Artifact;
+import pl.psi.hero.artifacts.PickableSpell;
 import pl.psi.hero.skills.AbstractSkill;
 import pl.psi.hero.skills.ArmorerSkill;
 import pl.psi.hero.skills.OffenceSkill;
@@ -32,6 +33,8 @@ public class EconomyHero implements PropertyChangeListener
 
     private final Statistics baseStatistics;
     private final List<Artifact> artifacts = new ArrayList<>();
+    @Getter
+    private final List<PickableSpell> spells = new ArrayList<>();
 
     public EconomyHero( final Fraction aFraction, final Resources aResources, final Statistics aStats)
     {
@@ -107,6 +110,10 @@ public class EconomyHero implements PropertyChangeListener
 
     public void upgradeSkill(AbstractSkill aSelectedSkill) {
         skills.add(aSelectedSkill);
+    }
+
+    public void addSpell(PickableSpell aPickableSpell) {
+        spells.add(aPickableSpell);
     }
 
 
