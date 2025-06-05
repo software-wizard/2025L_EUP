@@ -1,6 +1,7 @@
 package pl.psi.Spells;
 
 import lombok.Getter;
+import pl.psi.Point;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStatisticIf;
 import pl.psi.creatures.CreatureStats;

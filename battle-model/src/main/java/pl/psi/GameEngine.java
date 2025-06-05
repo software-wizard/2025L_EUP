@@ -122,8 +122,8 @@ public class GameEngine {
         }
     }
 
-    public void castSpell(Spell spell, Creature target) {
-        getCurrentHero().apply(spell, target);
+    public void castSpell(Spell spell, Creature targetCreature) {
+        getCurrentHero().apply(spell, targetCreature);
         notifySpellCast(spell);
     }
 

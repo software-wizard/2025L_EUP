@@ -1,7 +1,6 @@
 package pl.psi.Spells;
 
 import pl.psi.creatures.Creature;
-import pl.psi.creatures.CreatureStatisticIf;
 
 public class DamageSpell extends Spell{
 

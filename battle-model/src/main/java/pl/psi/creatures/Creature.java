@@ -54,7 +54,7 @@ public class Creature implements PropertyChangeListener {
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
         reduceDemegeFactor = 1;
-        this.originalStats = this.getStats();
+        this.originalStats = aStats;
     }
 
     public void attack(final Creature aDefender) {
@@ -112,13 +112,18 @@ public class Creature implements PropertyChangeListener {
 
     public void applyTemporaryBuff(BuffSpell buffSpell) {
         this.getActiveSpellEffects().add(new ActiveSpellEffect(buffSpell, buffSpell.getDuration()));
-        CreatureStatisticIf modifiedStats = originalStats;
-        for (ActiveSpellEffect effect : activeSpellEffects) {
-            modifiedStats  =  effect.getSpell().modifyStats(modifiedStats );
 
+        CreatureStatisticIf modifiedStats;
+        if (originalStats instanceof CreatureStats) {
+            modifiedStats = new CreatureStats((CreatureStats) originalStats);
+        } else {
+            modifiedStats = originalStats; // ewentualnie obsłuż inaczej lub rzuć wyjątek
+        }
+
+        for (ActiveSpellEffect effect : activeSpellEffects) {
+            modifiedStats = effect.getSpell().modifyStats(modifiedStats);
         }
         this.stats = modifiedStats;
-
     }
 
 
@@ -139,16 +144,20 @@ public class Creature implements PropertyChangeListener {
         while (iterator.hasNext()) {
             ActiveSpellEffect effect = iterator.next();
             effect.decreaseDuration();
-
             if (effect.isExpired()) {
                 iterator.remove();
             }
         }
 
-        CreatureStatisticIf modifiedStats = originalStats;
-        for (ActiveSpellEffect effect : activeSpellEffects) {
-            modifiedStats  =  effect.getSpell().modifyStats(modifiedStats );
+        CreatureStatisticIf modifiedStats;
+        if (originalStats instanceof CreatureStats) {
+            modifiedStats = new CreatureStats((CreatureStats) originalStats);
+        } else {
+            modifiedStats = originalStats;
+        }
 
+        for (ActiveSpellEffect effect : activeSpellEffects) {
+            modifiedStats = effect.getSpell().modifyStats(modifiedStats);
         }
         this.stats = modifiedStats;
     }
