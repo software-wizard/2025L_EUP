@@ -123,12 +123,13 @@ public class EconomyHero implements PropertyChangeListener
             this.experience -= getExperienceForNextLevel(this.level);
             this.level++;
             pcs.firePropertyChange("levelUp", oldLevel, this.level);
+            System.out.println("lvlup");
             oldLevel = this.level;
         }
     }
 
     private int getExperienceForNextLevel(int currentLevel) {
-        return 100 + (currentLevel * 50);
+        return 100 + (currentLevel * 20);
     }
 
     public void addArtifact(Artifact artifact) {

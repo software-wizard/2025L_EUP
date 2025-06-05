@@ -98,7 +98,10 @@ public class EconomyBoardController implements PropertyChangeListener {
         }
 
         if (gameEngine.canAttack(point)) {
-            tile.setOnMouseClicked(e -> EcoBattleConverter.startBattle(battleHero1, battleHero2));
+            tile.setOnMouseClicked(e -> {
+                EcoBattleConverter.startBattle(battleHero1, battleHero2);
+                gameEngine.addExperience(battleHero1, battleHero2);
+            });
         }
 
         if (gameEngine.canEnter(point)) {

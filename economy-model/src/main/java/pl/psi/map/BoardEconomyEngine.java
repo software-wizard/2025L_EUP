@@ -1,5 +1,6 @@
 package pl.psi.map;
 
+import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.EconomyHero;
 import pl.psi.map.buildings.enterAction.EnterAction;
 import pl.psi.map.buildings.BuildingIf;
@@ -166,6 +167,16 @@ public class BoardEconomyEngine {
     public void enterBank(BuildingIf building){
         observerSupport.firePropertyChange("ENTER_BANK", null, new Object[]{getCurrentHero(), building});
     }
-}
+
+    public void addExperience(EconomyHero battleHero1, EconomyHero battleHero2) {
+        int exp = 0;
+
+        for (EconomyCreature creature : battleHero2.getCreatures()) {
+            exp += creature.getStats().getMaxHp();
+        }
+
+        battleHero1.addExperience(exp);
+    }}
+
 
 

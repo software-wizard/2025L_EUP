@@ -4,11 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pl.psi.economy.Point;
 import pl.psi.gui.startchoice.HeroSelection;
 import pl.psi.hero.artifacts.Artifact;
 import pl.psi.hero.EconomyHero;
 import pl.psi.hero.artifacts.ArtifactType;
 import pl.psi.map.MapObjectIf;
+import pl.psi.map.buildings.Chapel;
 import pl.psi.map.buildings.town.Town;
 import pl.psi.map.buildings.bank.Bank;
 import pl.psi.map.buildings.bank.BankStatistics;
@@ -49,6 +51,7 @@ public class EconomyBoardStart extends Application {
 
     private Map<pl.psi.economy.Point, MapObjectIf> map() {
         return Map.ofEntries(
+                Map.entry(new pl.psi.economy.Point(7,3), new Chapel()),
                 Map.entry(new pl.psi.economy.Point(4,4), new Artifact(ArtifactType.SWORD_OF_HELLFIRE)),
                 Map.entry(new pl.psi.economy.Point(17,1), new Town()),
                 Map.entry(new pl.psi.economy.Point(1,7), new Town()),
