@@ -82,15 +82,15 @@ public class SpecialFieldsTest {
         final BiMap <Point, SpecialField > specialFields = HashBiMap.create();
         specialFields.put(new Point(3, 3), new FieldCanOnlyBeFlown());
         final Board board = new Board( c1, c2,  specialFields, new HashMap<>());
-        final Point initialCreaturePoint = creature.getCurrentCreaturePoint();
+        final Point initialCreaturePoint = board.getPosition(creature);
 
         //when
         board.move( creature, new Point( 3, 3 ) );
         board.move( dragon, new Point(3, 3));
 
         //then
-        assertThat(creature.getCurrentCreaturePoint()).isEqualTo(initialCreaturePoint);
-        assertThat(dragon.getCurrentCreaturePoint()).isEqualTo(new Point(3,3));
+        assertThat(board.getPosition(creature)).isEqualTo(initialCreaturePoint);
+        assertThat(board.getPosition(dragon)).isEqualTo(new Point(3,3));
     }
 
     @Test

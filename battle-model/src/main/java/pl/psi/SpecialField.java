@@ -39,19 +39,10 @@ public abstract class SpecialField {
     }
 
     boolean canInteract(Creature aCreature) {
-        if((aCreature.canFly(aCreature.getName())) && (SpecialField.getFieldName() == SpecialField.FieldName.FIELD_CAN_ONLY_BE_FLOWN)){
-            return true;
-        }
-        return false;
+       if (this.fieldName == SpecialField.FieldName.FIELD_CAN_ONLY_BE_FLOWN) {
+           return canFly(aCreature.getName());
+       } else {
+           return true;
+       }
     }
-
-
-
-//    public static boolean canCreaturePassSpecialField() {
-//        String name = stats.getName();
-//        boolean canFly = SpecialField.canFly(name);
-//        return canFly;
-//
-//    }
-
 }

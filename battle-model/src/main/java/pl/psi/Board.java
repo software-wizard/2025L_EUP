@@ -33,7 +33,6 @@ public class Board {
     private void addCreatures(final List<Creature> aCreatures, final int aXPosition) {
         for (int i = 0; i < aCreatures.size(); i++) {
             map.put(new Point(aXPosition, i * 2 + 1), aCreatures.get(i));
-            aCreatures.get(i).setCurrentPoint(new Point(aXPosition, i * 2 + 1));
         }
     }
 
@@ -97,7 +96,6 @@ public class Board {
             map.inverse()
                     .remove(aCreature);
             map.put(aPoint, aCreature);
-            aCreature.setCurrentPoint(aPoint);
 
         }
     }
@@ -107,7 +105,9 @@ public class Board {
             return false;
         }
         if(mapWithSpecialFields.containsKey(aPoint)){
-           mapWithSpecialFields.get(aPoint).canInteract(aCreature);
+            if (!mapWithSpecialFields.get(aPoint).canInteract(aCreature)) {
+                return false;
+            };
         }
         final Point oldPosition = getPosition(aCreature);
         return aPoint.distance(oldPosition.getX(), oldPosition.getY()) < aCreature.getMoveRange();
