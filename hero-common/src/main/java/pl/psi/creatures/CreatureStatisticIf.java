@@ -12,6 +12,4 @@ public interface CreatureStatisticIf {
     int getTier();
     String getDescription();
     boolean isUpgraded();
-
-    CreatureStatisticIf copy();
 }

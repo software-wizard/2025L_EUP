@@ -1,7 +1,9 @@
 package pl.psi.creatures;
 
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 public class EconomyCreature {
     @Getter
     private final CreatureStatistic stats;

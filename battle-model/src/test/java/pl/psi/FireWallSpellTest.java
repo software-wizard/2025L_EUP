@@ -31,7 +31,7 @@ class FireWallSpellTest {
         //rozmieszcza jednostki na pozycji 0,1 i 14,14
         final Board testBoard = new Board( c1, c2 );
 
-        FireWallSpell wall = new FireWallSpell("", 1, new BattlePoint(1,2), 2, testBoard);
+        FireWallSpell wall = new FireWallSpell("", 1, new BattlePoint(1,2), 2);
 
         testBoard.move(creature, new BattlePoint(3,3));
 

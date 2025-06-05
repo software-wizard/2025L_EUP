@@ -2,20 +2,22 @@ package pl.psi.Spells;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import pl.psi.Point;
+import pl.psi.BattlePoint;
 import pl.psi.SpecialField;
 import pl.psi.creatures.Creature;
+
+import static pl.psi.SpecialField.FieldName.FIRE_FIELD;
 
 
 public class FireWallSpell extends Spell {
 
-    private Point castPosition;
+    private BattlePoint castPosition;
     private int size;
     private double power;
     private static final String TYPEOFFIELD = "TRIGGERED BY STEPPING";
 
 
-    public FireWallSpell(String name, int spellLevel, Point castPosition, double power) {
+    public FireWallSpell(String name, int spellLevel, BattlePoint castPosition, double power) {
         super(name, spellLevel);
 
         this.duration = 2;
@@ -31,16 +33,17 @@ public class FireWallSpell extends Spell {
         createFireWall(castPosition, fireWallDamageCalculator());
     }
 
-    private void createFireWall(Point castPosition, double damage){
-        BiMap<Point, SpecialField> createdFields = HashBiMap.create();
+    private void createFireWall(BattlePoint castPosition, double damage) {
+        BiMap<BattlePoint, SpecialField> createdFields = HashBiMap.create();
 
-        for (int i=0; i<size;i++){
-            Point currentPoint = new Point(castPosition.getX(), castPosition.getY()+i);
-            createdFields.put(currentPoint, new FireWall(TYPEOFFIELD,2));
+        for (int i = 0; i < size; i++) {
+            BattlePoint currentBattlePoint = new BattlePoint(castPosition.getX(), castPosition.getY() + i);
+            createdFields.put(currentBattlePoint, new FireWall(2));
         }
         //nie wiem jak dostać się do planszy w gameengine
 
     }
+
     //chwilowo nie uzywane, zastanawiam sie nad implementacja
     public double fireWallDamageCalculator() {
         double levelBasedDamageBonus;
@@ -69,8 +72,8 @@ public class FireWallSpell extends Spell {
 
         int duration;
 
-        public FireWall(String typeOfField, int duration){
-            super(typeOfField);
+        public FireWall(int duration) {
+            super(Color.RED, FIRE_FIELD);
             this.duration = duration;
         }
 

@@ -10,7 +10,7 @@ import pl.psi.creatures.CreatureStatisticIf;
 @Setter
 public abstract class SpecialField {
     public enum Color{
-        CYAN, BROWN, ORANGE, YELLOW, GRAY
+        CYAN, BROWN, ORANGE, YELLOW, GRAY, RED
     }
 
     public enum FieldName{
