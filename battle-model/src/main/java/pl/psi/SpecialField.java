@@ -38,10 +38,10 @@ public abstract class SpecialField {
     }
 
     boolean canInteract(Creature aCreature) {
-        if((aCreature.canFly(aCreature.getName())) && (SpecialField.getFieldName() == SpecialField.FieldName.FIELD_CAN_ONLY_BE_FLOWN)){
+//        if((aCreature.canFly(aCreature.getName())) && (SpecialField.getFieldName() == SpecialField.FieldName.FIELD_CAN_ONLY_BE_FLOWN)){
             return true;
-        }
-        return false;
+//        }
+//        return false;
     }
 
 

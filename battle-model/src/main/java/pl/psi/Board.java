@@ -3,7 +3,6 @@ package pl.psi;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import pl.psi.creatures.Creature;
-import pl.psi.Exceptions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class Board {
     }
 
     //Utworzyłem te metodę, aby móc dodawać nowe pola specjalne do istniejącej planszy np. za pomocą zaklęć
-    public void addSpecialFieldOpen(final BiMap<BattlePoint, SpecialField> aSpecialFields){
+    public void addSpecialFieldOpen(final BiMap<BattlePoint, SpecialField> aSpecialFields) {
         for (BattlePoint battlePoint : aSpecialFields.keySet()) {
             mapWithSpecialFields.put(battlePoint, aSpecialFields.get(battlePoint));
         }
@@ -76,7 +75,7 @@ public class Board {
         if (canMove(aCreature, aBattlePoint)) {
             List<BattlePoint> path = examinePath(getPosition(aCreature), aBattlePoint);
 
-            for (int i = 0; i < path.size()-1; i++) {
+            for (int i = 0; i < path.size() - 1; i++) {
                 if (mapWithSpecialFields.containsKey(path.get(i))) {
                     SpecialField currentField = mapWithSpecialFields.get(path.get(i));
 
@@ -91,10 +90,12 @@ public class Board {
             if (!aCreature.isAlive()) {
                 return;
             }
+            move0(aCreature, aBattlePoint);
         }
+    }
 
-        //nowa wersja
-        void move(final Creature aCreature, final Point aPoint) {
+//        //nowa wersja
+        void move0(final Creature aCreature, final BattlePoint aPoint) {
             if (canMove(aCreature, aPoint)) {
                 if (mapWithSpecialFields.containsKey(aPoint)) {
                     SpecialField tile = mapWithSpecialFields.get(aPoint);
@@ -103,7 +104,7 @@ public class Board {
                 map.inverse()
                         .remove(aCreature);
                 map.put(aPoint, aCreature);
-                aCreature.setCurrentPoint(aPoint);
+//                aCreature.setCurrentPoint(aPoint);
 
             }
         }
@@ -112,8 +113,8 @@ public class Board {
         if (map.containsKey(aBattlePoint)) {
             return false;
         }
-        if(mapWithSpecialFields.containsKey(aPoint)){
-           mapWithSpecialFields.get(aPoint).canInteract(aCreature);
+        if (mapWithSpecialFields.containsKey(aBattlePoint)) {
+            mapWithSpecialFields.get(aBattlePoint).canInteract(aCreature);
         }
         final BattlePoint oldPosition = getPosition(aCreature);
         return aBattlePoint.distance(oldPosition.getX(), oldPosition.getY()) < aCreature.getMoveRange();
