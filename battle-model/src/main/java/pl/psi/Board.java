@@ -3,7 +3,7 @@ package pl.psi;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import pl.psi.creatures.Creature;
-import pl.psi.Exceptions.cannotPassFieldException;
+import pl.psi.Exceptions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,22 +93,27 @@ public class Board {
             }
         }
 
+        //nowa wersja
+        void move(final Creature aCreature, final Point aPoint) {
+            if (canMove(aCreature, aPoint)) {
+                if (mapWithSpecialFields.containsKey(aPoint)) {
+                    SpecialField tile = mapWithSpecialFields.get(aPoint);
+                    tile.doSomething(aCreature);
+                }
+                map.inverse()
+                        .remove(aCreature);
+                map.put(aPoint, aCreature);
+                aCreature.setCurrentPoint(aPoint);
 
-
-        if (canMove(aCreature, aBattlePoint)) {
-            if (mapWithSpecialFields.containsKey(aBattlePoint)) {
-                SpecialField tile = mapWithSpecialFields.get(aBattlePoint);
-                tile.doSomething(aCreature);
             }
-            map.inverse()
-                    .remove(aCreature);
-            map.put(aBattlePoint, aCreature);
         }
-    }
 
     boolean canMove(final Creature aCreature, final BattlePoint aBattlePoint) {
         if (map.containsKey(aBattlePoint)) {
             return false;
+        }
+        if(mapWithSpecialFields.containsKey(aPoint)){
+           mapWithSpecialFields.get(aPoint).canInteract(aCreature);
         }
         final BattlePoint oldPosition = getPosition(aCreature);
         return aBattlePoint.distance(oldPosition.getX(), oldPosition.getY()) < aCreature.getMoveRange();

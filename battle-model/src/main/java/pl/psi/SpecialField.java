@@ -17,7 +17,9 @@ public abstract class SpecialField {
         DMG_FIELD, SPELL_FIELD, BUFF_FIELD, FIELD_CAN_ONLY_BE_FLOWN, DEBUFF_FIELD, FIRE_FIELD
     }
 
+    @Getter
     private Color color;
+    @Getter
     private FieldName fieldName;
 
     protected SpecialField(Color aColor, FieldName aFieldName) {
@@ -34,6 +36,15 @@ public abstract class SpecialField {
             return false;
         }
     }
+
+    boolean canInteract(Creature aCreature) {
+        if((aCreature.canFly(aCreature.getName())) && (SpecialField.getFieldName() == SpecialField.FieldName.FIELD_CAN_ONLY_BE_FLOWN)){
+            return true;
+        }
+        return false;
+    }
+
+
 
 //    public static boolean canCreaturePassSpecialField() {
 //        String name = stats.getName();
