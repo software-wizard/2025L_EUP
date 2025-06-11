@@ -14,29 +14,13 @@ import lombok.Getter;
 public class Hero {
     @Getter
     private final List< Creature > creatures;
-    @Getter
-    private List<Spell> spells;
 
-    public Hero(final List< Creature > aCreatures, List<Spell> aSpells)
+    public Hero( final List< Creature > aCreatures)
     {
         creatures = aCreatures;
-        spells = new java.util.ArrayList<>(aSpells);
     }
 
     public void apply(Spell s, Creature c) {
-        s.cast(c);
-        removeSpell(s);
-    }
+        s.cast(c);    }
 
-    public void addSpell(Spell spell) {
-        spells.add(spell);
-    }
-
-    public void removeSpell(Spell spell) {
-        spells.remove(spell);
-    }
-
-    public void removeCreature(Creature creature) {
-        creatures.remove(creature);
-    }
 }

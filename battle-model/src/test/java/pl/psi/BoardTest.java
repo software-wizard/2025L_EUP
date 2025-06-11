@@ -22,9 +22,9 @@ class BoardTest
         final List< Creature > c2 = List.of();
         final Board board = new Board( c1, c2 );
 
-        board.move( creature, new BattlePoint( 3, 3 ) );
+        board.move( creature, new Point( 3, 3 ) );
 
-        assertThat( board.getCreature( new BattlePoint( 3, 3 ) )
+        assertThat( board.getCreature( new Point( 3, 3 ) )
             .isPresent() ).isTrue();
     }
 

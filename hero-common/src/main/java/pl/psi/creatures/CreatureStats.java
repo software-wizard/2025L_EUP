@@ -2,18 +2,17 @@ package pl.psi.creatures;
 
 import com.google.common.collect.Range;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
-@RequiredArgsConstructor
-@Builder
 @Getter
+@Builder
 public class CreatureStats implements CreatureStatisticIf{
     private final String name;
     private final int attack;
-
     private final int armor;
     private final int maxHp;
     private final int moveRange;
@@ -21,20 +20,5 @@ public class CreatureStats implements CreatureStatisticIf{
     private final int tier;
     private final String description;
     private final boolean isUpgraded;
-
-
-    @Override
-    public CreatureStatisticIf copy() {
-        return CreatureStats.builder()
-                .name(name)
-                .attack(attack)
-                .armor(armor)
-                .maxHp(maxHp)
-                .moveRange(moveRange)
-                .damage(Range.closed(damage.lowerEndpoint(), damage.upperEndpoint()))
-                .tier(tier)
-                .description(description)
-                .isUpgraded(isUpgraded)
-                .build();
-    }
+    private final MovementType movementType;
 }

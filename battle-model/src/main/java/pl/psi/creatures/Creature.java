@@ -15,7 +15,6 @@ import java.util.Random;
 
 import lombok.AccessLevel;
 import lombok.Setter;
-import pl.psi.Hero;
 import pl.psi.Spells.ActiveSpellEffect;
 import pl.psi.Spells.BuffSpell;
 import pl.psi.Spells.Spell;
@@ -192,7 +191,7 @@ public class Creature implements PropertyChangeListener {
             return this;
         }
 
-        public Builder calculator(final DamageCalculatorIf aCalc) {
+        Builder calculator(final DamageCalculatorIf aCalc) {
             calculator = aCalc;
             return this;
         }

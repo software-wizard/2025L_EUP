@@ -1,40 +1,41 @@
 package pl.psi.creatures;
 
-import lombok.Getter;
+public class EconomyCreature
+{
 
-public class EconomyCreature {
-    @Getter
     private final CreatureStatistic stats;
     private final int amount;
     private final int goldCost;
 
-    EconomyCreature( final CreatureStatistic aStats, final int aAmount, final int aGoldCost ){
+    EconomyCreature( final CreatureStatistic aStats, final int aAmount, final int aGoldCost )
+    {
         stats = aStats;
         amount = aAmount;
         goldCost = aGoldCost;
     }
 
-    public int getAmount() {
+    public int getAmount()
+    {
         return amount;
     }
 
-    public int getGoldCost() {
+    public int getGoldCost()
+    {
         return goldCost;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return stats.getTranslatedName();
     }
 
-    public boolean isUpgraded() {
+    public boolean isUpgraded()
+    {
         return stats.isUpgraded();
     }
 
-    public int getTier() {
+    public int getTier()
+    {
         return stats.getTier();
-    }
-
-    public CreatureStatistic getStats() {
-        return stats;
     }
 }
