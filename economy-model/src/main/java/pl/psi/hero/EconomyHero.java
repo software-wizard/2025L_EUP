@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 import pl.psi.creatures.EconomyCreature;
 import pl.psi.hero.artifacts.Artifact;
 import pl.psi.hero.artifacts.EconomySpell;
@@ -28,6 +29,7 @@ public class EconomyHero implements PropertyChangeListener
     @Getter
     public int level;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    @Setter
     @Getter
     private List<AbstractSkill> skills;
 
@@ -106,10 +108,6 @@ public class EconomyHero implements PropertyChangeListener
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-    }
-
-    public void upgradeSkill(AbstractSkill aSelectedSkill) {
-        skills.add(aSelectedSkill);
     }
 
     public void addSpell(EconomySpell aPickableSpell) {

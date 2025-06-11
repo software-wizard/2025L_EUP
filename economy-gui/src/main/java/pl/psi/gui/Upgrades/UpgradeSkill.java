@@ -8,6 +8,7 @@ import pl.psi.hero.EconomyHero;
 import pl.psi.hero.skills.AbstractSkill;
 import pl.psi.hero.skills.SkillLevel;
 import pl.psi.hero.skills.SkillName;
+import pl.psi.hero.skills.SkillsFactory;
 
 import java.util.List;
 import java.util.Collections;
@@ -19,6 +20,8 @@ public class UpgradeSkill {
     private ListView<String> upgradeList;
 
     private List<String> availableSkills;
+
+    private SkillsFactory skillsFactory;
 
     private EconomyHero hero;
 
@@ -66,9 +69,15 @@ public class UpgradeSkill {
 
             if (selectedSkill != null) {
                 selectedSkill.upgrade();
-                showAlert(AlertType.INFORMATION, "Upgrade Purchased",
-                        selectedSkill + " unlocked!");
+
+            }else {
+                List<AbstractSkill> skillList = hero.getSkills();
+                AbstractSkill newSkill = SkillsFactory.createSkill(SkillName.valueOf(skillName));
+                skillList.add(newSkill);
+                hero.setSkills(skillList);
             }
+            showAlert(AlertType.INFORMATION, "Upgrade Purchased",
+                    selectedSkill + " unlocked!");
         } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR, "Error upgrading skill: " + e.getMessage());
             alert.showAndWait();
